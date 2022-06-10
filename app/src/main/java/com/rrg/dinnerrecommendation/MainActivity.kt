@@ -11,6 +11,7 @@ import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.LocalContentColor
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -96,7 +97,7 @@ fun BottomBar(navController: NavHostController) {
                     navController.navigate(screen.route)
                 },
                 label = {
-                    Text(text = stringResource(id = screen.title))
+                    Text(text = stringResource(id = screen.title), style = MaterialTheme.typography.button)
                 },
                 unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
                 icon = {
