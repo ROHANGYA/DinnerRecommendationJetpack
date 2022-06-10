@@ -11,7 +11,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -20,6 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rrg.dinnerrecommendation.R
+import com.rrg.dinnerrecommendation.models.BottomBarActions
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 
 @Composable
@@ -54,51 +54,23 @@ fun LandingPage() {
             BottomNavigation(
                 elevation = 4.dp
             ) {
-                BottomNavigationItem(
-                    selected = true,
-                    onClick = { /*TODO*/ },
-                    label = {
-                        Text(text = stringResource(id = R.string.recommendation))
-                    },
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_round_dining),
-                            contentDescription = stringResource(
-                                id = R.string.back
+                BottomBarActions.values().forEach {
+                    BottomNavigationItem(
+                        selected = true,
+                        onClick = { /*TODO*/ },
+                        label = {
+                            Text(text = stringResource(id = it.title))
+                        },
+                        icon = {
+                            Icon(
+                                painter = painterResource(id = it.icon),
+                                contentDescription = stringResource(
+                                    id = R.string.back
+                                )
                             )
-                        )
 
-                    })
-                BottomNavigationItem(
-                    selected = false,
-                    onClick = { /*TODO*/ },
-                    label = {
-                        Text(text = stringResource(id = R.string.food_bank))
-                    },
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_round_food_bank),
-                            contentDescription = stringResource(
-                                id = R.string.back
-                            )
-                        )
-
-                    })
-                BottomNavigationItem(
-                    selected = false,
-                    onClick = { /*TODO*/ },
-                    label = {
-                        Text(text = stringResource(id = R.string.settings))
-                    },
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Rounded.Settings,
-                            contentDescription = stringResource(
-                                id = R.string.back
-                            )
-                        )
-
-                    })
+                        })
+                }
             }
         }
     ) {
