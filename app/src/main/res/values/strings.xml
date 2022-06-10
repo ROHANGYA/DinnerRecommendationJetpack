@@ -4,5 +4,6 @@
     <string name="back">back</string>
     <string name="recommendation">Recommendation</string>
     <string name="food_bank">Food Bank</string>
-    <string name="settings">Settings</string>
+    <string name="settings">Settings</string>\
+    <string name="next">Next</string>
 </resources>
