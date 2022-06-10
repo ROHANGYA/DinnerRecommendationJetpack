@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.rrg.dinnerrecommendation.R
 
-enum class BottomBarActions (
+enum class BottomBarScreens (
     val route: String,
     @StringRes val title: Int,
     @DrawableRes val icon: Int
