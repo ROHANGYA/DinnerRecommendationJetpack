@@ -3,6 +3,7 @@ package com.rrg.dinnerrecommendation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
@@ -49,8 +50,10 @@ fun MainScreen() {
     Scaffold(
         topBar = { TopBar() },
         bottomBar = { BottomBar(navController = navController) }
-    ) {
-        NavGraph(navController = navController)
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)){ // To avoid content being hidden by scaffold slots
+            NavGraph(navController = navController)
+        }
     }
 }
 
