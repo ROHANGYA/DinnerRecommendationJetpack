@@ -1,4 +1,3 @@
 package com.rrg.dinnerrecommendation.api
 
-interface CocktailApi {
-}
+interface CocktailApi

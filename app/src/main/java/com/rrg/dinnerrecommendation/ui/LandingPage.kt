@@ -20,12 +20,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.rrg.dinnerrecommendation.R
+import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
+import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @Composable
-fun LandingPage() {
+fun LandingPage(
+    navController: NavHostController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -100,7 +106,9 @@ fun LandingPage() {
             Button(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.safeNavigateTo(route = RecommendationScreens.FoodCategories.route)
+                },
                 shape = RoundedCornerShape(18.dp)
             ) {
                 Text(text = stringResource(id = R.string.start))
@@ -113,6 +121,6 @@ fun LandingPage() {
 @Composable
 fun PreviewLandingPage() {
     DinnerRecommendationJetpackTheme {
-        LandingPage()
+        LandingPage(rememberNavController())
     }
 }

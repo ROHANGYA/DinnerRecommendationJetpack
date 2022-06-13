@@ -27,11 +27,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.rrg.dinnerrecommendation.R
-import com.rrg.dinnerrecommendation.models.BottomBarScreens
+import com.rrg.dinnerrecommendation.models.keys.BottomBarScreens
 import com.rrg.dinnerrecommendation.nav_graph.NavGraph
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 
@@ -50,7 +51,7 @@ class MainActivity : ComponentActivity() {
 fun MainScreen() {
     val navController = rememberNavController()
     Scaffold(
-        topBar = { TopBar() },
+        topBar = { TopBar(navController) },
         bottomBar = { BottomBar(navController = navController) }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) { // To avoid content being hidden by scaffold slots
@@ -60,7 +61,7 @@ fun MainScreen() {
 }
 
 @Composable
-fun TopBar() {
+fun TopBar(navController: NavHostController) {
     TopAppBar(
         title = {
             Text(
@@ -73,7 +74,7 @@ fun TopBar() {
             )
         },
         navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
                     contentDescription = stringResource(
@@ -99,7 +100,10 @@ fun BottomBar(navController: NavHostController) {
             BottomNavigationItem(
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 onClick = {
-                    navController.navigate(screen.route)
+                    navController.navigate(screen.route) {
+                        popUpTo(navController.graph.findStartDestination().id)
+                        launchSingleTop = true
+                    }
                 },
                 label = {
                     Text(text = stringResource(id = screen.title), style = MaterialTheme.typography.button)

@@ -1,4 +1,4 @@
-package com.rrg.dinnerrecommendation.models
+package com.rrg.dinnerrecommendation.models.keys
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
