@@ -1,4 +1,4 @@
-package com.rrg.dinnerrecommendation
+package com.rrg.dinnerrecommendation.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -30,7 +30,9 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.BottomBarScreens
+import com.rrg.dinnerrecommendation.nav_graph.NavGraph
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 
 class MainActivity : ComponentActivity() {
@@ -51,7 +53,7 @@ fun MainScreen() {
         topBar = { TopBar() },
         bottomBar = { BottomBar(navController = navController) }
     ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)){ // To avoid content being hidden by scaffold slots
+        Box(modifier = Modifier.padding(innerPadding)) { // To avoid content being hidden by scaffold slots
             NavGraph(navController = navController)
         }
     }
@@ -110,13 +112,11 @@ fun BottomBar(navController: NavHostController) {
                             id = R.string.back
                         )
                     )
-
-                })
+                }
+            )
         }
     }
-
 }
-
 
 @Preview(showBackground = true)
 @Composable

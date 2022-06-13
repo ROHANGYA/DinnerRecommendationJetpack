@@ -42,7 +42,6 @@ fun CategoryRecord() {
             .padding(horizontal = 8.dp, vertical = 10.dp)
             .fillMaxWidth()
             .clickable {
-
             },
         shape = RoundedCornerShape(8.dp),
         elevation = 2.dp
@@ -81,7 +80,8 @@ fun CategoryRecord() {
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
-                        onClick = {})
+                        onClick = {}
+                    )
             )
         }
     }
@@ -96,7 +96,6 @@ fun CategoryList() {
             CategoryRecord()
         }
     }
-
 }
 
 @Preview(showBackground = true)

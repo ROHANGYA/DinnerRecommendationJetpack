@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -11,7 +15,7 @@ android {
         minSdk 21
         targetSdk 31
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -20,7 +24,17 @@ android {
     }
 
     buildTypes {
+        debug{
+            buildConfigField 'String',"API_KEY_MEAL", MEAL_DB_API_KEY
+            buildConfigField 'String',"API_KEY_COCKTAIL", COCKTAIL_DB_API_KEY
+            buildConfigField 'String',"BASE_URL_MEAL", MEAL_DB_BASE_URL
+            buildConfigField 'String',"BASE_URL_COCKTAIL", COCKTAIL_DB_BASE_URL
+        }
         release {
+            buildConfigField 'String',"API_KEY_MEAL", MEAL_DB_API_KEY
+            buildConfigField 'String',"API_KEY_COCKTAIL", COCKTAIL_DB_API_KEY
+            buildConfigField 'String',"BASE_URL_MEAL", MEAL_DB_BASE_URL
+            buildConfigField 'String',"BASE_URL_COCKTAIL", COCKTAIL_DB_BASE_URL
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -61,4 +75,16 @@ dependencies {
 
     // Navigation
     implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Logging
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

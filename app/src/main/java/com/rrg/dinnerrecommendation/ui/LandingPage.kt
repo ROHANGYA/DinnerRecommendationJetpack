@@ -53,7 +53,7 @@ fun LandingPage() {
                 modifier = Modifier
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.Center
-            ){
+            ) {
                 Text(
                     text = stringResource(id = R.string.dinner_generation_steps_label),
                     modifier = Modifier.fillMaxWidth(),

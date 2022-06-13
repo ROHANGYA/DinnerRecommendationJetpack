@@ -1,4 +1,4 @@
-package com.rrg.dinnerrecommendation
+package com.rrg.dinnerrecommendation.nav_graph
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -25,5 +25,4 @@ fun NavGraph(navController: NavHostController) {
             SettingsPage()
         }
     }
-
 }

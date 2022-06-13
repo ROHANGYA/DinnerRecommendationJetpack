@@ -8,5 +8,4 @@ import androidx.compose.ui.Modifier
 @Composable
 fun FoodBankList() {
     Text(text = "Food Bank", modifier = Modifier.fillMaxSize())
-
 }
