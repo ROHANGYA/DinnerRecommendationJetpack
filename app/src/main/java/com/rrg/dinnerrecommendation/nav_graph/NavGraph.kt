@@ -10,8 +10,8 @@ import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.ui.FoodBankList
 import com.rrg.dinnerrecommendation.ui.LandingPage
 import com.rrg.dinnerrecommendation.ui.SettingsPage
-import com.rrg.dinnerrecommendation.ui.drink_category_selection.CocktailCategorySelection
-import com.rrg.dinnerrecommendation.ui.food_category_selection.MealCategorySelection
+import com.rrg.dinnerrecommendation.ui.cocktail_category_selection.CocktailCategorySelection
+import com.rrg.dinnerrecommendation.ui.meal_category_selection.MealCategorySelection
 
 @ExperimentalFoundationApi
 @Composable

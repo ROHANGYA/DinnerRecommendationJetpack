@@ -1,4 +1,4 @@
-package com.rrg.dinnerrecommendation.ui.food_category_selection
+package com.rrg.dinnerrecommendation.ui.meal_category_selection
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

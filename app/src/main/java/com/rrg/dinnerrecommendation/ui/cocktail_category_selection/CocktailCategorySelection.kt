@@ -1,4 +1,4 @@
-package com.rrg.dinnerrecommendation.ui.drink_category_selection
+package com.rrg.dinnerrecommendation.ui.cocktail_category_selection
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
