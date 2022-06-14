@@ -10,7 +10,7 @@ class CocktailSessionInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 
-        val urlWithApiKey = BuildConfig.BASE_URL_MEAL + BuildConfig.API_KEY_MEAL + "/"
+        val urlWithApiKey = originalRequest.url.toString().replace("API_KEY",BuildConfig.API_KEY_MEAL)
 
         return BuildConfig.API_KEY_MEAL.let {
             val authenticatedRequest = originalRequest.newBuilder()
