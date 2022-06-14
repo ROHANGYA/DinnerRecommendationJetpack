@@ -35,7 +35,7 @@ import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 
 @Composable
-fun CategoryItem(item: MealCategory, onSelected: () -> Unit) {
+fun MealCategoryItem(item: MealCategory, onSelected: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 10.dp)
@@ -89,7 +89,7 @@ fun CategoryItem(item: MealCategory, onSelected: () -> Unit) {
 @Composable
 fun PreviewCategoryRecord() {
     DinnerRecommendationJetpackTheme {
-        CategoryItem(
+        MealCategoryItem(
             MealCategory("test", "test", "test", "test")
         ) {}
     }

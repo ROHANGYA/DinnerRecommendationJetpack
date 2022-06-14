@@ -17,20 +17,20 @@ class FoodCategoryViewModel @Inject constructor(
     private val mealService: MealService
 ) : ViewModel() {
 
-    private val categoriesPageChannel = Channel<State<List<MealCategory>>>()
-    val categoriesPageEvents = categoriesPageChannel.receiveAsFlow()
+    private val mealCategoryChannel = Channel<State<List<MealCategory>>>()
+    val mealCategoryEvents = mealCategoryChannel.receiveAsFlow()
 
     // val test: MutableState<List<MealCategory>> = mutableStateOf(ArrayList()) //Alternative
 
     fun getFoodCategories() = viewModelScope.launch {
-        categoriesPageChannel.send(State.Loading)
+        mealCategoryChannel.send(State.Loading)
         when (val result = mealService.getMealCategories()) {
             is Result.Success -> {
-                categoriesPageChannel.send(State.Loaded(result.value.categories))
+                mealCategoryChannel.send(State.Loaded(result.value.categories))
                 // test.value = result.value.categories //Alternative
             }
             is Result.Failure -> {
-                categoriesPageChannel.send(State.LoadingFailed(result.error))
+                mealCategoryChannel.send(State.LoadingFailed(result.error))
             }
         }
     }

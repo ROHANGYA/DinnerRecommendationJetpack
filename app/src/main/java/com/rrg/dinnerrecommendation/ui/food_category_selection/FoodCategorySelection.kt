@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
+import com.rrg.dinnerrecommendation.ui.components.MealCategoriesList
 
 @Composable
 fun FoodCategorySelection() {
@@ -25,7 +26,7 @@ fun FoodCategorySelection() {
     }
 
     LaunchedEffect(key1 = Unit) {
-        viewModelFood.categoriesPageEvents.collect {
+        viewModelFood.mealCategoryEvents.collect {
             when (it) {
                 is State.Loading -> {
                     loading.value = true
