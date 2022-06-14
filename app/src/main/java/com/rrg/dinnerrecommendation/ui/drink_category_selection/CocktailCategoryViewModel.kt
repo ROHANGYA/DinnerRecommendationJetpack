@@ -13,14 +13,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DrinkCategoryViewModel @Inject constructor(
+class CocktailCategoryViewModel @Inject constructor(
     private val cocktailService: CocktailService
 ) : ViewModel() {
 
     private val cocktailCategoryChannel = Channel<State<List<CocktailCategory>>>()
     val cocktailCategoryEvents = cocktailCategoryChannel.receiveAsFlow()
 
-    fun getCocktailCategories() = viewModelScope.launch {
+    init {
+        getCocktailCategories()
+    }
+
+    private fun getCocktailCategories() = viewModelScope.launch {
         cocktailCategoryChannel.send(State.Loading)
         when (val result = cocktailService.getCocktailCategories()) {
             is Result.Failure -> {

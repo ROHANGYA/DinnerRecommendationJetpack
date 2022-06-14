@@ -107,7 +107,7 @@ fun LandingPage(
                 modifier = Modifier
                     .fillMaxWidth(),
                 onClick = {
-                    navController.safeNavigateTo(route = RecommendationScreens.FoodCategories.route)
+                    navController.safeNavigateTo(route = RecommendationScreens.MealCategories.route)
                 },
                 shape = RoundedCornerShape(18.dp)
             ) {

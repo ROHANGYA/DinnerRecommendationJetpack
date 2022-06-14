@@ -26,6 +26,8 @@ fun MealCategoriesList(
     ) {
         items(data) { item ->
             MealCategoryItem(item, onSelected)
+        }
+        item {
             Spacer(modifier = Modifier.height(50.dp))
         }
     }

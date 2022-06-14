@@ -6,17 +6,20 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.rrg.dinnerrecommendation.core.State
+import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.MealCategoriesList
+import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @Composable
-fun FoodCategorySelection() {
-    val viewModelFood: FoodCategoryViewModel = hiltViewModel()
+fun MealCategorySelection(navController: NavHostController) {
     // val context = LocalContext.current
+    val viewModelMeal: MealCategoryViewModel = hiltViewModel()
+    // viewModelMeal.getFoodCategories()
 
-    viewModelFood.getFoodCategories()
     val data: MutableState<List<MealCategory>> = remember {
         mutableStateOf(listOf())
     }
@@ -26,13 +29,14 @@ fun FoodCategorySelection() {
     }
 
     LaunchedEffect(key1 = Unit) {
-        viewModelFood.mealCategoryEvents.collect {
+        viewModelMeal.mealCategoryEvents.collect {
             when (it) {
                 is State.Loading -> {
                     loading.value = true
                 }
                 is State.LoadingFailed -> {
                     loading.value = false
+                    // TODO -- add error compose
                 }
                 is State.Loaded -> {
                     loading.value = false
@@ -45,6 +49,10 @@ fun FoodCategorySelection() {
     if (loading.value) {
         CircularIndeterminateProgressBar()
     } else {
-        MealCategoriesList(data = data.value, onNextClick = {}, onSelected = { })
+        MealCategoriesList(
+            data = data.value,
+            onNextClick = { navController.safeNavigateTo(RecommendationScreens.CocktailCategories.route) },
+            onSelected = {}
+        )
     }
 }

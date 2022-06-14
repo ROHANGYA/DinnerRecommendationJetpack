@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FoodCategoryViewModel @Inject constructor(
+class MealCategoryViewModel @Inject constructor(
     private val mealService: MealService
 ) : ViewModel() {
 
@@ -22,7 +22,11 @@ class FoodCategoryViewModel @Inject constructor(
 
     // val test: MutableState<List<MealCategory>> = mutableStateOf(ArrayList()) //Alternative
 
-    fun getFoodCategories() = viewModelScope.launch {
+    init {
+        getFoodCategories()
+    }
+
+    private fun getFoodCategories() = viewModelScope.launch {
         mealCategoryChannel.send(State.Loading)
         when (val result = mealService.getMealCategories()) {
             is Result.Success -> {

@@ -2,6 +2,7 @@ package com.rrg.dinnerrecommendation.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,12 +22,14 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
+import com.rrg.dinnerrecommendation.utils.addEmptyLines
 
 @Composable
 fun CocktailCategoryItem(
@@ -35,16 +38,18 @@ fun CocktailCategoryItem(
 ) {
     Card(
         modifier = Modifier
-            .wrapContentSize().padding(8.dp)
+            .fillMaxSize()
+            .padding(8.dp)
             .clickable {
                 onSelected.invoke()
             },
         shape = RoundedCornerShape(8.dp),
-        elevation = 4.dp,
+        elevation = 4.dp
     ) {
         Column(
             modifier = Modifier.padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Image(
                 modifier = Modifier.size(60.dp, 60.dp),
@@ -54,7 +59,14 @@ fun CocktailCategoryItem(
                 contentScale = ContentScale.Fit
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = item.strCategory, fontFamily = poppinsFont, textAlign = TextAlign.Center)
+            Text(
+                modifier = Modifier.wrapContentSize(),
+                text = item.strCategory.addEmptyLines(2),
+                fontFamily = poppinsFont,
+                textAlign = TextAlign.Center,
+                maxLines = 2,
+                overflow = TextOverflow.Clip
+            )
         }
     }
 }
@@ -64,7 +76,7 @@ fun CocktailCategoryItem(
 fun PreviewCocktailCategoryItem() {
     DinnerRecommendationJetpackTheme {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CocktailCategoryItem(CocktailCategory("Such a good drink category")) {}
+            CocktailCategoryItem(CocktailCategory("Such a good drink category while also testing multi line hahah hohoh hihihi, is this correct?")) {}
         }
     }
 }

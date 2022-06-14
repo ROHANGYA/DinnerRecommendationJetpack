@@ -1,8 +1,7 @@
 package com.rrg.dinnerrecommendation.ui.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
@@ -20,11 +19,19 @@ fun CocktailCategoryList(
     onSelected: () -> Unit,
     onNextClick: () -> Unit
 ) {
-    LazyVerticalGrid(cells = GridCells.Adaptive(100.dp)) {
+    LazyVerticalGrid(
+        modifier = Modifier.padding(bottom = 50.dp),
+        cells = GridCells.Fixed(3)
+    ) {
         items(data) { item ->
             CocktailCategoryItem(item = item, onSelected = onSelected)
-            Spacer(modifier = Modifier.height(50.dp))
         }
+        /* TODO -- find solution to append full span item to grid list
+        item(span = {
+            GridItemSpan(3)
+        }) {
+            Spacer(modifier = Modifier.height(50.dp))
+        }*/
     }
     NextButtonFromCategories(onNextClick)
 }
@@ -40,8 +47,7 @@ fun PreviewCocktailCategoryList() {
                 CocktailCategory("Tea"),
                 CocktailCategory("Alcoholic"),
                 CocktailCategory("Testing"),
-                CocktailCategory("More Testing"),
-                CocktailCategory("Ass Drinks")
+                CocktailCategory("More Testing")
             ),
             {}, {}
         )
