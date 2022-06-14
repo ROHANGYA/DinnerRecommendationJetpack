@@ -6,10 +6,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rrg.dinnerrecommendation.models.keys.BottomBarScreens
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
-import com.rrg.dinnerrecommendation.ui.CategoriesList
 import com.rrg.dinnerrecommendation.ui.FoodBankList
 import com.rrg.dinnerrecommendation.ui.LandingPage
 import com.rrg.dinnerrecommendation.ui.SettingsPage
+import com.rrg.dinnerrecommendation.ui.categories.FoodCategorySelection
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -28,7 +28,7 @@ fun NavGraph(navController: NavHostController) {
         }
         composable(route = RecommendationScreens.FoodCategories.route) {
             // TODO fill up navigation when compose screens are done
-            CategoriesList() // Testing
+            FoodCategorySelection() // Testing
         }
         composable(route = RecommendationScreens.DrinkCategories.route) {
             // TODO fill up navigation when compose screens are done

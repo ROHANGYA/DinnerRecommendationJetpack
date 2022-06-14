@@ -1,17 +1,15 @@
-package com.rrg.dinnerrecommendation.ui
+package com.rrg.dinnerrecommendation.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -32,17 +30,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rrg.dinnerrecommendation.R
+import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 
 @Composable
-fun CategoryRecord() {
+fun CategoryItem(item:MealCategory, onSelected: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 10.dp)
             .fillMaxWidth()
-            .clickable {
-            },
+            .clickable {onSelected.invoke()},
         shape = RoundedCornerShape(8.dp),
         elevation = 2.dp
     ) {
@@ -63,7 +61,7 @@ fun CategoryRecord() {
             )
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = "This is a sample category name which is a bit long and will eventually ellipsize",
+                text = item.strCategory,
                 modifier = Modifier
                     .wrapContentWidth()
                     .weight(1F, fill = true),
@@ -87,29 +85,12 @@ fun CategoryRecord() {
     }
 }
 
-@Composable
-fun CategoryList() {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        item {
-            CategoryRecord()
-            CategoryRecord()
-            CategoryRecord()
-        }
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewCategoryRecord() {
     DinnerRecommendationJetpackTheme {
-        CategoryRecord()
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewCategoryList() {
-    DinnerRecommendationJetpackTheme {
-        CategoryList()
+        CategoryItem(
+            MealCategory("test","test","test","test")
+        ) {}
     }
 }

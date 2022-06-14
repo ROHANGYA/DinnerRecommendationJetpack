@@ -1,6 +1,7 @@
 package com.rrg.dinnerrecommendation.core
 
 import com.google.gson.JsonParseException
+import dagger.Provides
 import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Singleton

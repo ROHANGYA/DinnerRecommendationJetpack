@@ -6,6 +6,7 @@ import com.rrg.dinnerrecommendation.BuildConfig.BASE_URL_MEAL
 import com.rrg.dinnerrecommendation.BuildConfig.DEBUG
 import com.rrg.dinnerrecommendation.api.CocktailApi
 import com.rrg.dinnerrecommendation.api.MealApi
+import com.rrg.dinnerrecommendation.core.NetworkRequestManager
 import com.rrg.dinnerrecommendation.service.interceptor.CocktailSessionInterceptor
 import com.rrg.dinnerrecommendation.service.interceptor.MealSessionInterceptor
 import dagger.Module
@@ -18,10 +19,17 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
+import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideMealInterceptor(): MealSessionInterceptor {
+        return MealSessionInterceptor()
+    }
 
     @Provides
     @Singleton
@@ -47,6 +55,12 @@ object AppModule {
             okHttpClientBuilder.addInterceptor(httpLoggingInterceptor)
         }
         return okHttpClientBuilder.build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCocktailInterceptor(): CocktailSessionInterceptor {
+        return CocktailSessionInterceptor()
     }
 
     @Provides
@@ -84,6 +98,7 @@ object AppModule {
         return Retrofit.Builder()
             .client(httpClient)
             .baseUrl(BASE_URL_MEAL)
+            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }
@@ -97,6 +112,7 @@ object AppModule {
         return Retrofit.Builder()
             .client(httpClient)
             .baseUrl(BASE_URL_COCKTAIL)
+            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }
@@ -111,6 +127,12 @@ object AppModule {
     @Singleton
     fun provideCocktailApi(@CocktailRetrofit retrofit: Retrofit): CocktailApi {
         return retrofit.create(CocktailApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNetworkManager(): NetworkRequestManager{
+        return NetworkRequestManager()
     }
 }
 

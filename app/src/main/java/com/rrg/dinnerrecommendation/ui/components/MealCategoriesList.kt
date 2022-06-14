@@ -1,4 +1,4 @@
-package com.rrg.dinnerrecommendation.ui
+package com.rrg.dinnerrecommendation.ui.categories
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -17,18 +17,27 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rrg.dinnerrecommendation.R
+import com.rrg.dinnerrecommendation.models.primary.MealCategory
+import com.rrg.dinnerrecommendation.ui.components.CategoryItem
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 
 @Composable
-fun CategoriesList() {
+fun MealCategoriesList(
+    data: List<MealCategory>,
+    onNextClick: () -> Unit,
+    onSelected: () -> Unit
+) {
+
+    // TODO -- NO data
+
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
         item {
-            for (i in 1..15) {
-                CategoryRecord()
+            for (item in data) {
+                CategoryItem(item, onSelected)
             }
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(50.dp))
         }
     }
     Box(
@@ -38,7 +47,7 @@ fun CategoriesList() {
         contentAlignment = Alignment.BottomEnd
     ) {
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { onNextClick.invoke() },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -53,6 +62,10 @@ fun CategoriesList() {
 @Composable
 fun PreviewCategoriesList() {
     DinnerRecommendationJetpackTheme {
-        CategoriesList()
+        MealCategoriesList(
+            listOf(),
+            {},
+            {}
+        )
     }
 }
