@@ -22,7 +22,6 @@ fun CircularIndeterminateProgressBar(centered: Boolean = true) {
     } else {
         CustomCircularProgressIndicators()
     }
-
 }
 
 @Composable

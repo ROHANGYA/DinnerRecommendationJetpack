@@ -1,4 +1,4 @@
-package com.rrg.dinnerrecommendation.ui.categories
+package com.rrg.dinnerrecommendation.ui.food_category_selection
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer

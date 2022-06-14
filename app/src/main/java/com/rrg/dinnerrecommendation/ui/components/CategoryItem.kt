@@ -35,12 +35,12 @@ import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 
 @Composable
-fun CategoryItem(item:MealCategory, onSelected: () -> Unit) {
+fun CategoryItem(item: MealCategory, onSelected: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 10.dp)
             .fillMaxWidth()
-            .clickable {onSelected.invoke()},
+            .clickable { onSelected.invoke() },
         shape = RoundedCornerShape(8.dp),
         elevation = 2.dp
     ) {
@@ -90,7 +90,7 @@ fun CategoryItem(item:MealCategory, onSelected: () -> Unit) {
 fun PreviewCategoryRecord() {
     DinnerRecommendationJetpackTheme {
         CategoryItem(
-            MealCategory("test","test","test","test")
+            MealCategory("test", "test", "test", "test")
         ) {}
     }
 }

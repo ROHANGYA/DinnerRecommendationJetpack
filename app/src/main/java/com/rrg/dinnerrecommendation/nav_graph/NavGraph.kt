@@ -9,7 +9,7 @@ import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.ui.FoodBankList
 import com.rrg.dinnerrecommendation.ui.LandingPage
 import com.rrg.dinnerrecommendation.ui.SettingsPage
-import com.rrg.dinnerrecommendation.ui.categories.FoodCategorySelection
+import com.rrg.dinnerrecommendation.ui.food_category_selection.FoodCategorySelection
 
 @Composable
 fun NavGraph(navController: NavHostController) {
