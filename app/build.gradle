@@ -117,6 +117,9 @@ dependencies {
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofit_coroutines_adapter_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    // Coil
+    implementation "io.coil-kt:coil-compose:2.1.0"
 }
 
 // Allow references to generated code

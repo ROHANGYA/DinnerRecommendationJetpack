@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
-import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
@@ -43,7 +42,7 @@ fun CocktailCategoryItem(
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
-            .clickable { selectCocktailCategory(viewModel,item) },
+            .clickable { selectCocktailCategory(viewModel, item) },
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp,
         backgroundColor = colorResource(id = getCardColorState(viewModel, item))
@@ -73,10 +72,10 @@ fun CocktailCategoryItem(
     }
 }
 
-private fun selectCocktailCategory(viewModel: RecommendationViewModel, currentItem: CocktailCategory){
-    if(viewModel.selectedDrinkCategory.value == currentItem){
+private fun selectCocktailCategory(viewModel: RecommendationViewModel, currentItem: CocktailCategory) {
+    if (viewModel.selectedDrinkCategory.value == currentItem) {
         viewModel.selectedDrinkCategory.value = null
-    }else{
+    } else {
         viewModel.selectedDrinkCategory.value = currentItem
     }
 }

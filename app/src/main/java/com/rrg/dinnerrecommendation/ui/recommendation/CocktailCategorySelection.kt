@@ -14,7 +14,6 @@ import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.CocktailCategoryList
 import com.rrg.dinnerrecommendation.ui.components.NextButtonFromCategories
-import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @ExperimentalFoundationApi
 @Composable
