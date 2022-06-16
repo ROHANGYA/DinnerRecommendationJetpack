@@ -18,7 +18,6 @@ import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 @Composable
 fun MealCategoriesList(
     data: List<MealCategory>,
-    onNextClick: () -> Unit,
     viewModel: RecommendationViewModel
 ) {
 
@@ -34,7 +33,6 @@ fun MealCategoriesList(
             Spacer(modifier = Modifier.height(50.dp))
         }
     }
-    NextButtonFromCategories(onNextClick, RecommendationScreens.MealCategories)
 }
 
 @Preview(showBackground = true)
@@ -43,7 +41,6 @@ fun PreviewCategoriesList() {
     DinnerRecommendationJetpackTheme {
         MealCategoriesList(
             listOf(),
-            {},
             viewModel()
         )
     }

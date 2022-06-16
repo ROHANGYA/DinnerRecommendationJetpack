@@ -9,9 +9,12 @@ import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.rrg.dinnerrecommendation.core.State
+import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.CocktailCategoryList
+import com.rrg.dinnerrecommendation.ui.components.NextButtonFromCategories
+import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @ExperimentalFoundationApi
 @Composable
@@ -49,8 +52,11 @@ fun CocktailCategorySelection(navController: NavHostController) {
     } else {
         CocktailCategoryList(
             data = data.value,
-            onNextClick = { },
             viewModel = viewModel
+        )
+        NextButtonFromCategories(
+            onNextClick = { },
+            currentRecommendationScreen = RecommendationScreens.CocktailCategories
         )
     }
 }

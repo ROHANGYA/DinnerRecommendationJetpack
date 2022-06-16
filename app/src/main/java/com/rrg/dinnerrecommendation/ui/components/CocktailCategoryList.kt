@@ -19,7 +19,6 @@ import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 @Composable
 fun CocktailCategoryList(
     data: List<CocktailCategory>,
-    onNextClick: () -> Unit,
     viewModel: RecommendationViewModel
 ) {
     LazyVerticalGrid(
@@ -36,7 +35,6 @@ fun CocktailCategoryList(
             Spacer(modifier = Modifier.height(50.dp))
         }*/
     }
-    NextButtonFromCategories(onNextClick, RecommendationScreens.CocktailCategories)
 }
 
 @ExperimentalFoundationApi
@@ -52,8 +50,8 @@ fun PreviewCocktailCategoryList() {
                 CocktailCategory("Testing"),
                 CocktailCategory("More Testing")
             ),
-            {}, viewModel()
-            )
-        }
+            viewModel()
+        )
     }
+}
     

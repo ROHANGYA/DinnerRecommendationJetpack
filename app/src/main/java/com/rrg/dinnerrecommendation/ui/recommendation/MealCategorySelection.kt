@@ -13,6 +13,7 @@ import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.MealCategoriesList
+import com.rrg.dinnerrecommendation.ui.components.NextButtonFromCategories
 import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @Composable
@@ -50,8 +51,13 @@ fun MealCategorySelection(navController: NavHostController) {
     } else {
         MealCategoriesList(
             data = data.value,
-            onNextClick = { navController.safeNavigateTo(RecommendationScreens.CocktailCategories.route) },
             viewModel = viewModel
+        )
+        NextButtonFromCategories(
+            onNextClick = {
+                navController.safeNavigateTo(RecommendationScreens.CocktailCategories.route)
+            },
+            currentRecommendationScreen = RecommendationScreens.MealCategories
         )
     }
 }

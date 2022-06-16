@@ -18,7 +18,7 @@ import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 @Composable
 fun NextButtonFromCategories(
     onNextClick: () -> Unit,
-    recommendationScreens: RecommendationScreens
+    currentRecommendationScreen: RecommendationScreens
 ) {
     Box(
         modifier = Modifier
@@ -35,7 +35,7 @@ fun NextButtonFromCategories(
         ) {
             Text(
                 text = stringResource(
-                    id = if (recommendationScreens == RecommendationScreens.CocktailCategories) {
+                    id = if (currentRecommendationScreen == RecommendationScreens.CocktailCategories) {
                         R.string.recommend_a_dinner
                     } else {
                         R.string.next
