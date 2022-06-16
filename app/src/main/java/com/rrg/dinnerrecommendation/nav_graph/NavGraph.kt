@@ -18,29 +18,17 @@ import com.rrg.dinnerrecommendation.ui.SettingsPage
 import com.rrg.dinnerrecommendation.ui.recommendation.CocktailCategorySelection
 import com.rrg.dinnerrecommendation.ui.recommendation.MealCategorySelection
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
+import com.rrg.dinnerrecommendation.utils.createViewModelScopedByRoute
 
 @ExperimentalFoundationApi
 @Composable
 fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
-/*
-    // ViewModelSharedAcrossAllApp
-    val mainViewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current) {
-        "No ViewModelStoreOwner was provided via LocalViewModelStoreOwner"
-    }
-    val mainViewModel: MainViewModel = hiltViewModel(mainViewModelStoreOwner)
-*/
     NavHost(
         navController = navController,
         startDestination = BottomBarScreens.Recommendation.route
     ) {
         composable(route = BottomBarScreens.Recommendation.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.dinner_recommendation), false)
-            /*
-            val recommendationEntry = remember(it){
-                navController.getBackStackEntry(BottomBarScreens.Recommendation.route)
-            }
-            val recommendationViewModel  = hiltViewModel<RecommendationViewModel>(recommendationEntry)
-            */
             LandingPage(navController = navController)
         }
         composable(route = BottomBarScreens.FoodBank.route) {
@@ -53,22 +41,18 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
         }
         composable(route = RecommendationScreens.MealCategories.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.meal_categories))
-
-            val recommendationEntry = remember(it) {
-                navController.getBackStackEntry(RecommendationScreens.MealCategories.route)
-            }
-            val recommendationViewModel = hiltViewModel<RecommendationViewModel>(recommendationEntry)
-
+            val recommendationViewModel = it.createViewModelScopedByRoute<RecommendationViewModel>(
+                navController = navController,
+                route = RecommendationScreens.MealCategories.route
+            )
             MealCategorySelection(navController, recommendationViewModel)
         }
         composable(route = RecommendationScreens.CocktailCategories.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.drink_categories))
-
-            val recommendationEntry = remember(it) {
-                navController.getBackStackEntry(RecommendationScreens.MealCategories.route)
-            }
-            val recommendationViewModel = hiltViewModel<RecommendationViewModel>(recommendationEntry)
-
+            val recommendationViewModel = it.createViewModelScopedByRoute<RecommendationViewModel>(
+                navController = navController,
+                route = RecommendationScreens.MealCategories.route
+            )
             CocktailCategorySelection(navController, recommendationViewModel)
         }
         composable(route = RecommendationScreens.FinalRecommendation.route) {
