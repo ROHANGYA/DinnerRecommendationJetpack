@@ -9,7 +9,7 @@ enum class BottomBarScreens(
     @StringRes val title: Int,
     @DrawableRes val icon: Int
 ) {
-    Recommendation("recommendation", R.string.recommendation, R.drawable.ic_round_dining),
+    Recommendation("recommendation", R.string.dinner, R.drawable.ic_round_dining),
     FoodBank("food_bank", R.string.food_bank, R.drawable.ic_round_food_bank),
     Settings("settings", R.string.settings, R.drawable.ic_round_settings)
 }

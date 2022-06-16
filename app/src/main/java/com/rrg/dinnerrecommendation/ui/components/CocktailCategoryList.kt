@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
@@ -35,7 +36,7 @@ fun CocktailCategoryList(
             Spacer(modifier = Modifier.height(50.dp))
         }*/
     }
-    NextButtonFromCategories(onNextClick)
+    NextButtonFromCategories(onNextClick, RecommendationScreens.CocktailCategories)
 }
 
 @ExperimentalFoundationApi

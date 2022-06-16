@@ -13,10 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rrg.dinnerrecommendation.R
+import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 
 @Composable
 fun NextButtonFromCategories(
-    onNextClick: () -> Unit
+    onNextClick: () -> Unit,
+    recommendationScreens: RecommendationScreens
 ) {
     Box(
         modifier = Modifier
@@ -31,7 +33,15 @@ fun NextButtonFromCategories(
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp)
         ) {
-            Text(text = stringResource(id = R.string.next))
+            Text(
+                text = stringResource(
+                    id = if (recommendationScreens == RecommendationScreens.CocktailCategories) {
+                        R.string.recommend_a_dinner
+                    } else {
+                        R.string.next
+                    }
+                )
+            )
         }
     }
 }

@@ -15,4 +15,6 @@
     <string name="dinner_recommendation">Dinner Recommendation</string>
     <string name="meal_categories">Meal Categories</string>
     <string name="drink_categories">Drink Categories</string>
+    <string name="recommend_a_dinner">Recommend me a dinner</string>
+    <string name="dinner">Dinner</string>
 </resources>
