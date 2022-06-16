@@ -25,8 +25,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
+import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 import com.rrg.dinnerrecommendation.utils.addEmptyLines
@@ -34,14 +36,14 @@ import com.rrg.dinnerrecommendation.utils.addEmptyLines
 @Composable
 fun CocktailCategoryItem(
     item: CocktailCategory,
-    onSelected: () -> Unit
+    viewModel: RecommendationViewModel
 ) {
     Card(
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
             .clickable {
-                onSelected.invoke()
+                viewModel.selectedDrinkCategory.value = item
             },
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp
@@ -76,7 +78,10 @@ fun CocktailCategoryItem(
 fun PreviewCocktailCategoryItem() {
     DinnerRecommendationJetpackTheme {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CocktailCategoryItem(CocktailCategory("Such a good drink category while also testing multi line hahah hohoh hihihi, is this correct?")) {}
+            CocktailCategoryItem(
+                CocktailCategory("Such a good drink category while also testing multi line hahah hohoh hihihi, is this correct?"),
+                viewModel()
+            )
         }
     }
 }

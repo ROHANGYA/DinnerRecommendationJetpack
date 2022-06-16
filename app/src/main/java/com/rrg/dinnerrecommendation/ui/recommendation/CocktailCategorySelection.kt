@@ -17,7 +17,10 @@ import com.rrg.dinnerrecommendation.ui.components.CocktailCategoryList
 @Composable
 fun CocktailCategorySelection(navController: NavHostController) {
     val viewModel: RecommendationViewModel = hiltViewModel()
-    // viewModel.getCocktailCategories()
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SearchCocktailCategories)
+    }
 
     val data: MutableState<List<CocktailCategory>> = remember {
         mutableStateOf(listOf())
@@ -27,21 +30,17 @@ fun CocktailCategorySelection(navController: NavHostController) {
         mutableStateOf(true)
     }
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.stateCocktail.collect {
-            when (it) {
-                is State.Loaded -> {
-                    isLoading.value = false
-                    data.value = it.data
-                }
-                is State.Loading -> {
-                    isLoading.value = true
-                }
-                is State.LoadingFailed -> {
-                    isLoading.value = false
-                    // TODO -- add error compose
-                }
-            }
+    when (val state = viewModel.stateCocktail.value) {
+        is State.Loading -> {
+            isLoading.value = true
+        }
+        is State.LoadingFailed -> {
+            isLoading.value = false
+            // TODO -- add error compose
+        }
+        is State.Loaded -> {
+            isLoading.value = false
+            data.value = state.data
         }
     }
 
@@ -50,8 +49,8 @@ fun CocktailCategorySelection(navController: NavHostController) {
     } else {
         CocktailCategoryList(
             data = data.value,
-            onSelected = { },
-            onNextClick = { }
+            onNextClick = { },
+            viewModel = viewModel
         )
     }
 }

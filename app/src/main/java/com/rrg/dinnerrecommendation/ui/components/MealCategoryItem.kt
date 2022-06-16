@@ -25,24 +25,34 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
+import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 
 @Composable
-fun MealCategoryItem(item: MealCategory, onSelected: () -> Unit) {
+fun MealCategoryItem(item: MealCategory, viewModel: RecommendationViewModel) {
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 10.dp)
             .fillMaxWidth()
-            .clickable { onSelected.invoke() },
+            .clickable { viewModel.selectedMealCategory.value = item },
         shape = RoundedCornerShape(8.dp),
-        elevation = 2.dp
+        elevation = 2.dp,
+        backgroundColor = colorResource(
+            id = if (viewModel.selectedMealCategory.value == item) {
+                R.color.grey
+            } else {
+                R.color.white
+            }
+        )
     ) {
         Row(
             modifier = Modifier
@@ -90,7 +100,8 @@ fun MealCategoryItem(item: MealCategory, onSelected: () -> Unit) {
 fun PreviewCategoryRecord() {
     DinnerRecommendationJetpackTheme {
         MealCategoryItem(
-            MealCategory("test", "test", "test", "test")
-        ) {}
+            MealCategory("test", "test", "test", "test"),
+            viewModel()
+        )
     }
 }

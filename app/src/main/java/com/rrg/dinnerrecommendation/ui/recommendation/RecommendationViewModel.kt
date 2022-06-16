@@ -1,5 +1,6 @@
 package com.rrg.dinnerrecommendation.ui.recommendation
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rrg.dinnerrecommendation.core.Result
@@ -9,10 +10,6 @@ import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.service.primary.CocktailService
 import com.rrg.dinnerrecommendation.service.primary.MealService
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,41 +19,48 @@ class RecommendationViewModel @Inject constructor(
     private val cocktailService: CocktailService
 ) : ViewModel() {
 
-    private val mealCategoryChannel = Channel<State<List<MealCategory>>>()
-    val mealCategoryEvents = mealCategoryChannel.receiveAsFlow()
+    val stateMeals = mutableStateOf<State<List<MealCategory>>>(State.Loading)
+    val stateCocktail = mutableStateOf<State<List<CocktailCategory>>>(State.Loading)
 
-    private val _stateMeals = MutableStateFlow<State<List<MealCategory>>>(State.Loading)
-    val stateMeals = _stateMeals.asStateFlow()
+    var selectedMealCategory = mutableStateOf<MealCategory?>(null)
+    var selectedDrinkCategory = mutableStateOf<CocktailCategory?>(null)
 
-    private val _stateCocktail = MutableStateFlow<State<List<CocktailCategory>>>(State.Loading)
-    val stateCocktail = _stateCocktail.asStateFlow()
+    private fun getFoodCategories() = viewModelScope.launch {
 
-    init {
-        getFoodCategories()
-    }
-
-    fun getFoodCategories() = viewModelScope.launch {
-        // mealCategoryChannel.send(State.Loading)
         when (val result = mealService.getMealCategories()) {
             is Result.Success -> {
-                // mealCategoryChannel.send(State.Loaded(result.value.categories))
-                _stateMeals.value = State.Loaded(result.value.categories)
+                stateMeals.value = State.Loaded(result.value.categories)
             }
             is Result.Failure -> {
-                // mealCategoryChannel.send(State.LoadingFailed(result.error))
-                _stateMeals.value = State.LoadingFailed(result.error)
+                stateMeals.value = State.LoadingFailed(result.error)
             }
         }
     }
 
-    fun getCocktailCategories() = viewModelScope.launch {
+    private fun getCocktailCategories() = viewModelScope.launch {
         when (val result = cocktailService.getCocktailCategories()) {
             is Result.Success -> {
-                _stateCocktail.value = State.Loaded(result.value.drinks)
+                stateCocktail.value = State.Loaded(result.value.drinks)
             }
             is Result.Failure -> {
-                _stateCocktail.value = State.LoadingFailed(result.error)
+                stateCocktail.value = State.LoadingFailed(result.error)
             }
         }
+    }
+
+    fun onEvent(event: RecommendationEvents) = viewModelScope.launch {
+        when (event) {
+            RecommendationEvents.SearchMealCategories -> {
+                getFoodCategories()
+            }
+            RecommendationEvents.SearchCocktailCategories -> {
+                getCocktailCategories()
+            }
+        }
+    }
+
+    sealed class RecommendationEvents {
+        object SearchMealCategories : RecommendationEvents()
+        object SearchCocktailCategories : RecommendationEvents()
     }
 }

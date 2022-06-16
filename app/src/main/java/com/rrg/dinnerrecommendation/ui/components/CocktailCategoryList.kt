@@ -9,22 +9,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
+import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 
 @ExperimentalFoundationApi
 @Composable
 fun CocktailCategoryList(
     data: List<CocktailCategory>,
-    onSelected: () -> Unit,
-    onNextClick: () -> Unit
+    onNextClick: () -> Unit,
+    viewModel: RecommendationViewModel
 ) {
     LazyVerticalGrid(
         modifier = Modifier.padding(bottom = 50.dp),
         cells = GridCells.Fixed(3)
     ) {
         items(data) { item ->
-            CocktailCategoryItem(item = item, onSelected = onSelected)
+            CocktailCategoryItem(item, viewModel)
         }
         /* TODO -- find solution to append full span item to grid list
         item(span = {
@@ -49,7 +51,8 @@ fun PreviewCocktailCategoryList() {
                 CocktailCategory("Testing"),
                 CocktailCategory("More Testing")
             ),
-            {}, {}
-        )
+            {}, viewModel()
+            )
+        }
     }
-}
+    

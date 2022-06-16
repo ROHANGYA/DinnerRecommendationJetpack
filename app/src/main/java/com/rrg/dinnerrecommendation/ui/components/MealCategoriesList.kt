@@ -9,14 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
+import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 
 @Composable
 fun MealCategoriesList(
     data: List<MealCategory>,
     onNextClick: () -> Unit,
-    onSelected: () -> Unit
+    viewModel: RecommendationViewModel
 ) {
 
     // TODO -- NO data
@@ -25,7 +27,7 @@ fun MealCategoriesList(
         modifier = Modifier.fillMaxSize()
     ) {
         items(data) { item ->
-            MealCategoryItem(item, onSelected)
+            MealCategoryItem(item, viewModel)
         }
         item {
             Spacer(modifier = Modifier.height(50.dp))
@@ -41,7 +43,7 @@ fun PreviewCategoriesList() {
         MealCategoriesList(
             listOf(),
             {},
-            {}
+            viewModel()
         )
     }
 }

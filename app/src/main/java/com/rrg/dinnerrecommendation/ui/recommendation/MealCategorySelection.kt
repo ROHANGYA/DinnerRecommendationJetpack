@@ -5,8 +5,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
@@ -17,44 +17,41 @@ import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @Composable
 fun MealCategorySelection(navController: NavHostController) {
-    // val context = LocalContext.current
-    val viewModelMeal: RecommendationViewModel = hiltViewModel()
-    // viewModelMeal.getFoodCategories()
-    val scope = rememberCoroutineScope()
+    val viewModel: RecommendationViewModel = hiltViewModel()
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SearchMealCategories)
+    }
 
     val data: MutableState<List<MealCategory>> = remember {
         mutableStateOf(listOf())
     }
 
-    val loading: MutableState<Boolean> = remember {
+    val isLoading: MutableState<Boolean> = remember {
         mutableStateOf(true)
     }
 
-    LaunchedEffect(key1 = Unit) {
-        viewModelMeal.stateMeals.collect {
-            when (it) {
-                is State.Loading -> {
-                    loading.value = true
-                }
-                is State.LoadingFailed -> {
-                    loading.value = false
-                    // TODO -- add error compose
-                }
-                is State.Loaded -> {
-                    loading.value = false
-                    data.value = it.data
-                }
-            }
+    when (val state = viewModel.stateMeals.value) {
+        is State.Loading -> {
+            isLoading.value = true
+        }
+        is State.LoadingFailed -> {
+            isLoading.value = false
+            // TODO -- add error compose
+        }
+        is State.Loaded -> {
+            isLoading.value = false
+            data.value = state.data
         }
     }
 
-    if (loading.value) {
+    if (isLoading.value) {
         CircularIndeterminateProgressBar()
     } else {
         MealCategoriesList(
             data = data.value,
             onNextClick = { navController.safeNavigateTo(RecommendationScreens.CocktailCategories.route) },
-            onSelected = {}
+            viewModel = viewModel
         )
     }
 }
