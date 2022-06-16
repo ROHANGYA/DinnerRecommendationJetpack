@@ -17,7 +17,7 @@ import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 
 @Composable
-fun NextButtonFromCategories(
+fun NextButton(
     onNextClick: () -> Unit,
     currentRecommendationScreen: RecommendationScreens,
     viewModel: RecommendationViewModel

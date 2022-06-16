@@ -13,6 +13,7 @@ import com.rrg.dinnerrecommendation.ui.FoodBankList
 import com.rrg.dinnerrecommendation.ui.LandingPage
 import com.rrg.dinnerrecommendation.ui.MainViewModel
 import com.rrg.dinnerrecommendation.ui.SettingsPage
+import com.rrg.dinnerrecommendation.ui.recommendation.DinnerRecommendation
 import com.rrg.dinnerrecommendation.ui.recommendation.DrinkCategorySelection
 import com.rrg.dinnerrecommendation.ui.recommendation.MealCategorySelection
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
@@ -54,7 +55,12 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
             DrinkCategorySelection(navController, recommendationViewModel)
         }
         composable(route = RecommendationScreens.FinalRecommendation.route) {
-            // TODO fill up navigation when compose screens are done
+            mainViewModel.updateToolbar(stringResource(id = R.string.dinner_recommendation))
+            val recommendationViewModel = it.createViewModelScopedByRoute<RecommendationViewModel>(
+                navController = navController,
+                route = RecommendationScreens.MealCategories.route
+            )
+            DinnerRecommendation(viewModel = recommendationViewModel)
         }
         composable(route = RecommendationScreens.Recipe.route) {
             // TODO fill up navigation when compose screens are done

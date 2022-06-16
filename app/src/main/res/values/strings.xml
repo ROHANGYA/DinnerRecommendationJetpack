@@ -18,4 +18,6 @@
     <string name="recommend_a_dinner">Recommend me a dinner</string>
     <string name="dinner">Dinner</string>
     <string name="close">Close</string>
+    <string name="your_dinner_is">Your Dinner Is:</string>
+    <string name="suggest_another_dinner">Suggest Another Dinner</string>
 </resources>

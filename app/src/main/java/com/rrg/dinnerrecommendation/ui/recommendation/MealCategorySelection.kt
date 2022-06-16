@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
@@ -13,7 +12,7 @@ import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.MealCategoriesList
 import com.rrg.dinnerrecommendation.ui.components.MealCategoryInfoDialog
-import com.rrg.dinnerrecommendation.ui.components.NextButtonFromCategories
+import com.rrg.dinnerrecommendation.ui.components.NextButton
 import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @Composable
@@ -56,7 +55,7 @@ fun MealCategorySelection(
             data = data.value,
             viewModel = viewModel
         )
-        NextButtonFromCategories(
+        NextButton(
             onNextClick = {
                 navController.safeNavigateTo(RecommendationScreens.DrinkCategories.route)
             },

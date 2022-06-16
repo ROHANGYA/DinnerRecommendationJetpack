@@ -13,7 +13,8 @@ import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.models.primary.DrinkCategory
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.CocktailCategoryList
-import com.rrg.dinnerrecommendation.ui.components.NextButtonFromCategories
+import com.rrg.dinnerrecommendation.ui.components.NextButton
+import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @ExperimentalFoundationApi
 @Composable
@@ -57,8 +58,8 @@ fun DrinkCategorySelection(
             data = data.value,
             viewModel = viewModel
         )
-        NextButtonFromCategories(
-            onNextClick = { },
+        NextButton(
+            onNextClick = { navController.safeNavigateTo(RecommendationScreens.FinalRecommendation.route) },
             currentRecommendationScreen = RecommendationScreens.DrinkCategories,
             viewModel = viewModel
         )

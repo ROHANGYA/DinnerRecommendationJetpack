@@ -89,11 +89,16 @@ class RecommendationViewModel @Inject constructor(
             RecommendationEvents.SearchCocktailCategories -> {
                 getDrinkCategories()
             }
+            RecommendationEvents.GetDinnerRecommendation -> {
+                getMealListByCategory()
+                getDrinkListByCategory()
+            }
         }
     }
 
     sealed class RecommendationEvents {
         object SearchMealCategories : RecommendationEvents()
         object SearchCocktailCategories : RecommendationEvents()
+        object GetDinnerRecommendation : RecommendationEvents()
     }
 }
