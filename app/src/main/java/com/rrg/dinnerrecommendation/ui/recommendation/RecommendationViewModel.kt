@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.rrg.dinnerrecommendation.core.Result
 import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
+import com.rrg.dinnerrecommendation.models.primary.Meal
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.service.primary.CocktailService
 import com.rrg.dinnerrecommendation.service.primary.MealService
@@ -27,6 +28,8 @@ class RecommendationViewModel @Inject constructor(
 
     var currentlyViewingMealDetails = mutableStateOf<MealCategory?>(null)
 
+    val stateRecommendedMeal = mutableStateOf<State<Meal>>(State.Loading)
+
     private fun getFoodCategories() = viewModelScope.launch {
 
         when (val result = mealService.getMealCategories()) {
@@ -46,6 +49,19 @@ class RecommendationViewModel @Inject constructor(
             }
             is Result.Failure -> {
                 stateCocktail.value = State.LoadingFailed(result.error)
+            }
+        }
+    }
+
+    fun getMealListByCategory() = viewModelScope.launch {
+        selectedMealCategory.value?.strCategory?.let {
+            when(val result = mealService.getMealListByCategory(it)){
+                is Result.Success -> {
+                    stateRecommendedMeal.value = State.Loaded(result.value.meals.random())
+                }
+                is Result.Failure -> {
+                    stateRecommendedMeal.value = State.LoadingFailed(result.error)
+                }
             }
         }
     }
