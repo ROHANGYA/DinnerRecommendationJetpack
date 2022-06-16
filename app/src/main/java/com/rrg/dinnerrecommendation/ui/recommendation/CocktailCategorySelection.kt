@@ -1,12 +1,12 @@
 package com.rrg.dinnerrecommendation.ui.recommendation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
@@ -17,8 +17,11 @@ import com.rrg.dinnerrecommendation.ui.components.NextButtonFromCategories
 
 @ExperimentalFoundationApi
 @Composable
-fun CocktailCategorySelection(navController: NavHostController) {
-    val viewModel: RecommendationViewModel = hiltViewModel()
+fun CocktailCategorySelection(
+    navController: NavHostController,
+    viewModel: RecommendationViewModel
+) {
+    // val viewModel: RecommendationViewModel = hiltViewModel()
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SearchCocktailCategories)
@@ -49,6 +52,7 @@ fun CocktailCategorySelection(navController: NavHostController) {
     if (isLoading.value) {
         CircularIndeterminateProgressBar()
     } else {
+        Text(text = viewModel.selectedMealCategory.value?.strCategory ?: "null")
         CocktailCategoryList(
             data = data.value,
             viewModel = viewModel

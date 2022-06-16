@@ -2,7 +2,9 @@ package com.rrg.dinnerrecommendation.nav_graph
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,6 +17,7 @@ import com.rrg.dinnerrecommendation.ui.MainViewModel
 import com.rrg.dinnerrecommendation.ui.SettingsPage
 import com.rrg.dinnerrecommendation.ui.recommendation.CocktailCategorySelection
 import com.rrg.dinnerrecommendation.ui.recommendation.MealCategorySelection
+import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 
 @ExperimentalFoundationApi
 @Composable
@@ -32,6 +35,12 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
     ) {
         composable(route = BottomBarScreens.Recommendation.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.dinner_recommendation), false)
+            /*
+            val recommendationEntry = remember(it){
+                navController.getBackStackEntry(BottomBarScreens.Recommendation.route)
+            }
+            val recommendationViewModel  = hiltViewModel<RecommendationViewModel>(recommendationEntry)
+            */
             LandingPage(navController = navController)
         }
         composable(route = BottomBarScreens.FoodBank.route) {
@@ -44,11 +53,23 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
         }
         composable(route = RecommendationScreens.MealCategories.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.meal_categories))
-            MealCategorySelection(navController)
+
+            val recommendationEntry = remember(it) {
+                navController.getBackStackEntry(RecommendationScreens.MealCategories.route)
+            }
+            val recommendationViewModel = hiltViewModel<RecommendationViewModel>(recommendationEntry)
+
+            MealCategorySelection(navController, recommendationViewModel)
         }
         composable(route = RecommendationScreens.CocktailCategories.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.drink_categories))
-            CocktailCategorySelection(navController)
+
+            val recommendationEntry = remember(it) {
+                navController.getBackStackEntry(RecommendationScreens.MealCategories.route)
+            }
+            val recommendationViewModel = hiltViewModel<RecommendationViewModel>(recommendationEntry)
+
+            CocktailCategorySelection(navController, recommendationViewModel)
         }
         composable(route = RecommendationScreens.FinalRecommendation.route) {
             // TODO fill up navigation when compose screens are done

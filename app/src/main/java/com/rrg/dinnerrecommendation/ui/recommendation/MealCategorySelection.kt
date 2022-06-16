@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.rrg.dinnerrecommendation.core.State
@@ -17,8 +16,11 @@ import com.rrg.dinnerrecommendation.ui.components.NextButtonFromCategories
 import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @Composable
-fun MealCategorySelection(navController: NavHostController) {
-    val viewModel: RecommendationViewModel = hiltViewModel()
+fun MealCategorySelection(
+    navController: NavHostController,
+    viewModel: RecommendationViewModel
+) {
+    // val viewModel: RecommendationViewModel = hiltViewModel()
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SearchMealCategories)
