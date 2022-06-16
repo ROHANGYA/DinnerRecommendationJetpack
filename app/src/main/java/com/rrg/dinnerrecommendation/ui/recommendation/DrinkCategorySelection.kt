@@ -53,7 +53,6 @@ fun DrinkCategorySelection(
     if (isLoading.value) {
         CircularIndeterminateProgressBar()
     } else {
-        Text(text = viewModel.selectedMealCategory.value?.strCategory ?: "null")
         CocktailCategoryList(
             data = data.value,
             viewModel = viewModel
