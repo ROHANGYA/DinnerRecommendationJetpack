@@ -12,6 +12,7 @@ import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.MealCategoriesList
+import com.rrg.dinnerrecommendation.ui.components.MealCategoryInfoDialog
 import com.rrg.dinnerrecommendation.ui.components.NextButtonFromCategories
 import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
@@ -62,5 +63,14 @@ fun MealCategorySelection(
             currentRecommendationScreen = RecommendationScreens.MealCategories,
             viewModel = viewModel
         )
+        val currentlyViewingMealDetails = viewModel.currentlyViewingMealDetails.value
+        if (currentlyViewingMealDetails != null) {
+            MealCategoryInfoDialog(
+                title = currentlyViewingMealDetails.strCategory,
+                text = currentlyViewingMealDetails.getCleanCategoryDescription()
+            ) {
+                viewModel.currentlyViewingMealDetails.value = null
+            }
+        }
     }
 }

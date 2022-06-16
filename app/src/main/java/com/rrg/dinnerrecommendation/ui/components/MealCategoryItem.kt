@@ -40,7 +40,10 @@ import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 
 @Composable
-fun MealCategoryItem(item: MealCategory, viewModel: RecommendationViewModel) {
+fun MealCategoryItem(
+    item: MealCategory,
+    viewModel: RecommendationViewModel
+) {
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 10.dp)
@@ -90,7 +93,7 @@ fun MealCategoryItem(item: MealCategory, viewModel: RecommendationViewModel) {
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
-                        onClick = {}
+                        onClick = { viewModel.currentlyViewingMealDetails.value = item }
                     )
             )
         }

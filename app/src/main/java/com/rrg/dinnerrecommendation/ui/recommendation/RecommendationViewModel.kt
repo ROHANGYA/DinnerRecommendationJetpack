@@ -25,6 +25,8 @@ class RecommendationViewModel @Inject constructor(
     var selectedMealCategory = mutableStateOf<MealCategory?>(null)
     var selectedDrinkCategory = mutableStateOf<CocktailCategory?>(null)
 
+    var currentlyViewingMealDetails = mutableStateOf<MealCategory?>(null)
+
     private fun getFoodCategories() = viewModelScope.launch {
 
         when (val result = mealService.getMealCategories()) {
