@@ -5,8 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -61,12 +61,13 @@ fun MealCategoryItem(item: MealCategory, viewModel: RecommendationViewModel) {
                     .data(item.strCategoryThumb)
                     .crossfade(true)
                     .build(),
-                placeholder = painterResource(R.drawable.ic_round_restaurant),
+                placeholder = painterResource(R.drawable.ic_placeholder_image),
+                fallback = painterResource(R.drawable.ic_placeholder_image),
                 contentDescription = stringResource(R.string.meal_categories),
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .wrapContentWidth()
+                    .height(80.dp)
+                    .fillMaxWidth(0.4F)
                     .clip(RoundedCornerShape(8.dp))
             )
             Spacer(modifier = Modifier.width(12.dp))

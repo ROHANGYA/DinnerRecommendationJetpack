@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 
 fun NavController.safeNavigateTo(route: String) {
     this.navigate(route) {
