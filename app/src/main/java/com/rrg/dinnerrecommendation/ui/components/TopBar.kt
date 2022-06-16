@@ -1,9 +1,7 @@
 package com.rrg.dinnerrecommendation.ui.components
 
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -32,17 +30,17 @@ import kotlinx.coroutines.flow.collect
 @Composable
 fun TopBar(navController: NavHostController, mainViewModel: MainViewModel) {
     val defaultToolbarTitle = stringResource(id = R.string.dinner_recommendation)
-    val toolbarTitle:MutableState<String> = remember {
+    val toolbarTitle: MutableState<String> = remember {
         mutableStateOf(defaultToolbarTitle)
     }
 
-    val toolbarBackAction:MutableState<Boolean> = remember {
+    val toolbarBackAction: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
 
-    LaunchedEffect(key1 = Unit){
-        mainViewModel.mainEventChannel.collect{
-            when(it){
+    LaunchedEffect(key1 = Unit) {
+        mainViewModel.mainEventChannel.collect {
+            when (it) {
                 is MainViewModel.MainEvents.ToolbarEvents -> {
                     toolbarTitle.value = it.title
                     toolbarBackAction.value = it.backAction
@@ -64,7 +62,7 @@ fun TopBar(navController: NavHostController, mainViewModel: MainViewModel) {
             )
         },
         navigationIcon = {
-            if(toolbarBackAction.value){
+            if (toolbarBackAction.value) {
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
                         imageVector = Icons.Rounded.ArrowBack,

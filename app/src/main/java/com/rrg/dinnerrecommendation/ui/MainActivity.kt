@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DinnerRecommendationJetpackTheme {
                 val navController = rememberNavController()
-                MainScreen(navController,mainViewModel)
+                MainScreen(navController, mainViewModel)
             }
         }
     }
@@ -41,11 +41,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(navController: NavHostController, mainViewModel: MainViewModel) {
     Scaffold(
-        topBar = { TopBar(navController,mainViewModel) },
+        topBar = { TopBar(navController, mainViewModel) },
         bottomBar = { BottomBar(navController = navController) }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) { // To avoid content being hidden by scaffold slots
-            NavGraph(navController,mainViewModel)
+            NavGraph(navController, mainViewModel)
         }
     }
 }

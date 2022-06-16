@@ -14,8 +14,6 @@ import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.MealCategoriesList
 import com.rrg.dinnerrecommendation.utils.safeNavigateTo
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @Composable
 fun MealCategorySelection(navController: NavHostController) {

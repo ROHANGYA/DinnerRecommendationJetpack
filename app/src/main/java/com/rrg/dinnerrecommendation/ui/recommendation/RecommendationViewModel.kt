@@ -1,6 +1,5 @@
 package com.rrg.dinnerrecommendation.ui.recommendation
 
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rrg.dinnerrecommendation.core.Result
@@ -11,11 +10,11 @@ import com.rrg.dinnerrecommendation.service.primary.CocktailService
 import com.rrg.dinnerrecommendation.service.primary.MealService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 @HiltViewModel
 class RecommendationViewModel @Inject constructor(
@@ -37,14 +36,14 @@ class RecommendationViewModel @Inject constructor(
     }
 
     fun getFoodCategories() = viewModelScope.launch {
-       //mealCategoryChannel.send(State.Loading)
+        // mealCategoryChannel.send(State.Loading)
         when (val result = mealService.getMealCategories()) {
             is Result.Success -> {
-               // mealCategoryChannel.send(State.Loaded(result.value.categories))
+                // mealCategoryChannel.send(State.Loaded(result.value.categories))
                 _stateMeals.value = State.Loaded(result.value.categories)
             }
             is Result.Failure -> {
-                //mealCategoryChannel.send(State.LoadingFailed(result.error))
+                // mealCategoryChannel.send(State.LoadingFailed(result.error))
                 _stateMeals.value = State.LoadingFailed(result.error)
             }
         }
