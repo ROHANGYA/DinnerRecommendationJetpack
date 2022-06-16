@@ -23,6 +23,28 @@ android {
         }
     }
 
+    signingConfigs {
+        debug {
+            if (file(System.getenv("HOME") + "/keystores/debug.keystore").exists()) {
+                storeFile file(System.getenv("HOME") + "/keystores/debug.keystore")
+            }
+        }
+
+        release {
+            Properties properties = new Properties()
+            String keystoreFileName = 'keystore.properties'
+            if (project.rootProject.file(keystoreFileName).exists()) {
+                properties.load(project.rootProject.file(keystoreFileName).newDataInputStream())
+                storeFile file(properties.getProperty('storeFile'))
+                keyAlias properties.getProperty('keyAlias')
+                storePassword properties.getProperty('storePassword')
+                keyPassword properties.getProperty('keyPassword')
+            } else  {
+                // 3rd party signing
+            }
+        }
+    }
+
     buildTypes {
         debug{
             buildConfigField 'String',"API_KEY_MEAL", MEAL_DB_API_KEY
@@ -31,6 +53,7 @@ android {
             buildConfigField 'String',"BASE_URL_COCKTAIL", COCKTAIL_DB_BASE_URL
         }
         release {
+            signingConfig signingConfigs.release
             buildConfigField 'String',"API_KEY_MEAL", MEAL_DB_API_KEY
             buildConfigField 'String',"API_KEY_COCKTAIL", COCKTAIL_DB_API_KEY
             buildConfigField 'String',"BASE_URL_MEAL", MEAL_DB_BASE_URL

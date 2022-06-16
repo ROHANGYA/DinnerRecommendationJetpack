@@ -1,4 +1,4 @@
-package com.rrg.dinnerrecommendation.ui.cocktail_category_selection
+package com.rrg.dinnerrecommendation.ui.recommendation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
@@ -16,7 +16,7 @@ import com.rrg.dinnerrecommendation.ui.components.CocktailCategoryList
 @ExperimentalFoundationApi
 @Composable
 fun CocktailCategorySelection(navController: NavHostController) {
-    val viewModel: CocktailCategoryViewModel = hiltViewModel()
+    val viewModel: RecommendationViewModel = hiltViewModel()
     // viewModel.getCocktailCategories()
 
     val data: MutableState<List<CocktailCategory>> = remember {
@@ -28,7 +28,7 @@ fun CocktailCategorySelection(navController: NavHostController) {
     }
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.cocktailCategoryEvents.collect {
+        viewModel.stateCocktail.collect {
             when (it) {
                 is State.Loaded -> {
                     isLoading.value = false

@@ -12,4 +12,7 @@
     <string name="dinner_generation_steps_2">• Select a drink category</string>
     <string name="dinner_generation_steps_3">… and voilà</string>
     <string name="start">Start</string>
+    <string name="dinner_recommendation">Dinner Recommendation</string>
+    <string name="meal_categories">Meal Categories</string>
+    <string name="drink_categories">Drink Categories</string>
 </resources>
