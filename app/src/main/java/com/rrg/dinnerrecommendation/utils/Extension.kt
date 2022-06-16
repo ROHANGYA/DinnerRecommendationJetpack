@@ -24,8 +24,8 @@ inline fun <reified T : ViewModel> NavBackStackEntry.createViewModelScopedByRout
     navController: NavHostController,
     route: String
 ): T {
-    val recommendationEntry = remember(this) {
+    val routeEntry = remember(this) {
         navController.getBackStackEntry(route)
     }
-    return hiltViewModel(recommendationEntry)
+    return hiltViewModel(routeEntry)
 }
