@@ -45,7 +45,7 @@ fun MealCategoryItem(item: MealCategory, viewModel: RecommendationViewModel) {
             .fillMaxWidth()
             .clickable { viewModel.selectedMealCategory.value = item },
         shape = RoundedCornerShape(8.dp),
-        elevation = 2.dp,
+        elevation = 4.dp,
         backgroundColor = colorResource(
             id = if (viewModel.selectedMealCategory.value == item) {
                 R.color.grey

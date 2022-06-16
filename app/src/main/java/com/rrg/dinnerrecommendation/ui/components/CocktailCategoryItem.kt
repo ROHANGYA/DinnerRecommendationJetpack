@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -46,7 +47,14 @@ fun CocktailCategoryItem(
                 viewModel.selectedDrinkCategory.value = item
             },
         shape = RoundedCornerShape(8.dp),
-        elevation = 4.dp
+        elevation = 4.dp,
+        backgroundColor = colorResource(
+            id = if (viewModel.selectedDrinkCategory.value == item) {
+                R.color.grey
+            } else {
+                R.color.white
+            }
+        )
     ) {
         Column(
             modifier = Modifier.padding(8.dp),
@@ -57,7 +65,7 @@ fun CocktailCategoryItem(
                 modifier = Modifier.size(60.dp, 60.dp),
                 painter = painterResource(id = R.drawable.ic_round_wine_bar),
                 contentDescription = "cocktail",
-                colorFilter = ColorFilter.tint(Color.LightGray),
+                colorFilter = ColorFilter.tint(colorResource(id = R.color.purple_700)),
                 contentScale = ContentScale.Fit
             )
             Spacer(modifier = Modifier.height(10.dp))
