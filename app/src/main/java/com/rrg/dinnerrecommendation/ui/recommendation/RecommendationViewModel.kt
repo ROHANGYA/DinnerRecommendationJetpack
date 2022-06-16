@@ -29,8 +29,8 @@ class RecommendationViewModel @Inject constructor(
 
     var currentlyViewingMealDetails = mutableStateOf<MealCategory?>(null)
 
-    lateinit var selectedMealCategoryList:List<Meal>
-    lateinit var selectedDrinkCategoryList:List<Drink>
+    lateinit var selectedMealCategoryList: List<Meal>
+    lateinit var selectedDrinkCategoryList: List<Drink>
 
     val stateRecommendedMeal = mutableStateOf<State<Meal>>(State.Loading)
     val stateRecommendedDrink = mutableStateOf<State<Drink>>(State.Loading)
