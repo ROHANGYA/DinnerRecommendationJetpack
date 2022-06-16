@@ -11,6 +11,7 @@ import com.rrg.dinnerrecommendation.models.primary.Meal
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.service.primary.DrinkService
 import com.rrg.dinnerrecommendation.service.primary.MealService
+import com.rrg.dinnerrecommendation.utils.triggerActionIfNotLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,7 +23,7 @@ class RecommendationViewModel @Inject constructor(
 ) : ViewModel() {
 
     val stateMeals = mutableStateOf<State<List<MealCategory>>>(State.Loading)
-    val stateCocktail = mutableStateOf<State<List<DrinkCategory>>>(State.Loading)
+    val stateDrinks = mutableStateOf<State<List<DrinkCategory>>>(State.Loading)
 
     var selectedMealCategory = mutableStateOf<MealCategory?>(null)
     var selectedDrinkCategory = mutableStateOf<DrinkCategory?>(null)
@@ -50,10 +51,10 @@ class RecommendationViewModel @Inject constructor(
     private fun getDrinkCategories() = viewModelScope.launch {
         when (val result = drinkService.getDrinkCategories()) {
             is Result.Success -> {
-                stateCocktail.value = State.Loaded(result.value.drinks)
+                stateDrinks.value = State.Loaded(result.value.drinks)
             }
             is Result.Failure -> {
-                stateCocktail.value = State.LoadingFailed(result.error)
+                stateDrinks.value = State.LoadingFailed(result.error)
             }
         }
     }
@@ -89,14 +90,14 @@ class RecommendationViewModel @Inject constructor(
     fun onEvent(event: RecommendationEvents) = viewModelScope.launch {
         when (event) {
             RecommendationEvents.SearchMealCategories -> {
-                getFoodCategories()
+                stateMeals.value.triggerActionIfNotLoaded { getFoodCategories() }
             }
             RecommendationEvents.SearchCocktailCategories -> {
-                getDrinkCategories()
+                stateDrinks.value.triggerActionIfNotLoaded { getDrinkCategories() }
             }
             RecommendationEvents.GetDinnerRecommendation -> {
-                getMealListByCategory()
-                getDrinkListByCategory()
+                stateRecommendedMeal.value.triggerActionIfNotLoaded { getMealListByCategory() }
+                stateRecommendedDrink.value.triggerActionIfNotLoaded { getDrinkListByCategory() }
             }
             RecommendationEvents.SuggestAnotherDinner -> {
                 stateRecommendedMeal.value = State.Loaded(selectedMealCategoryList.random())

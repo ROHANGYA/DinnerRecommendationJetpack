@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.rrg.dinnerrecommendation.core.State
 
 fun NavController.safeNavigateTo(route: String) {
     this.navigate(route) {
@@ -39,5 +40,11 @@ inline fun Modifier.noRippleClickable(crossinline onClick: () -> Unit): Modifier
         interactionSource = remember { MutableInteractionSource() }
     ) {
         onClick()
+    }
+}
+
+fun <T> State<T>.triggerActionIfNotLoaded(action: () -> Unit) {
+    if (this !is State.Loaded) {
+        action.invoke()
     }
 }

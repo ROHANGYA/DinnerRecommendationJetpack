@@ -36,7 +36,7 @@ fun DrinkCategorySelection(
         mutableStateOf(true)
     }
 
-    when (val state = viewModel.stateCocktail.value) {
+    when (val state = viewModel.stateDrinks.value) {
         is State.Loading -> {
             isLoading.value = true
         }
