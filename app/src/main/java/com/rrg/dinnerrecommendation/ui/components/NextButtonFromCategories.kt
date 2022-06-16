@@ -14,11 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
+import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 
 @Composable
 fun NextButtonFromCategories(
     onNextClick: () -> Unit,
-    currentRecommendationScreen: RecommendationScreens
+    currentRecommendationScreen: RecommendationScreens,
+    viewModel: RecommendationViewModel
 ) {
     Box(
         modifier = Modifier
@@ -29,19 +31,37 @@ fun NextButtonFromCategories(
         Button(
             onClick = { onNextClick.invoke() },
             shape = RoundedCornerShape(12.dp),
+            enabled = getButtonState(currentRecommendationScreen, viewModel),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp)
         ) {
-            Text(
-                text = stringResource(
-                    id = if (currentRecommendationScreen == RecommendationScreens.CocktailCategories) {
-                        R.string.recommend_a_dinner
-                    } else {
-                        R.string.next
-                    }
-                )
-            )
+            Text(text = stringResource(id = getButtonLabel(currentRecommendationScreen)))
+        }
+    }
+}
+
+private fun getButtonLabel(currentRecommendationScreen: RecommendationScreens): Int {
+    return if (currentRecommendationScreen == RecommendationScreens.CocktailCategories) {
+        R.string.recommend_a_dinner
+    } else {
+        R.string.next
+    }
+}
+
+private fun getButtonState(
+    currentRecommendationScreen: RecommendationScreens,
+    viewModel: RecommendationViewModel
+): Boolean {
+    return when (currentRecommendationScreen) {
+        RecommendationScreens.MealCategories -> {
+            viewModel.selectedMealCategory.value != null
+        }
+        RecommendationScreens.CocktailCategories -> {
+            viewModel.selectedDrinkCategory.value != null
+        }
+        else -> {
+            true
         }
     }
 }

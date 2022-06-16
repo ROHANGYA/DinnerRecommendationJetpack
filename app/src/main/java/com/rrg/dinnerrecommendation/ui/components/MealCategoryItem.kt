@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rrg.dinnerrecommendation.R
+import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
@@ -43,16 +44,10 @@ fun MealCategoryItem(item: MealCategory, viewModel: RecommendationViewModel) {
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 10.dp)
             .fillMaxWidth()
-            .clickable { viewModel.selectedMealCategory.value = item },
+            .clickable { selectFoodCategory(viewModel,item) },
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp,
-        backgroundColor = colorResource(
-            id = if (viewModel.selectedMealCategory.value == item) {
-                R.color.grey
-            } else {
-                R.color.white
-            }
-        )
+        backgroundColor = colorResource(id = getCardColorState(viewModel, item))
     ) {
         Row(
             modifier = Modifier
@@ -92,6 +87,22 @@ fun MealCategoryItem(item: MealCategory, viewModel: RecommendationViewModel) {
                     )
             )
         }
+    }
+}
+
+private fun selectFoodCategory(viewModel: RecommendationViewModel, currentItem: MealCategory){
+    if(viewModel.selectedMealCategory.value == currentItem){
+        viewModel.selectedMealCategory.value = null
+    }else{
+        viewModel.selectedMealCategory.value = currentItem
+    }
+}
+
+private fun getCardColorState(viewModel: RecommendationViewModel, item: MealCategory): Int {
+    return if (viewModel.selectedMealCategory.value == item) {
+        R.color.grey
+    } else {
+        R.color.white
     }
 }
 

@@ -57,7 +57,8 @@ fun MealCategorySelection(navController: NavHostController) {
             onNextClick = {
                 navController.safeNavigateTo(RecommendationScreens.CocktailCategories.route)
             },
-            currentRecommendationScreen = RecommendationScreens.MealCategories
+            currentRecommendationScreen = RecommendationScreens.MealCategories,
+            viewModel = viewModel
         )
     }
 }

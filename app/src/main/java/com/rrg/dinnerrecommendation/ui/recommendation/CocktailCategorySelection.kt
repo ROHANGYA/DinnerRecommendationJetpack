@@ -56,7 +56,8 @@ fun CocktailCategorySelection(navController: NavHostController) {
         )
         NextButtonFromCategories(
             onNextClick = { },
-            currentRecommendationScreen = RecommendationScreens.CocktailCategories
+            currentRecommendationScreen = RecommendationScreens.CocktailCategories,
+            viewModel = viewModel
         )
     }
 }

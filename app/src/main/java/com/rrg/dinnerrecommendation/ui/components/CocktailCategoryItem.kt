@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
+import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
@@ -42,18 +43,10 @@ fun CocktailCategoryItem(
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
-            .clickable {
-                viewModel.selectedDrinkCategory.value = item
-            },
+            .clickable { selectCocktailCategory(viewModel,item) },
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp,
-        backgroundColor = colorResource(
-            id = if (viewModel.selectedDrinkCategory.value == item) {
-                R.color.grey
-            } else {
-                R.color.white
-            }
-        )
+        backgroundColor = colorResource(id = getCardColorState(viewModel, item))
     ) {
         Column(
             modifier = Modifier.padding(8.dp),
@@ -77,6 +70,22 @@ fun CocktailCategoryItem(
                 overflow = TextOverflow.Clip
             )
         }
+    }
+}
+
+private fun selectCocktailCategory(viewModel: RecommendationViewModel, currentItem: CocktailCategory){
+    if(viewModel.selectedDrinkCategory.value == currentItem){
+        viewModel.selectedDrinkCategory.value = null
+    }else{
+        viewModel.selectedDrinkCategory.value = currentItem
+    }
+}
+
+private fun getCardColorState(viewModel: RecommendationViewModel, item: CocktailCategory): Int {
+    return if (viewModel.selectedDrinkCategory.value == item) {
+        R.color.grey
+    } else {
+        R.color.white
     }
 }
 
