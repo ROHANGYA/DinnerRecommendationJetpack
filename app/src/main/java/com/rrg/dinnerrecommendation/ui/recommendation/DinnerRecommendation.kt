@@ -36,7 +36,6 @@ fun DinnerRecommendation(viewModel: RecommendationViewModel) {
     LaunchedEffect(key1 = Unit) {
         viewModel.onEvent(RecommendationViewModel.RecommendationEvents.GetDinnerRecommendation)
     }
-
     val recommendedMeal: MutableState<Meal?> = remember {
         mutableStateOf(null)
     }
@@ -78,6 +77,8 @@ fun DinnerRecommendation(viewModel: RecommendationViewModel) {
     if (isLoading.value) {
         CircularIndeterminateProgressBar()
     } else {
+        val meal = recommendedMeal.value
+        val drink = recommendedDrink.value
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -96,11 +97,13 @@ fun DinnerRecommendation(viewModel: RecommendationViewModel) {
                     fontSize = 23.sp
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-                recommendedMeal.value?.let { GenericDinnerRecommendationItem(it.strMeal, it.strMealThumb) }
+                meal?.let { GenericDinnerRecommendationItem(meal.strMeal, meal.strMealThumb) }
                 Spacer(modifier = Modifier.height(12.dp))
-                recommendedDrink.value?.let { GenericDinnerRecommendationItem(it.strDrink, it.strDrinkThumb) }
+                drink?.let { GenericDinnerRecommendationItem(drink.strDrink, drink.strDrinkThumb) }
                 Spacer(modifier = Modifier.height(18.dp))
-                SuggestAnotherDinnerButton { }
+                SuggestAnotherDinnerButton {
+                    viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SuggestAnotherDinner)
+                }
                 Spacer(modifier = Modifier.height(28.dp))
             }
         }

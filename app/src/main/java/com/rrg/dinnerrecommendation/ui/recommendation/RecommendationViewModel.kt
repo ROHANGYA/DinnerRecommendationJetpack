@@ -29,6 +29,9 @@ class RecommendationViewModel @Inject constructor(
 
     var currentlyViewingMealDetails = mutableStateOf<MealCategory?>(null)
 
+    lateinit var selectedMealCategoryList:List<Meal>
+    lateinit var selectedDrinkCategoryList:List<Drink>
+
     val stateRecommendedMeal = mutableStateOf<State<Meal>>(State.Loading)
     val stateRecommendedDrink = mutableStateOf<State<Drink>>(State.Loading)
 
@@ -55,10 +58,11 @@ class RecommendationViewModel @Inject constructor(
         }
     }
 
-    fun getMealListByCategory() = viewModelScope.launch {
+    private fun getMealListByCategory() = viewModelScope.launch {
         selectedMealCategory.value?.strCategory?.let {
             when (val result = mealService.getMealListByCategory(it)) {
                 is Result.Success -> {
+                    selectedMealCategoryList = result.value.meals
                     stateRecommendedMeal.value = State.Loaded(result.value.meals.random())
                 }
                 is Result.Failure -> {
@@ -68,10 +72,11 @@ class RecommendationViewModel @Inject constructor(
         }
     }
 
-    fun getDrinkListByCategory() = viewModelScope.launch {
+    private fun getDrinkListByCategory() = viewModelScope.launch {
         selectedDrinkCategory.value?.strCategory?.let {
             when (val result = drinkService.getDrinkListByCategory(it)) {
                 is Result.Success -> {
+                    selectedDrinkCategoryList = result.value.drinks
                     stateRecommendedDrink.value = State.Loaded(result.value.drinks.random())
                 }
                 is Result.Failure -> {
@@ -93,6 +98,10 @@ class RecommendationViewModel @Inject constructor(
                 getMealListByCategory()
                 getDrinkListByCategory()
             }
+            RecommendationEvents.SuggestAnotherDinner -> {
+                stateRecommendedMeal.value = State.Loaded(selectedMealCategoryList.random())
+                stateRecommendedDrink.value = State.Loaded(selectedDrinkCategoryList.random())
+            }
         }
     }
 
@@ -100,5 +109,6 @@ class RecommendationViewModel @Inject constructor(
         object SearchMealCategories : RecommendationEvents()
         object SearchCocktailCategories : RecommendationEvents()
         object GetDinnerRecommendation : RecommendationEvents()
+        object SuggestAnotherDinner : RecommendationEvents()
     }
 }
