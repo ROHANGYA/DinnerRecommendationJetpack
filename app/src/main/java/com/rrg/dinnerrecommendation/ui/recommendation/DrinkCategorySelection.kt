@@ -10,14 +10,14 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
-import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
+import com.rrg.dinnerrecommendation.models.primary.DrinkCategory
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.CocktailCategoryList
 import com.rrg.dinnerrecommendation.ui.components.NextButtonFromCategories
 
 @ExperimentalFoundationApi
 @Composable
-fun CocktailCategorySelection(
+fun DrinkCategorySelection(
     navController: NavHostController,
     viewModel: RecommendationViewModel
 ) {
@@ -27,7 +27,7 @@ fun CocktailCategorySelection(
         viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SearchCocktailCategories)
     }
 
-    val data: MutableState<List<CocktailCategory>> = remember {
+    val data: MutableState<List<DrinkCategory>> = remember {
         mutableStateOf(listOf())
     }
 
@@ -59,7 +59,7 @@ fun CocktailCategorySelection(
         )
         NextButtonFromCategories(
             onNextClick = { },
-            currentRecommendationScreen = RecommendationScreens.CocktailCategories,
+            currentRecommendationScreen = RecommendationScreens.DrinkCategories,
             viewModel = viewModel
         )
     }

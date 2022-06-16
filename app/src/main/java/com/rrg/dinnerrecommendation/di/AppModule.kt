@@ -4,7 +4,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.rrg.dinnerrecommendation.BuildConfig.BASE_URL_COCKTAIL
 import com.rrg.dinnerrecommendation.BuildConfig.BASE_URL_MEAL
 import com.rrg.dinnerrecommendation.BuildConfig.DEBUG
-import com.rrg.dinnerrecommendation.api.CocktailApi
+import com.rrg.dinnerrecommendation.api.DrinkApi
 import com.rrg.dinnerrecommendation.api.MealApi
 import com.rrg.dinnerrecommendation.core.NetworkRequestManager
 import com.rrg.dinnerrecommendation.service.interceptor.CocktailSessionInterceptor
@@ -125,8 +125,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCocktailApi(@CocktailRetrofit retrofit: Retrofit): CocktailApi {
-        return retrofit.create(CocktailApi::class.java)
+    fun provideCocktailApi(@CocktailRetrofit retrofit: Retrofit): DrinkApi {
+        return retrofit.create(DrinkApi::class.java)
     }
 
     @Provides

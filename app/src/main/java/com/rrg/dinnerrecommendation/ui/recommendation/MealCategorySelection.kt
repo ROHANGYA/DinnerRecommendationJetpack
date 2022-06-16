@@ -58,7 +58,7 @@ fun MealCategorySelection(
         )
         NextButtonFromCategories(
             onNextClick = {
-                navController.safeNavigateTo(RecommendationScreens.CocktailCategories.route)
+                navController.safeNavigateTo(RecommendationScreens.DrinkCategories.route)
             },
             currentRecommendationScreen = RecommendationScreens.MealCategories,
             viewModel = viewModel

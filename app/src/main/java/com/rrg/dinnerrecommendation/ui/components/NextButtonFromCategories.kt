@@ -42,7 +42,7 @@ fun NextButtonFromCategories(
 }
 
 private fun getButtonLabel(currentRecommendationScreen: RecommendationScreens): Int {
-    return if (currentRecommendationScreen == RecommendationScreens.CocktailCategories) {
+    return if (currentRecommendationScreen == RecommendationScreens.DrinkCategories) {
         R.string.recommend_a_dinner
     } else {
         R.string.next
@@ -57,7 +57,7 @@ private fun getButtonState(
         RecommendationScreens.MealCategories -> {
             viewModel.selectedMealCategory.value != null
         }
-        RecommendationScreens.CocktailCategories -> {
+        RecommendationScreens.DrinkCategories -> {
             viewModel.selectedDrinkCategory.value != null
         }
         else -> {

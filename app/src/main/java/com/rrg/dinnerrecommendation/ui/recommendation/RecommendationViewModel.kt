@@ -5,10 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rrg.dinnerrecommendation.core.Result
 import com.rrg.dinnerrecommendation.core.State
-import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
+import com.rrg.dinnerrecommendation.models.primary.Drink
+import com.rrg.dinnerrecommendation.models.primary.DrinkCategory
 import com.rrg.dinnerrecommendation.models.primary.Meal
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
-import com.rrg.dinnerrecommendation.service.primary.CocktailService
+import com.rrg.dinnerrecommendation.service.primary.DrinkService
 import com.rrg.dinnerrecommendation.service.primary.MealService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,18 +18,19 @@ import javax.inject.Inject
 @HiltViewModel
 class RecommendationViewModel @Inject constructor(
     private val mealService: MealService,
-    private val cocktailService: CocktailService
+    private val drinkService: DrinkService
 ) : ViewModel() {
 
     val stateMeals = mutableStateOf<State<List<MealCategory>>>(State.Loading)
-    val stateCocktail = mutableStateOf<State<List<CocktailCategory>>>(State.Loading)
+    val stateCocktail = mutableStateOf<State<List<DrinkCategory>>>(State.Loading)
 
     var selectedMealCategory = mutableStateOf<MealCategory?>(null)
-    var selectedDrinkCategory = mutableStateOf<CocktailCategory?>(null)
+    var selectedDrinkCategory = mutableStateOf<DrinkCategory?>(null)
 
     var currentlyViewingMealDetails = mutableStateOf<MealCategory?>(null)
 
     val stateRecommendedMeal = mutableStateOf<State<Meal>>(State.Loading)
+    val stateRecommendedDrink = mutableStateOf<State<Drink>>(State.Loading)
 
     private fun getFoodCategories() = viewModelScope.launch {
 
@@ -42,8 +44,8 @@ class RecommendationViewModel @Inject constructor(
         }
     }
 
-    private fun getCocktailCategories() = viewModelScope.launch {
-        when (val result = cocktailService.getCocktailCategories()) {
+    private fun getDrinkCategories() = viewModelScope.launch {
+        when (val result = drinkService.getDrinkCategories()) {
             is Result.Success -> {
                 stateCocktail.value = State.Loaded(result.value.drinks)
             }
@@ -55,12 +57,25 @@ class RecommendationViewModel @Inject constructor(
 
     fun getMealListByCategory() = viewModelScope.launch {
         selectedMealCategory.value?.strCategory?.let {
-            when(val result = mealService.getMealListByCategory(it)){
+            when (val result = mealService.getMealListByCategory(it)) {
                 is Result.Success -> {
                     stateRecommendedMeal.value = State.Loaded(result.value.meals.random())
                 }
                 is Result.Failure -> {
                     stateRecommendedMeal.value = State.LoadingFailed(result.error)
+                }
+            }
+        }
+    }
+
+    fun getDrinkListByCategory() = viewModelScope.launch {
+        selectedDrinkCategory.value?.strCategory?.let {
+            when (val result = drinkService.getDrinkListByCategory(it)) {
+                is Result.Success -> {
+                    stateRecommendedDrink.value = State.Loaded(result.value.drinks.random())
+                }
+                is Result.Failure -> {
+                    stateRecommendedDrink.value = State.LoadingFailed(result.error)
                 }
             }
         }
@@ -72,7 +87,7 @@ class RecommendationViewModel @Inject constructor(
                 getFoodCategories()
             }
             RecommendationEvents.SearchCocktailCategories -> {
-                getCocktailCategories()
+                getDrinkCategories()
             }
         }
     }

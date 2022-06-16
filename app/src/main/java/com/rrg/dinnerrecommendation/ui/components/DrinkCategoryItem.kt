@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rrg.dinnerrecommendation.R
-import com.rrg.dinnerrecommendation.models.primary.CocktailCategory
+import com.rrg.dinnerrecommendation.models.primary.DrinkCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
@@ -35,7 +35,7 @@ import com.rrg.dinnerrecommendation.utils.addEmptyLines
 
 @Composable
 fun CocktailCategoryItem(
-    item: CocktailCategory,
+    item: DrinkCategory,
     viewModel: RecommendationViewModel
 ) {
     Card(
@@ -72,7 +72,7 @@ fun CocktailCategoryItem(
     }
 }
 
-private fun selectCocktailCategory(viewModel: RecommendationViewModel, currentItem: CocktailCategory) {
+private fun selectCocktailCategory(viewModel: RecommendationViewModel, currentItem: DrinkCategory) {
     if (viewModel.selectedDrinkCategory.value == currentItem) {
         viewModel.selectedDrinkCategory.value = null
     } else {
@@ -80,7 +80,7 @@ private fun selectCocktailCategory(viewModel: RecommendationViewModel, currentIt
     }
 }
 
-private fun getCardColorState(viewModel: RecommendationViewModel, item: CocktailCategory): Int {
+private fun getCardColorState(viewModel: RecommendationViewModel, item: DrinkCategory): Int {
     return if (viewModel.selectedDrinkCategory.value == item) {
         R.color.grey
     } else {
@@ -94,7 +94,7 @@ fun PreviewCocktailCategoryItem() {
     DinnerRecommendationJetpackTheme {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CocktailCategoryItem(
-                CocktailCategory("Such a good drink category while also testing multi line hahah hohoh hihihi, is this correct?"),
+                DrinkCategory("Such a good drink category while also testing multi line hahah hohoh hihihi, is this correct?"),
                 viewModel()
             )
         }

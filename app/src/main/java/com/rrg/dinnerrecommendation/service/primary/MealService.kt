@@ -20,7 +20,7 @@ class MealService @Inject constructor(
         }
     }
 
-    suspend fun getMealListByCategory(category: String): Result<MealListByCategoryResponse>{
+    suspend fun getMealListByCategory(category: String): Result<MealListByCategoryResponse> {
         return networkRequestManager.apiRequest {
             mealApi.getListOfMealsByCategory(category)
         }

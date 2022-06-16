@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class CocktailCategoryResponse(
-    val drinks: List<CocktailCategory>
+data class DrinkCategory(
+    val strCategory: String
 ) : Parcelable
