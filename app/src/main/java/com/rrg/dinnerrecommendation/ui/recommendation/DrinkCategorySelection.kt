@@ -1,7 +1,6 @@
 package com.rrg.dinnerrecommendation.ui.recommendation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState

@@ -3,6 +3,7 @@ package com.rrg.dinnerrecommendation.nav_graph
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -40,30 +41,26 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
         }
         composable(route = RecommendationScreens.MealCategories.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.meal_categories))
-            val recommendationViewModel = it.createViewModelScopedByRoute<RecommendationViewModel>(
-                navController = navController,
-                route = RecommendationScreens.MealCategories.route
-            )
-            MealCategorySelection(navController, recommendationViewModel)
+            MealCategorySelection(navController, createRecommendationSharedViewModel(it, navController))
         }
         composable(route = RecommendationScreens.DrinkCategories.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.drink_categories))
-            val recommendationViewModel = it.createViewModelScopedByRoute<RecommendationViewModel>(
-                navController = navController,
-                route = RecommendationScreens.MealCategories.route
-            )
-            DrinkCategorySelection(navController, recommendationViewModel)
+            DrinkCategorySelection(navController, createRecommendationSharedViewModel(it, navController))
         }
         composable(route = RecommendationScreens.FinalRecommendation.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.dinner_recommendation))
-            val recommendationViewModel = it.createViewModelScopedByRoute<RecommendationViewModel>(
-                navController = navController,
-                route = RecommendationScreens.MealCategories.route
-            )
-            DinnerRecommendation(viewModel = recommendationViewModel)
+            DinnerRecommendation(viewModel = createRecommendationSharedViewModel(it, navController))
         }
         composable(route = RecommendationScreens.Recipe.route) {
             // TODO fill up navigation when compose screens are done
         }
     }
+}
+
+@Composable
+private fun createRecommendationSharedViewModel(navBackStackEntry: NavBackStackEntry, navController: NavHostController): RecommendationViewModel {
+    return navBackStackEntry.createViewModelScopedByRoute(
+        navController = navController,
+        route = RecommendationScreens.MealCategories.route
+    )
 }

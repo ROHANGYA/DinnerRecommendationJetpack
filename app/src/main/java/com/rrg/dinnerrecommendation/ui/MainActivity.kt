@@ -15,7 +15,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.rrg.dinnerrecommendation.nav_graph.NavGraph
-import com.rrg.dinnerrecommendation.ui.components.BottomBar
+import com.rrg.dinnerrecommendation.ui.components.BottomNavBar
 import com.rrg.dinnerrecommendation.ui.components.TopBar
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
 fun MainScreen(navController: NavHostController, mainViewModel: MainViewModel) {
     Scaffold(
         topBar = { TopBar(navController, mainViewModel) },
-        bottomBar = { BottomBar(navController = navController) }
+        bottomBar = { BottomNavBar(navController = navController) }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) { // To avoid content being hidden by scaffold slots
             NavGraph(navController, mainViewModel)
