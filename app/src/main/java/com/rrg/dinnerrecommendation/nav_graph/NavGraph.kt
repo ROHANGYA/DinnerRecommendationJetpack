@@ -32,11 +32,11 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
             LandingPage(navController = navController)
         }
         composable(route = BottomBarScreens.FoodBank.route) {
-            mainViewModel.updateToolbar(stringResource(id = R.string.food_bank))
+            mainViewModel.updateToolbar(stringResource(id = R.string.food_bank), false)
             FoodBankList()
         }
         composable(route = BottomBarScreens.Settings.route) {
-            mainViewModel.updateToolbar(stringResource(id = R.string.settings))
+            mainViewModel.updateToolbar(stringResource(id = R.string.settings), false)
             SettingsPage()
         }
         composable(route = RecommendationScreens.MealCategories.route) {
