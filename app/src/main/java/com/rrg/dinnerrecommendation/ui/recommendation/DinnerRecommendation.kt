@@ -35,7 +35,7 @@ import com.rrg.dinnerrecommendation.ui.components.SuggestAnotherDinnerButton
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 import com.rrg.dinnerrecommendation.utils.Constants
-import com.rrg.dinnerrecommendation.utils.addPathParentheses
+import com.rrg.dinnerrecommendation.utils.addPathCurlyBrackets
 import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @Composable
@@ -111,8 +111,8 @@ fun DinnerRecommendation(
                     GenericDinnerRecommendationItem(meal.strMeal, meal.strMealThumb) {
                         navController.safeNavigateTo(
                             SharedScreens.RecipeDetails.route
-                                .replace(Constants.NavigationArguments.ID.addPathParentheses(), it.idMeal)
-                                .replace(Constants.NavigationArguments.TYPE.addPathParentheses(), RecipeCategories.Meal.name)
+                                .replace(Constants.NavigationArguments.ID.addPathCurlyBrackets(), it.idMeal)
+                                .replace(Constants.NavigationArguments.TYPE.addPathCurlyBrackets(), RecipeCategories.Meal.name)
                         )
                     }
                 }
@@ -121,8 +121,8 @@ fun DinnerRecommendation(
                     GenericDinnerRecommendationItem(drink.strDrink, drink.strDrinkThumb) {
                         navController.safeNavigateTo(
                             SharedScreens.RecipeDetails.route
-                                .replace(Constants.NavigationArguments.ID.addPathParentheses(), it.idDrink,)
-                                .replace(Constants.NavigationArguments.TYPE.addPathParentheses(), RecipeCategories.Drink.name)
+                                .replace(Constants.NavigationArguments.ID.addPathCurlyBrackets(), it.idDrink,)
+                                .replace(Constants.NavigationArguments.TYPE.addPathCurlyBrackets(), RecipeCategories.Drink.name)
                         )
                     }
                 }

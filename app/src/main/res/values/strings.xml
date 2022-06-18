@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DinnerRecommendationJetpack</string>
+    <string name="app_name">Dinner Recommendation</string>
     <string name="welcome">Welcome</string>
     <string name="back">back</string>
     <string name="recommendation">Recommendation</string>

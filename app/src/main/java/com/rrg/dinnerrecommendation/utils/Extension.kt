@@ -56,6 +56,6 @@ fun Context.showToast(@StringRes text: Int, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, text, length).show()
 }
 
-fun String.addPathParentheses(): String {
+fun String.addPathCurlyBrackets(): String {
     return "{$this}"
 }
