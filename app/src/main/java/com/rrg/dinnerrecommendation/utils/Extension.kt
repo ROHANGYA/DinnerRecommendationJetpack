@@ -1,5 +1,8 @@
 package com.rrg.dinnerrecommendation.utils
 
+import android.content.Context
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
@@ -47,4 +50,12 @@ fun <T> State<T>.triggerActionIfNotLoaded(action: () -> Unit) {
     if (this !is State.Loaded) {
         action.invoke()
     }
+}
+
+fun Context.showToast(@StringRes text: Int, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, text, length).show()
+}
+
+fun String.addPathParentheses(): String {
+    return "{$this}"
 }

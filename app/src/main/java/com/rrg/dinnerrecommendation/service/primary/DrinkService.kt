@@ -4,7 +4,7 @@ import com.rrg.dinnerrecommendation.api.DrinkApi
 import com.rrg.dinnerrecommendation.core.NetworkRequestManager
 import com.rrg.dinnerrecommendation.core.Result
 import com.rrg.dinnerrecommendation.models.primary.DrinkCategoryResponse
-import com.rrg.dinnerrecommendation.models.primary.DrinkListByCategoryResponse
+import com.rrg.dinnerrecommendation.models.primary.DrinkResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,9 +19,15 @@ class DrinkService @Inject constructor(
         }
     }
 
-    suspend fun getDrinkListByCategory(category: String): Result<DrinkListByCategoryResponse> {
+    suspend fun getDrinkListByCategory(category: String): Result<DrinkResponse> {
         return networkRequestManager.apiRequest {
             drinkApi.getListOfDrinksByCategory(category)
+        }
+    }
+
+    suspend fun getDrinkById(id: String): Result<DrinkResponse> {
+        return networkRequestManager.apiRequest {
+            drinkApi.getDrinkById(id)
         }
     }
 }

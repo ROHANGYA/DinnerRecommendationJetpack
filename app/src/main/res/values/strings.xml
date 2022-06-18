@@ -20,4 +20,9 @@
     <string name="close">Close</string>
     <string name="your_dinner_is">Your Dinner Is:</string>
     <string name="suggest_another_dinner">Suggest Another Dinner</string>
+    <string name="watch_on_youtube">Watch on YouTube</string>
+    <string name="instructions">Instructions</string>
+    <string name="no_recipe_found">No Recipe Found !</string>
+    <string name="no_video_found">No Video Found !</string>
+    <string name="video_could_not_be_played">Video could not be played !</string>
 </resources>

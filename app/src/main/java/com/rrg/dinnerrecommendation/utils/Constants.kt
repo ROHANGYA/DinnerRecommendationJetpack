@@ -9,7 +9,14 @@ class Constants {
             const val MEAL_CATEGORIES = "meal_categories"
             const val DRINK_CATEGORIES = "drink_categories"
             const val FINAL_RECOMMENDATION = "recommendation_page"
-            const val RECIPE = "Recipe"
+            const val RECIPE_DETAILS = "Recipe_details"
+        }
+    }
+
+    interface NavigationArguments {
+        companion object {
+            const val ID = "ID"
+            const val TYPE = "TYPE"
         }
     }
 }

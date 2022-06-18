@@ -1,5 +1,6 @@
 package com.rrg.dinnerrecommendation.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,12 +37,14 @@ import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 @Composable
 fun GenericDinnerRecommendationItem(
     name: String,
-    imageUrl: String
+    imageUrl: String,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .wrapContentHeight()
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { onClick.invoke() },
         elevation = 6.dp,
         shape = RoundedCornerShape(18.dp)
     ) {
@@ -98,7 +101,7 @@ private fun PreviewGenericRecommendationItem() {
     DinnerRecommendationJetpackTheme {
         GenericDinnerRecommendationItem(
             "Fancy Meal",
-            "https:\\/\\/www.themealdb.com\\/images\\/media\\/meals\\/xxrxux1503070723.jpg",
-        )
+            "https:\\/\\/www.themealdb.com\\/images\\/media\\/meals\\/xxrxux1503070723.jpg"
+        ) { }
     }
 }

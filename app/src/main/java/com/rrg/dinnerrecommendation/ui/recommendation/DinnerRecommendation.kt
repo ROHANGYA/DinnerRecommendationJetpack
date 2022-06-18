@@ -21,8 +21,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.core.State
+import com.rrg.dinnerrecommendation.models.keys.RecipeCategories
+import com.rrg.dinnerrecommendation.models.keys.SharedScreens
 import com.rrg.dinnerrecommendation.models.primary.Drink
 import com.rrg.dinnerrecommendation.models.primary.Meal
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
@@ -30,9 +34,15 @@ import com.rrg.dinnerrecommendation.ui.components.GenericDinnerRecommendationIte
 import com.rrg.dinnerrecommendation.ui.components.SuggestAnotherDinnerButton
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
+import com.rrg.dinnerrecommendation.utils.Constants
+import com.rrg.dinnerrecommendation.utils.addPathParentheses
+import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
 @Composable
-fun DinnerRecommendation(viewModel: RecommendationViewModel) {
+fun DinnerRecommendation(
+    navController: NavHostController,
+    viewModel: RecommendationViewModel
+) {
     LaunchedEffect(key1 = Unit) {
         viewModel.onEvent(RecommendationViewModel.RecommendationEvents.GetDinnerRecommendation)
     }
@@ -97,9 +107,25 @@ fun DinnerRecommendation(viewModel: RecommendationViewModel) {
                     fontSize = 23.sp
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-                meal?.let { GenericDinnerRecommendationItem(meal.strMeal, meal.strMealThumb) }
+                meal?.let {
+                    GenericDinnerRecommendationItem(meal.strMeal, meal.strMealThumb) {
+                        navController.safeNavigateTo(
+                            SharedScreens.RecipeDetails.route
+                                .replace(Constants.NavigationArguments.ID.addPathParentheses(), it.idMeal)
+                                .replace(Constants.NavigationArguments.TYPE.addPathParentheses(), RecipeCategories.Meal.name)
+                        )
+                    }
+                }
                 Spacer(modifier = Modifier.height(12.dp))
-                drink?.let { GenericDinnerRecommendationItem(drink.strDrink, drink.strDrinkThumb) }
+                drink?.let {
+                    GenericDinnerRecommendationItem(drink.strDrink, drink.strDrinkThumb) {
+                        navController.safeNavigateTo(
+                            SharedScreens.RecipeDetails.route
+                                .replace(Constants.NavigationArguments.ID.addPathParentheses(), it.idDrink,)
+                                .replace(Constants.NavigationArguments.TYPE.addPathParentheses(), RecipeCategories.Drink.name)
+                        )
+                    }
+                }
                 Spacer(modifier = Modifier.height(18.dp))
                 SuggestAnotherDinnerButton {
                     viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SuggestAnotherDinner)
@@ -114,6 +140,6 @@ fun DinnerRecommendation(viewModel: RecommendationViewModel) {
 @Composable
 private fun PreviewDinnerRecommendation() {
     DinnerRecommendationJetpackTheme {
-        DinnerRecommendation(viewModel())
+        DinnerRecommendation(rememberNavController(), viewModel())
     }
 }

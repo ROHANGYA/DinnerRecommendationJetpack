@@ -1,7 +1,7 @@
 package com.rrg.dinnerrecommendation.api
 
 import com.rrg.dinnerrecommendation.models.primary.MealCategoriesResponse
-import com.rrg.dinnerrecommendation.models.primary.MealListByCategoryResponse
+import com.rrg.dinnerrecommendation.models.primary.MealResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,5 +14,10 @@ interface MealApi {
     @GET("filter.php")
     suspend fun getListOfMealsByCategory(
         @Query("c") category: String
-    ): Response<MealListByCategoryResponse>
+    ): Response<MealResponse>
+
+    @GET("lookup.php")
+    suspend fun getMealById(
+        @Query("i") id: String
+    ): Response<MealResponse>
 }
