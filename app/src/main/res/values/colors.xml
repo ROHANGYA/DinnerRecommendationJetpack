@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#CECECE</color>
     <color name="black70">#B3000000</color>
+    <color name="darkNavy_blue">#020933</color>
+    <color name="oldLace_beige">#fff5e1</color>
+    <color name="dark_beige">#fedbc5</color>
+    <color name="red_orange">#F44336</color>
+    <color name="martini_grey">#A6A6A6</color>
 </resources>

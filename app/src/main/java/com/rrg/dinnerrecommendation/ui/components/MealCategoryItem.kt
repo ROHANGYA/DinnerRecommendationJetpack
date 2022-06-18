@@ -110,7 +110,7 @@ private fun selectFoodCategory(viewModel: RecommendationViewModel, currentItem: 
 
 private fun getCardColorState(viewModel: RecommendationViewModel, item: MealCategory): Int {
     return if (viewModel.selectedMealCategory.value == item) {
-        R.color.grey
+        R.color.oldLace_beige
     } else {
         R.color.white
     }

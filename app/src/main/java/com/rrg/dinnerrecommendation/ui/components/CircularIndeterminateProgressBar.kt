@@ -28,6 +28,6 @@ fun CircularIndeterminateProgressBar(centered: Boolean = true) {
 private fun CustomCircularProgressIndicators() {
     CircularProgressIndicator(
         modifier = Modifier.wrapContentSize(),
-        color = colorResource(id = R.color.purple_500)
+        color = colorResource(id = R.color.darkNavy_blue)
     )
 }

@@ -11,12 +11,15 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.nav_graph.NavGraph
 import com.rrg.dinnerrecommendation.ui.components.BottomNavBar
 import com.rrg.dinnerrecommendation.ui.components.TopBar
+import com.rrg.dinnerrecommendation.ui.theme.DarkBeige
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +32,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            this.window.statusBarColor = ContextCompat.getColor(this, R.color.darkNavy_blue)
             DinnerRecommendationJetpackTheme {
                 val navController = rememberNavController()
                 MainScreen(navController, mainViewModel)
@@ -41,6 +45,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(navController: NavHostController, mainViewModel: MainViewModel) {
     Scaffold(
+        backgroundColor = DarkBeige,
         topBar = { TopBar(navController, mainViewModel) },
         bottomBar = { BottomNavBar(navController = navController) }
     ) { innerPadding ->
