@@ -1,4 +1,4 @@
-package com.rrg.dinnerrecommendation.ui
+package com.rrg.dinnerrecommendation.ui.recommendation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

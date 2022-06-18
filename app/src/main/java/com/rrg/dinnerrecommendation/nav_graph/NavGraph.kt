@@ -14,16 +14,16 @@ import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.keys.BottomBarScreens
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.models.keys.SharedScreens
-import com.rrg.dinnerrecommendation.ui.FoodBankList
-import com.rrg.dinnerrecommendation.ui.LandingPage
 import com.rrg.dinnerrecommendation.ui.MainViewModel
-import com.rrg.dinnerrecommendation.ui.SettingsPage
+import com.rrg.dinnerrecommendation.ui.food_bank.FoodBankList
 import com.rrg.dinnerrecommendation.ui.recipe_details.RecipeDetails
 import com.rrg.dinnerrecommendation.ui.recipe_details.RecipeDetailsViewModel
 import com.rrg.dinnerrecommendation.ui.recommendation.DinnerRecommendation
 import com.rrg.dinnerrecommendation.ui.recommendation.DrinkCategorySelection
+import com.rrg.dinnerrecommendation.ui.recommendation.LandingPage
 import com.rrg.dinnerrecommendation.ui.recommendation.MealCategorySelection
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
+import com.rrg.dinnerrecommendation.ui.settings.SettingsPage
 import com.rrg.dinnerrecommendation.utils.Constants
 import com.rrg.dinnerrecommendation.utils.createViewModelScopedByRoute
 
