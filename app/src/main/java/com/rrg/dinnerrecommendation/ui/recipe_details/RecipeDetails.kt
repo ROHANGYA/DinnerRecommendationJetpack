@@ -9,6 +9,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -17,13 +20,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.keys.RecipeCategories
+import com.rrg.dinnerrecommendation.ui.MainViewModel
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.YoutubeButton
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
@@ -32,20 +33,37 @@ import com.rrg.dinnerrecommendation.utils.showToast
 import java.lang.Exception
 
 @Composable
-fun RecipeDetails(navController: NavHostController, idArgument: String, category: String) {
-    val viewModel = hiltViewModel<RecipeDetailsViewModel>()
+fun RecipeDetails(
+    mainViewModel: MainViewModel,
+    viewModel: RecipeDetailsViewModel,
+    idArgument: String,
+    category: String
+) {
+
+    val id: MutableState<String> = remember {
+        mutableStateOf(idArgument)
+    }
+
+    val recipeCategory: MutableState<String> = remember {
+        mutableStateOf(category)
+    }
+
     LaunchedEffect(key1 = Unit) {
-        when (category) {
+        when (recipeCategory.value) {
             RecipeCategories.Meal.name -> {
-                viewModel.onEvent(RecipeDetailsViewModel.RecipeDetailsEvents.FetchMealDetails(idArgument))
+                viewModel.onEvent(
+                    RecipeDetailsViewModel.RecipeDetailsEvents.FetchMealDetails(id.value)
+                )
             }
             RecipeCategories.Drink.name -> {
-                viewModel.onEvent(RecipeDetailsViewModel.RecipeDetailsEvents.FetchDrinkDetails(idArgument))
+                viewModel.onEvent(
+                    RecipeDetailsViewModel.RecipeDetailsEvents.FetchDrinkDetails(id.value)
+                )
             }
         }
     }
 
-    when (category) {
+    when (recipeCategory.value) {
         RecipeCategories.Meal.name -> {
             when (val state = viewModel.mealDetails.value) {
                 State.Loading -> {
@@ -53,6 +71,7 @@ fun RecipeDetails(navController: NavHostController, idArgument: String, category
                 }
                 is State.Loaded -> {
                     state.data.apply {
+                        mainViewModel.updateToolbar(strMeal, true)
                         MainRecipeDetailsScreenContent(strInstructions, strYoutube)
                     }
                 }
@@ -68,6 +87,7 @@ fun RecipeDetails(navController: NavHostController, idArgument: String, category
                 }
                 is State.Loaded -> {
                     state.data.apply {
+                        mainViewModel.updateToolbar(strDrink, true)
                         MainRecipeDetailsScreenContent(strInstructions, strVideo)
                     }
                 }
@@ -124,6 +144,6 @@ private fun MainRecipeDetailsScreenContent(recipe: String?, videoUrl: String?) {
 @Composable
 private fun PreviewRecipeDetails() {
     DinnerRecommendationJetpackTheme {
-        RecipeDetails(rememberNavController(), "test", "test")
+        RecipeDetails(viewModel(), viewModel(), "test", "test")
     }
 }

@@ -3,6 +3,7 @@ package com.rrg.dinnerrecommendation.nav_graph
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -18,6 +19,7 @@ import com.rrg.dinnerrecommendation.ui.LandingPage
 import com.rrg.dinnerrecommendation.ui.MainViewModel
 import com.rrg.dinnerrecommendation.ui.SettingsPage
 import com.rrg.dinnerrecommendation.ui.recipe_details.RecipeDetails
+import com.rrg.dinnerrecommendation.ui.recipe_details.RecipeDetailsViewModel
 import com.rrg.dinnerrecommendation.ui.recommendation.DinnerRecommendation
 import com.rrg.dinnerrecommendation.ui.recommendation.DrinkCategorySelection
 import com.rrg.dinnerrecommendation.ui.recommendation.MealCategorySelection
@@ -76,9 +78,10 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
                 }
             )
         ) {
+            val viewModel = hiltViewModel<RecipeDetailsViewModel>()
             val idArgument = it.arguments?.getString(Constants.NavigationArguments.ID).toString()
             val category = it.arguments?.getString(Constants.NavigationArguments.TYPE).toString()
-            RecipeDetails(navController, idArgument, category)
+            RecipeDetails(mainViewModel, viewModel, idArgument, category)
         }
     }
 }

@@ -44,6 +44,7 @@ fun TopBar(navController: NavHostController, mainViewModel: MainViewModel) {
                     toolbarTitle.value = it.title
                     toolbarBackAction.value = it.backAction
                 }
+                else -> {}
             }
         }
     }
@@ -76,9 +77,9 @@ fun TopBar(navController: NavHostController, mainViewModel: MainViewModel) {
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun PreviewToolbar() {
+private fun PreviewToolbar() {
     DinnerRecommendationJetpackTheme {
         TopBar(navController = rememberNavController(), mainViewModel = viewModel())
     }

@@ -20,5 +20,6 @@ class MainViewModel @Inject constructor() : ViewModel() {
 
     sealed class MainEvents {
         data class ToolbarEvents(val title: String, val backAction: Boolean) : MainEvents()
+        object NoInternetEvents : MainEvents()
     }
 }

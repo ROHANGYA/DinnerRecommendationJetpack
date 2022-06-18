@@ -9,6 +9,7 @@ import com.rrg.dinnerrecommendation.models.primary.Drink
 import com.rrg.dinnerrecommendation.models.primary.Meal
 import com.rrg.dinnerrecommendation.service.primary.DrinkService
 import com.rrg.dinnerrecommendation.service.primary.MealService
+import com.rrg.dinnerrecommendation.utils.triggerActionIfNotLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,10 +48,10 @@ class RecipeDetailsViewModel @Inject constructor(
     fun onEvent(event: RecipeDetailsEvents) {
         when (event) {
             is RecipeDetailsEvents.FetchDrinkDetails -> {
-                getDrinkDetails(event.drinkId)
+                drinkDetails.value.triggerActionIfNotLoaded { getDrinkDetails(event.drinkId) }
             }
             is RecipeDetailsEvents.FetchMealDetails -> {
-                getMealDetails(event.mealId)
+                mealDetails.value.triggerActionIfNotLoaded { getMealDetails(event.mealId) }
             }
         }
     }
