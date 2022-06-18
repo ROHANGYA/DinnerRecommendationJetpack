@@ -53,6 +53,7 @@ fun MealCategoryInfoDialog(
                 .padding(horizontal = 12.dp, vertical = 80.dp),
             shape = RoundedCornerShape(6.dp),
             elevation = 10.dp,
+            backgroundColor = colorResource(id = R.color.oldLace_beige)
         ) {
             Box(
                 modifier = Modifier.fillMaxSize(),
