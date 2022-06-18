@@ -25,7 +25,6 @@ import androidx.navigation.compose.rememberNavController
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.ui.MainViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
-import kotlinx.coroutines.flow.collect
 
 @Composable
 fun TopBar(navController: NavHostController, mainViewModel: MainViewModel) {
@@ -55,10 +54,10 @@ fun TopBar(navController: NavHostController, mainViewModel: MainViewModel) {
                 text = toolbarTitle.value,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 20.dp),
+                    .padding(end = 20.dp, top = 4.dp),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Start
+                textAlign = TextAlign.Start,
             )
         },
         navigationIcon = {
