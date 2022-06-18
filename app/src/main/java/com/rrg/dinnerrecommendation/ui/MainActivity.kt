@@ -32,7 +32,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            this.window.statusBarColor = ContextCompat.getColor(this, R.color.darkNavy_blue)
+            this.window.apply {
+                statusBarColor = ContextCompat.getColor(this@MainActivity, R.color.darkNavy_blue)
+                navigationBarColor = ContextCompat.getColor(this@MainActivity, R.color.darkNavy_blue)
+            }
             DinnerRecommendationJetpackTheme {
                 val navController = rememberNavController()
                 MainScreen(navController, mainViewModel)
