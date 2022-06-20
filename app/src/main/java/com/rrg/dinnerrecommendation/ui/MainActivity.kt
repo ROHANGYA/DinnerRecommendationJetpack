@@ -16,6 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.rrg.dinnerrecommendation.R
+import com.rrg.dinnerrecommendation.models.keys.BottomBarScreens
 import com.rrg.dinnerrecommendation.nav_graph.NavGraph
 import com.rrg.dinnerrecommendation.ui.components.BottomNavBar
 import com.rrg.dinnerrecommendation.ui.components.TopBar
@@ -28,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
+    lateinit var navController: NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +39,19 @@ class MainActivity : ComponentActivity() {
                 navigationBarColor = ContextCompat.getColor(this@MainActivity, R.color.darkNavy_blue)
             }
             DinnerRecommendationJetpackTheme {
-                val navController = rememberNavController()
+                navController = rememberNavController()
                 MainScreen(navController, mainViewModel)
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        when (navController.currentDestination?.route) {
+            BottomBarScreens.Recommendation.route, BottomBarScreens.FoodBank.route, BottomBarScreens.Settings.route -> {
+                moveTaskToBack(true)
+            }
+            else -> {
+                super.onBackPressed()
             }
         }
     }

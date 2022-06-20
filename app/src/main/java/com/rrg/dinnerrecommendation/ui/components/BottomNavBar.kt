@@ -15,18 +15,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.get
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.keys.BottomBarScreens
 
 @Composable
 fun BottomNavBar(navController: NavHostController) {
-/*
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-*/
+
     val currentMainBottomNavRoute: MutableState<BottomBarScreens> = remember {
         mutableStateOf(BottomBarScreens.Recommendation)
     }
@@ -36,15 +38,15 @@ fun BottomNavBar(navController: NavHostController) {
     ) {
         BottomBarScreens.values().forEach { screen ->
             BottomNavigationItem(
-                selected = currentMainBottomNavRoute.value.childrenRoutes.contains(screen.route),
+                selected = currentDestination?.hierarchy?.any { screen.childrenRoutes.contains(it.route.toString()) } == true,
                 onClick = {
                     if (screen.route != currentMainBottomNavRoute.value.route) {
                         navController.navigate(screen.route) {
-                            launchSingleTop = true
-                            restoreState = true
                             popUpTo(navController.graph.findStartDestination().id) {
                                 saveState = true
                             }
+                            launchSingleTop = true
+                            restoreState = true
                         }
                         currentMainBottomNavRoute.value = screen
                     }
