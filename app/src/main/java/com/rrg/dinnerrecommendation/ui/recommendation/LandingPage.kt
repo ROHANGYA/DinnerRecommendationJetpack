@@ -1,19 +1,24 @@
 package com.rrg.dinnerrecommendation.ui.recommendation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,81 +43,46 @@ fun LandingPage(
             .padding(horizontal = 8.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.Center
     ) {
+        Box(
+            modifier = Modifier.wrapContentHeight().fillMaxWidth(),
+        ) {
+            Image(
+                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.4F),
+                painter = painterResource(id = R.drawable.dinner_image),
+                alignment = Alignment.Center,
+                contentScale = ContentScale.Fit,
+                contentDescription = "HomeImage"
+            )
+        }
+        Spacer(modifier = Modifier.height(26.dp))
         Text(
             text = stringResource(id = R.string.welcome_to_dinner_generation),
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(1F, true),
+                .fillMaxWidth(),
             fontFamily = poppinsFont,
             fontWeight = FontWeight.ExtraBold,
             fontSize = 22.sp,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        Box(
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            text = stringResource(id = R.string.dinner_generation_steps_full),
+            modifier = Modifier.fillMaxWidth(),
+            fontFamily = poppinsFont,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(26.dp))
+        Button(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp)
-                .weight(1F, true)
+                .fillMaxWidth(),
+            onClick = {
+                navController.safeNavigateTo(route = RecommendationScreens.MealCategories.route)
+            },
+            shape = RoundedCornerShape(18.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = stringResource(id = R.string.dinner_generation_steps_label),
-                    modifier = Modifier.fillMaxWidth(),
-                    fontFamily = poppinsFont,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 18.sp
-                )
-                Text(
-                    text = stringResource(id = R.string.dinner_generation_steps_1),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 12.dp),
-                    fontFamily = poppinsFont,
-                    fontWeight = FontWeight.Light,
-                    fontSize = 16.sp
-                )
-                Text(
-                    text = stringResource(id = R.string.dinner_generation_steps_2),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 12.dp),
-                    fontFamily = poppinsFont,
-                    fontWeight = FontWeight.Light,
-                    fontSize = 16.sp
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = stringResource(id = R.string.dinner_generation_steps_3),
-                    modifier = Modifier.fillMaxWidth(),
-                    fontFamily = poppinsFont,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 17.sp,
-                    textAlign = TextAlign.Center
-                )
-            }
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp)
-                .weight(1F, true),
-            contentAlignment = Alignment.Center
-        ) {
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                onClick = {
-                    navController.safeNavigateTo(route = RecommendationScreens.MealCategories.route)
-                },
-                shape = RoundedCornerShape(18.dp)
-            ) {
-                Text(text = stringResource(id = R.string.start))
-            }
+            Text(text = stringResource(id = R.string.start))
         }
     }
 }

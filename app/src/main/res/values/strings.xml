@@ -6,11 +6,12 @@
     <string name="food_bank">Food Bank</string>
     <string name="settings">Settings</string>
     <string name="next">Next</string>
-    <string name="welcome_to_dinner_generation">Welcome to the random dinner generator !</string>
+    <string name="welcome_to_dinner_generation">How to use the random dinner generator ?</string>
     <string name="dinner_generation_steps_label">In order to generate your dinner, you have to:</string>
     <string name="dinner_generation_steps_1">• Select a food category</string>
     <string name="dinner_generation_steps_2">• Select a drink category</string>
     <string name="dinner_generation_steps_3">… and voilà</string>
+    <string name="dinner_generation_steps_full">In order to generate your dinner, you have to Select a food category, Select a drink category… and voilà, your dinner will be recommended ! </string>
     <string name="start">Start</string>
     <string name="dinner_recommendation">Dinner Recommendation</string>
     <string name="meal_categories">Meal Categories</string>
