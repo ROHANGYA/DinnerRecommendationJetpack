@@ -26,7 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.keys.RecipeCategories
-import com.rrg.dinnerrecommendation.models.keys.SharedScreens
+import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.models.primary.Drink
 import com.rrg.dinnerrecommendation.models.primary.Meal
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
@@ -110,7 +110,7 @@ fun DinnerRecommendation(
                 meal?.let {
                     GenericDinnerRecommendationItem(meal.strMeal, meal.strMealThumb) {
                         navController.safeNavigateTo(
-                            SharedScreens.RecipeDetails.route
+                            RecommendationScreens.RecipeDetailsFromRecommendation.route
                                 .replace(Constants.NavigationArguments.ID.addPathCurlyBrackets(), it.idMeal)
                                 .replace(Constants.NavigationArguments.TYPE.addPathCurlyBrackets(), RecipeCategories.Meal.name)
                         )
@@ -120,7 +120,7 @@ fun DinnerRecommendation(
                 drink?.let {
                     GenericDinnerRecommendationItem(drink.strDrink, drink.strDrinkThumb) {
                         navController.safeNavigateTo(
-                            SharedScreens.RecipeDetails.route
+                            RecommendationScreens.RecipeDetailsFromRecommendation.route
                                 .replace(Constants.NavigationArguments.ID.addPathCurlyBrackets(), it.idDrink,)
                                 .replace(Constants.NavigationArguments.TYPE.addPathCurlyBrackets(), RecipeCategories.Drink.name)
                         )

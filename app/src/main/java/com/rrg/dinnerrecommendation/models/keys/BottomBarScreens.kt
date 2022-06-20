@@ -3,34 +3,29 @@ package com.rrg.dinnerrecommendation.models.keys
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.rrg.dinnerrecommendation.R
-import com.rrg.dinnerrecommendation.utils.Constants
 
 enum class BottomBarScreens(
     val route: String,
     @StringRes val title: Int,
     @DrawableRes val icon: Int,
-    val childrenRoutes: List<String>,
-    var lastVisitedRoute: String
+    val childrenRoutes: List<String>
 ) {
     Recommendation(
-        Constants.ScreenRoute.RECOMMENDATION,
+        RecommendationScreens.Dinner.route,
         R.string.dinner,
         R.drawable.ic_round_dining,
-        RecommendationScreens.values().map { it.route },
-        Constants.ScreenRoute.RECOMMENDATION
+        RecommendationScreens.values().map { it.route }
     ),
     FoodBank(
-        Constants.ScreenRoute.FOOD_BANK,
+        FoodBankScreens.FoodBankList.route,
         R.string.food_bank,
         R.drawable.ic_round_food_bank,
-        listOf(),
-        Constants.ScreenRoute.FOOD_BANK
+        FoodBankScreens.values().map { it.route }
     ),
     Settings(
-        Constants.ScreenRoute.SETTINGS,
+        SettingsScreens.Settings.route,
         R.string.settings,
         R.drawable.ic_round_settings,
-        listOf(),
-        Constants.ScreenRoute.SETTINGS
+        SettingsScreens.values().map { it.route }
     )
 }

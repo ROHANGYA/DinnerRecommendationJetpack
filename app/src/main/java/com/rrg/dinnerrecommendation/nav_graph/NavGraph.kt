@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,8 +13,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.keys.BottomBarScreens
+import com.rrg.dinnerrecommendation.models.keys.FoodBankScreens
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
-import com.rrg.dinnerrecommendation.models.keys.SharedScreens
 import com.rrg.dinnerrecommendation.ui.MainViewModel
 import com.rrg.dinnerrecommendation.ui.food_bank.FoodBankList
 import com.rrg.dinnerrecommendation.ui.recipe_details.RecipeDetails
@@ -40,7 +41,7 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
         }
         composable(route = BottomBarScreens.FoodBank.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.food_bank), false)
-            FoodBankList()
+            FoodBankList(navController)
         }
         composable(route = BottomBarScreens.Settings.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.settings), false)
@@ -67,22 +68,8 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
                 createRecommendationSharedViewModel(it, navController)
             )
         }
-        composable(
-            route = SharedScreens.RecipeDetails.route,
-            arguments = listOf(
-                navArgument(Constants.NavigationArguments.ID) {
-                    type = NavType.StringType
-                },
-                navArgument(Constants.NavigationArguments.TYPE) {
-                    type = NavType.StringType
-                }
-            )
-        ) {
-            val viewModel = hiltViewModel<RecipeDetailsViewModel>()
-            val idArgument = it.arguments?.getString(Constants.NavigationArguments.ID).toString()
-            val category = it.arguments?.getString(Constants.NavigationArguments.TYPE).toString()
-            RecipeDetails(mainViewModel, viewModel, idArgument, category)
-        }
+        shareRecipeDetailsCompose(RecommendationScreens.RecipeDetailsFromRecommendation.route, mainViewModel)
+        shareRecipeDetailsCompose(FoodBankScreens.RecipeDetailsFromFoodBank.route, mainViewModel)
     }
 }
 
@@ -95,4 +82,23 @@ private fun createRecommendationSharedViewModel(
         navController = navController,
         route = RecommendationScreens.MealCategories.route
     )
+}
+
+private fun NavGraphBuilder.shareRecipeDetailsCompose(route: String, mainViewModel: MainViewModel) {
+    return composable(
+        route = route,
+        arguments = listOf(
+            navArgument(Constants.NavigationArguments.ID) {
+                type = NavType.StringType
+            },
+            navArgument(Constants.NavigationArguments.TYPE) {
+                type = NavType.StringType
+            }
+        )
+    ) {
+        val viewModel = hiltViewModel<RecipeDetailsViewModel>()
+        val idArgument = it.arguments?.getString(Constants.NavigationArguments.ID).toString()
+        val category = it.arguments?.getString(Constants.NavigationArguments.TYPE).toString()
+        RecipeDetails(mainViewModel, viewModel, idArgument, category)
+    }
 }

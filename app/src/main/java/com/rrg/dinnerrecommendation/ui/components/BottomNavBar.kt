@@ -15,48 +15,38 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.get
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.keys.BottomBarScreens
 
 @Composable
 fun BottomNavBar(navController: NavHostController) {
-
+/*
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-
-    val bottomNavBarMainScreens: MutableState<List<BottomBarScreens>> = remember {
-        mutableStateOf(BottomBarScreens.values().toList())
-    }
-
-    val currentMainBottomNavRoute: MutableState<String> = remember {
-        mutableStateOf(BottomBarScreens.Recommendation.route)
+*/
+    val currentMainBottomNavRoute: MutableState<BottomBarScreens> = remember {
+        mutableStateOf(BottomBarScreens.Recommendation)
     }
 
     BottomNavigation(
         elevation = 4.dp
     ) {
-        bottomNavBarMainScreens.value.forEach { screen ->
+        BottomBarScreens.values().forEach { screen ->
             BottomNavigationItem(
-                selected = currentDestination?.hierarchy?.any { it.route == screen.route || screen.childrenRoutes.contains(it.route) } == true,
+                selected = currentMainBottomNavRoute.value.childrenRoutes.contains(screen.route),
                 onClick = {
-                    if (screen.route != currentMainBottomNavRoute.value) {
-                        // Save last route of Bottom Nav Screen
-                        navController.currentDestination?.route?.let { lastRouteBeforeSwitchingBottomNavScreen ->
-                            bottomNavBarMainScreens.value.find { it.route == currentMainBottomNavRoute.value }?.lastVisitedRoute = lastRouteBeforeSwitchingBottomNavScreen
-                        }
-
-                        // Navigate to last route of New Bottom Nav screen (if any).
-                        navController.navigate(screen.lastVisitedRoute) {
-                            // popUpTo(navController.graph.findStartDestination().id)
-                            popUpTo(screen.lastVisitedRoute)
+                    if (screen.route != currentMainBottomNavRoute.value.route) {
+                        navController.navigate(screen.route) {
                             launchSingleTop = true
                             restoreState = true
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
                         }
-                        currentMainBottomNavRoute.value = screen.route
+                        currentMainBottomNavRoute.value = screen
                     }
                 },
                 label = {
