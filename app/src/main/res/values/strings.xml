@@ -11,7 +11,7 @@
     <string name="dinner_generation_steps_1">• Select a food category</string>
     <string name="dinner_generation_steps_2">• Select a drink category</string>
     <string name="dinner_generation_steps_3">… and voilà</string>
-    <string name="dinner_generation_steps_full">In order to generate your dinner, you have to Select a food category, Select a drink category… and voilà, your dinner will be recommended ! </string>
+    <string name="dinner_generation_steps_full">In order to generate your dinner, you have to select a food category, then select a drink category… and voilà, your dinner will be recommended ! </string>
     <string name="start">Start</string>
     <string name="dinner_recommendation">Dinner Recommendation</string>
     <string name="meal_categories">Meal Categories</string>
