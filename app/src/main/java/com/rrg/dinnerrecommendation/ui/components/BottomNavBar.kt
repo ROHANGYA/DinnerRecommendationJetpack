@@ -29,10 +29,6 @@ fun BottomNavBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    val currentMainBottomNavRoute: MutableState<BottomBarScreens> = remember {
-        mutableStateOf(BottomBarScreens.Recommendation)
-    }
-
     BottomNavigation(
         elevation = 4.dp
     ) {
@@ -40,7 +36,6 @@ fun BottomNavBar(navController: NavHostController) {
             BottomNavigationItem(
                 selected = currentDestination?.hierarchy?.any { screen.childrenRoutes.contains(it.route.toString()) } == true,
                 onClick = {
-                    if (screen.route != currentMainBottomNavRoute.value.route) {
                         navController.navigate(screen.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
                                 saveState = true
@@ -48,8 +43,6 @@ fun BottomNavBar(navController: NavHostController) {
                             launchSingleTop = true
                             restoreState = true
                         }
-                        currentMainBottomNavRoute.value = screen
-                    }
                 },
                 label = {
                     Text(
