@@ -2,10 +2,12 @@ package com.rrg.dinnerrecommendation.ui.recipe_details
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,7 +32,6 @@ import com.rrg.dinnerrecommendation.ui.components.YoutubeButton
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 import com.rrg.dinnerrecommendation.utils.showToast
-import java.lang.Exception
 
 @Composable
 fun RecipeDetails(
@@ -102,41 +103,45 @@ fun RecipeDetails(
 @Composable
 private fun MainRecipeDetailsScreenContent(recipe: String?, videoUrl: String?) {
     val context = LocalContext.current
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        item {
-            Text(
-                text = stringResource(id = R.string.instructions),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 22.dp, bottom = 16.dp)
-                    .padding(horizontal = 8.dp),
-                fontFamily = poppinsFont,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 22.sp,
-                textAlign = TextAlign.Center
-            )
-            YoutubeButton(videoUrl != null) {
-                videoUrl?.let {
-                    try {
-                        val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
-                        context.startActivity(webIntent)
-                    } catch (e: Exception) {
-                        context.showToast(R.string.video_could_not_be_played)
-                    }
-                } ?: context.showToast(R.string.no_video_found)
-            }
-            Text(
-                text = recipe ?: stringResource(id = R.string.no_recipe_found),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 22.dp, bottom = 16.dp)
-                    .padding(horizontal = 20.dp),
-                fontFamily = poppinsFont,
-                fontWeight = FontWeight.Normal,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Justify
-            )
+    val scroll = rememberScrollState()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scroll)
+    ) {
+
+        Text(
+            text = stringResource(id = R.string.instructions),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 22.dp, bottom = 16.dp)
+                .padding(horizontal = 8.dp),
+            fontFamily = poppinsFont,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 22.sp,
+            textAlign = TextAlign.Center
+        )
+        YoutubeButton(videoUrl != null) {
+            videoUrl?.let {
+                try {
+                    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                    context.startActivity(webIntent)
+                } catch (e: Exception) {
+                    context.showToast(R.string.video_could_not_be_played)
+                }
+            } ?: context.showToast(R.string.no_video_found)
         }
+        Text(
+            text = recipe ?: stringResource(id = R.string.no_recipe_found),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 22.dp, bottom = 16.dp)
+                .padding(horizontal = 20.dp),
+            fontFamily = poppinsFont,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            textAlign = TextAlign.Justify
+        )
     }
 }
 

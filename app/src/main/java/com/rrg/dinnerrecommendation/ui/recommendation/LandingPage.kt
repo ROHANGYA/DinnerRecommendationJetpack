@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -37,17 +39,24 @@ import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 fun LandingPage(
     navController: NavHostController
 ) {
+    val scroll = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 8.dp, vertical = 12.dp),
+            .padding(horizontal = 8.dp)
+            .verticalScroll(scroll),
         verticalArrangement = Arrangement.Center
     ) {
         Box(
-            modifier = Modifier.wrapContentHeight().fillMaxWidth(),
+            modifier = Modifier
+                .padding(top = 12.dp)
+                .wrapContentHeight()
+                .fillMaxWidth(),
         ) {
             Image(
-                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.4F),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.4F),
                 painter = painterResource(id = R.drawable.dinner_image),
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Fit,
@@ -76,7 +85,8 @@ fun LandingPage(
         Spacer(modifier = Modifier.height(26.dp))
         Button(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(bottom = 12.dp),
             onClick = {
                 navController.safeNavigateTo(route = RecommendationScreens.MealCategories.route)
             },
