@@ -20,7 +20,7 @@ fun FoodBankList(navController: NavController, viewModel: FoodBankViewModel) {
     val isLoading: MutableState<Boolean> = remember {
         mutableStateOf(true)
     }
-    val data: MutableState<List<Meal>> = remember {
+    val data: MutableState<List<Meal>?> = remember {
         mutableStateOf(listOf())
     }
 

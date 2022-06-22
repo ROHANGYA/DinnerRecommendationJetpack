@@ -23,7 +23,7 @@ import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 @ExperimentalFoundationApi
 @Composable
 fun RecipeList(
-    data: List<Meal>,
+    data: List<Meal>?,
     navController: NavController,
     searchQuery: MutableState<String>,
     searchUpdate: (String) -> Unit,
@@ -38,23 +38,29 @@ fun RecipeList(
                 CircularIndeterminateProgressBar()
             }
         } else {
-            items(data) { item ->
-                FoodBankItem(
-                    item.strMeal,
-                    item.strMealThumb,
-                    listOf(item.strArea, item.strCategory)
-                ) {
-                    navController.safeNavigateTo(
-                        FoodBankScreens.RecipeDetailsFromFoodBank.route
-                            .replace(
-                                Constants.NavigationArguments.ID.addPathCurlyBrackets(),
-                                item.idMeal
-                            )
-                            .replace(
-                                Constants.NavigationArguments.TYPE.addPathCurlyBrackets(),
-                                RecipeCategories.Meal.name
-                            )
-                    )
+            if (data.isNullOrEmpty()) {
+                item {
+                    EmptyPlaceholder()
+                }
+            } else {
+                items(data) { item ->
+                    FoodBankItem(
+                        item.strMeal,
+                        item.strMealThumb,
+                        listOf(item.strArea, item.strCategory)
+                    ) {
+                        navController.safeNavigateTo(
+                            FoodBankScreens.RecipeDetailsFromFoodBank.route
+                                .replace(
+                                    Constants.NavigationArguments.ID.addPathCurlyBrackets(),
+                                    item.idMeal
+                                )
+                                .replace(
+                                    Constants.NavigationArguments.TYPE.addPathCurlyBrackets(),
+                                    RecipeCategories.Meal.name
+                                )
+                        )
+                    }
                 }
             }
         }
