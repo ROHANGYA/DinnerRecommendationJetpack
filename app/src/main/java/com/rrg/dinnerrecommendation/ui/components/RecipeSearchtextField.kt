@@ -1,5 +1,6 @@
 package com.rrg.dinnerrecommendation.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,6 +16,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.ui.theme.DarkNavyBlue
 import com.rrg.dinnerrecommendation.ui.theme.Typography
@@ -43,6 +45,17 @@ fun RecipeSearchTextField(searchQuery: MutableState<String>, searchUpdate: (Stri
                 painter = painterResource(id = R.drawable.ic_round_search),
                 contentDescription = "search"
             )
+        },
+        trailingIcon = {
+            if (searchQuery.value.isNotEmpty()) {
+                Icon(
+                    modifier = Modifier.clickable {
+                        searchUpdate("")
+                    },
+                    painter = painterResource(id = R.drawable.ic_round_clear),
+                    contentDescription = "clear Text"
+                )
+            }
         },
         shape = RoundedCornerShape(16.dp),
         colors = TextFieldDefaults.textFieldColors(
