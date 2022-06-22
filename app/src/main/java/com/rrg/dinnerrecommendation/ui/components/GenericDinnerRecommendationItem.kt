@@ -25,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -89,7 +90,9 @@ fun GenericDinnerRecommendationItem(
                 fontSize = 25.sp,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp)
+                    .padding(bottom = 8.dp),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 7
             )
         }
     }
@@ -100,7 +103,7 @@ fun GenericDinnerRecommendationItem(
 private fun PreviewGenericRecommendationItem() {
     DinnerRecommendationJetpackTheme {
         GenericDinnerRecommendationItem(
-            "Fancy Meal",
+            "Fancy Drink OR Meal",
             "https:\\/\\/www.themealdb.com\\/images\\/media\\/meals\\/xxrxux1503070723.jpg"
         ) { }
     }

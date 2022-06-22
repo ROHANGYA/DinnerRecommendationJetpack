@@ -28,6 +28,7 @@ import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.keys.RecipeCategories
 import com.rrg.dinnerrecommendation.ui.MainViewModel
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
+import com.rrg.dinnerrecommendation.ui.components.GenericTagItem
 import com.rrg.dinnerrecommendation.ui.components.YoutubeButton
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
@@ -89,7 +90,10 @@ fun RecipeDetails(
                 is State.Loaded -> {
                     state.data.apply {
                         mainViewModel.updateToolbar(strDrink, true)
-                        MainRecipeDetailsScreenContent(strInstructions, strVideo)
+                        MainRecipeDetailsScreenContent(
+                            strInstructions, strVideo,
+                            strAlcoholic == stringResource(id = R.string.alcoholic)
+                        )
                     }
                 }
                 is State.LoadingFailed -> {
@@ -101,7 +105,11 @@ fun RecipeDetails(
 }
 
 @Composable
-private fun MainRecipeDetailsScreenContent(recipe: String?, videoUrl: String?) {
+private fun MainRecipeDetailsScreenContent(
+    recipe: String?,
+    videoUrl: String?,
+    isAlcoholic: Boolean = false
+) {
     val context = LocalContext.current
     val scroll = rememberScrollState()
     Column(
@@ -130,6 +138,9 @@ private fun MainRecipeDetailsScreenContent(recipe: String?, videoUrl: String?) {
                     context.showToast(R.string.video_could_not_be_played)
                 }
             } ?: context.showToast(R.string.no_video_found)
+        }
+        if (isAlcoholic) {
+            GenericTagItem(text = stringResource(id = R.string.alcoholic))
         }
         Text(
             text = recipe ?: stringResource(id = R.string.no_recipe_found),

@@ -27,4 +27,5 @@
     <string name="no_video_found">No Video Found !</string>
     <string name="video_could_not_be_played">Video could not be played !</string>
     <string name="search_recipes_here">Search Recipes here…</string>
+    <string name="alcoholic">Alcoholic</string>
 </resources>

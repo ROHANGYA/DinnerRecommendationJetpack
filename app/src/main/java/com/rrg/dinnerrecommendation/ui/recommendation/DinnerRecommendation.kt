@@ -107,22 +107,34 @@ fun DinnerRecommendation(
                     fontSize = 23.sp
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-                meal?.let {
+                meal?.let { meal ->
                     GenericDinnerRecommendationItem(meal.strMeal, meal.strMealThumb) {
                         navController.safeNavigateTo(
                             RecommendationScreens.RecipeDetailsFromRecommendation.route
-                                .replace(Constants.NavigationArguments.ID.addPathCurlyBrackets(), it.idMeal)
-                                .replace(Constants.NavigationArguments.TYPE.addPathCurlyBrackets(), RecipeCategories.Meal.name)
+                                .replace(
+                                    Constants.NavigationArguments.ID.addPathCurlyBrackets(),
+                                    meal.idMeal
+                                )
+                                .replace(
+                                    Constants.NavigationArguments.TYPE.addPathCurlyBrackets(),
+                                    RecipeCategories.Meal.name
+                                )
                         )
                     }
                 }
                 Spacer(modifier = Modifier.height(12.dp))
-                drink?.let {
+                drink?.let { drink ->
                     GenericDinnerRecommendationItem(drink.strDrink, drink.strDrinkThumb) {
                         navController.safeNavigateTo(
                             RecommendationScreens.RecipeDetailsFromRecommendation.route
-                                .replace(Constants.NavigationArguments.ID.addPathCurlyBrackets(), it.idDrink,)
-                                .replace(Constants.NavigationArguments.TYPE.addPathCurlyBrackets(), RecipeCategories.Drink.name)
+                                .replace(
+                                    Constants.NavigationArguments.ID.addPathCurlyBrackets(),
+                                    drink.idDrink,
+                                )
+                                .replace(
+                                    Constants.NavigationArguments.TYPE.addPathCurlyBrackets(),
+                                    RecipeCategories.Drink.name
+                                )
                         )
                     }
                 }
