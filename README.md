@@ -31,6 +31,5 @@ Made fully with Jetpack compose (No Fragments)
 
 ## Screenshots (Incomplete)
 
-![combine_images_2](https://user-images.githubusercontent.com/54322111/175006626-130e834f-268a-49da-b2e9-ae22ed8cdf23.jpg)
-
+![combine_images_2](https://user-images.githubusercontent.com/54322111/175009618-54d54c33-d4d2-40b8-8ce1-717d651ba4f2.jpg)
 
