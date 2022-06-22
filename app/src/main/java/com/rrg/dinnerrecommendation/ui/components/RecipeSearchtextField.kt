@@ -14,18 +14,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.ui.theme.DarkNavyBlue
 import com.rrg.dinnerrecommendation.ui.theme.Typography
 
 @Composable
 fun RecipeSearchTextField(searchQuery: MutableState<String>, searchUpdate: (String) -> Unit) {
+    val focusManager = LocalFocusManager.current
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -74,6 +75,7 @@ fun RecipeSearchTextField(searchQuery: MutableState<String>, searchUpdate: (Stri
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions {
             searchUpdate(searchQuery.value)
+            focusManager.clearFocus()
         }
     )
 }
