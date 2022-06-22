@@ -4,6 +4,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -15,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.rrg.dinnerrecommendation.R
@@ -29,7 +32,7 @@ fun RecipeSearchTextField(searchQuery: MutableState<String>, searchUpdate: (Stri
             .padding(horizontal = 8.dp, vertical = 18.dp),
         value = searchQuery.value,
         onValueChange = {
-            searchUpdate(it)
+            searchQuery.value = it // searchUpdate(it) ->> for search as you type functionality
         },
         textStyle = Typography.body1,
         label = {
@@ -67,6 +70,10 @@ fun RecipeSearchTextField(searchQuery: MutableState<String>, searchUpdate: (Stri
             unfocusedIndicatorColor = Color.Transparent,
             errorIndicatorColor = Color.Transparent,
             cursorColor = DarkNavyBlue
-        )
+        ),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        keyboardActions = KeyboardActions {
+            searchUpdate(searchQuery.value)
+        }
     )
 }
