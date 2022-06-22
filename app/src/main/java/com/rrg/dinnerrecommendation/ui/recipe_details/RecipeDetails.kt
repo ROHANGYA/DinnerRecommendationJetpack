@@ -28,7 +28,7 @@ import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.keys.RecipeCategories
 import com.rrg.dinnerrecommendation.ui.MainViewModel
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
-import com.rrg.dinnerrecommendation.ui.components.GenericTagItem
+import com.rrg.dinnerrecommendation.ui.components.GenericColumnTagItem
 import com.rrg.dinnerrecommendation.ui.components.YoutubeButton
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
@@ -140,7 +140,7 @@ private fun MainRecipeDetailsScreenContent(
             } ?: context.showToast(R.string.no_video_found)
         }
         if (isAlcoholic) {
-            GenericTagItem(text = stringResource(id = R.string.alcoholic))
+            GenericColumnTagItem(text = stringResource(id = R.string.alcoholic), yOffset = (+12).dp)
         }
         Text(
             text = recipe ?: stringResource(id = R.string.no_recipe_found),
