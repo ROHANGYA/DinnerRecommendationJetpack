@@ -6,7 +6,6 @@ import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 
 @Composable
 fun FoodBankList() {
-
 }
 
 @Preview

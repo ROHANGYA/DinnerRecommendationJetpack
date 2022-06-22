@@ -20,4 +20,9 @@ interface MealApi {
     suspend fun getMealById(
         @Query("i") id: String
     ): Response<MealResponse>
+
+    @GET("search.php")
+    suspend fun searchMeals(
+        @Query("s") searchQuery: String
+    ): Response<MealResponse>
 }

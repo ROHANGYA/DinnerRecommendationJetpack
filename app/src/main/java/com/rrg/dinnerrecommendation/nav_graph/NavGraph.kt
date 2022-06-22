@@ -17,6 +17,7 @@ import com.rrg.dinnerrecommendation.models.keys.FoodBankScreens
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.ui.MainViewModel
 import com.rrg.dinnerrecommendation.ui.food_bank.FoodBankList
+import com.rrg.dinnerrecommendation.ui.food_bank.FoodBankViewModel
 import com.rrg.dinnerrecommendation.ui.recipe_details.RecipeDetails
 import com.rrg.dinnerrecommendation.ui.recipe_details.RecipeDetailsViewModel
 import com.rrg.dinnerrecommendation.ui.recommendation.DinnerRecommendation
@@ -41,7 +42,8 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
         }
         composable(route = BottomBarScreens.FoodBank.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.food_bank), false)
-            FoodBankList(navController)
+            val viewModel = hiltViewModel<FoodBankViewModel>()
+            FoodBankList(navController, viewModel)
         }
         composable(route = BottomBarScreens.Settings.route) {
             mainViewModel.updateToolbar(stringResource(id = R.string.settings), false)

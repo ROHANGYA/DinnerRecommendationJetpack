@@ -21,20 +21,23 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
-import com.rrg.dinnerrecommendation.ui.theme.Typography
+import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 
 @Composable
-fun FoodBankItem(imageUrl: String, tagList: List<String> = listOf(), onClick: () -> Unit) {
+fun FoodBankItem(name: String, imageUrl: String, tagList: List<String?> = listOf(), onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .wrapContentSize()
+            .padding(horizontal = 8.dp, vertical = 14.dp)
             .clickable {
                 onClick.invoke()
             },
@@ -56,7 +59,7 @@ fun FoodBankItem(imageUrl: String, tagList: List<String> = listOf(), onClick: ()
                 contentDescription = "image",
                 placeholder = painterResource(id = R.drawable.ic_placeholder_image),
                 fallback = painterResource(id = R.drawable.ic_placeholder_image),
-                contentScale = ContentScale.FillBounds,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .height(220.dp)
                     .fillMaxWidth()
@@ -64,9 +67,11 @@ fun FoodBankItem(imageUrl: String, tagList: List<String> = listOf(), onClick: ()
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Test",
-                modifier = Modifier.fillMaxWidth(),
-                style = Typography.body1,
+                text = name,
+                modifier = Modifier.fillMaxWidth().padding(start = 10.dp),
+                fontFamily = poppinsFont,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -75,8 +80,9 @@ fun FoodBankItem(imageUrl: String, tagList: List<String> = listOf(), onClick: ()
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
+                    .padding(start = 10.dp)
             ) {
-                tagList.forEach {
+                tagList.filterNotNull().forEach {
                     GenericRowTagItem(
                         text = it,
                         tagColor = colorResource(id = R.color.darkNavy_blue)
@@ -93,10 +99,9 @@ fun FoodBankItem(imageUrl: String, tagList: List<String> = listOf(), onClick: ()
 fun PreviewFoodBankItem() {
     DinnerRecommendationJetpackTheme {
         FoodBankItem(
+            "This is a meal or a drink or whatever",
             "TEST",
             listOf("test", "More Testing", "haha", "hihi")
-        ) {
-
-        }
+        ) { }
     }
 }

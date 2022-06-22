@@ -20,14 +20,14 @@ import com.rrg.dinnerrecommendation.ui.theme.DarkNavyBlue
 import com.rrg.dinnerrecommendation.ui.theme.Typography
 
 @Composable
-fun RecipeSearchTextField(searchQuery: MutableState<String>) {
+fun RecipeSearchTextField(searchQuery: MutableState<String>, searchUpdate: (String) -> Unit) {
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp, vertical = 18.dp),
         value = searchQuery.value,
         onValueChange = {
-            searchQuery.value = it
+            searchUpdate(it)
         },
         textStyle = Typography.body1,
         label = {

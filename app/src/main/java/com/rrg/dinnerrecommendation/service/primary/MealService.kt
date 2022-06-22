@@ -31,4 +31,10 @@ class MealService @Inject constructor(
             mealApi.getMealById(id)
         }
     }
+
+    suspend fun searchMeals(searchQuery: String): Result<MealResponse> {
+        return networkRequestManager.apiRequest {
+            mealApi.searchMeals(searchQuery)
+        }
+    }
 }
