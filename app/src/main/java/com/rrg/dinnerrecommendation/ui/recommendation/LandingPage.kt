@@ -56,7 +56,7 @@ fun LandingPage(
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.4F),
+                    .height(200.dp),
                 painter = painterResource(id = R.drawable.dinner_image),
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Fit,

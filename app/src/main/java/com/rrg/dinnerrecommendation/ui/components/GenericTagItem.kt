@@ -26,7 +26,7 @@ fun ColumnScope.GenericTagItem(
 ) {
     Box(
         modifier = Modifier
-            .offset(x = (-12).dp, y = (+12).dp)
+            .offset(y = (+12).dp)
             .wrapContentSize()
             .background(
                 tagColor,
