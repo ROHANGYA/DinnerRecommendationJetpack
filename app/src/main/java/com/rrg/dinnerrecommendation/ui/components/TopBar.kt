@@ -1,6 +1,7 @@
 package com.rrg.dinnerrecommendation.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -32,8 +33,10 @@ fun TopBar(navController: NavHostController, mainViewModel: MainViewModel) {
     val toolbarTitle: MutableState<String> = remember {
         mutableStateOf(defaultToolbarTitle)
     }
-
     val toolbarBackAction: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
+    val isTitleCentered: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
 
@@ -43,6 +46,7 @@ fun TopBar(navController: NavHostController, mainViewModel: MainViewModel) {
                 is MainViewModel.MainEvents.ToolbarEvents -> {
                     toolbarTitle.value = it.title
                     toolbarBackAction.value = it.backAction
+                    isTitleCentered.value = it.isCentered
                 }
                 else -> {}
             }
@@ -55,10 +59,21 @@ fun TopBar(navController: NavHostController, mainViewModel: MainViewModel) {
                 text = toolbarTitle.value,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 20.dp, top = 4.dp),
+                    .padding(end = 20.dp, top = 4.dp)
+                    .offset(
+                        x = if (isTitleCentered.value) {
+                            (-20).dp
+                        } else {
+                            0.dp
+                        }
+                    ),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Start,
+                textAlign = if (isTitleCentered.value) {
+                    TextAlign.Center
+                } else {
+                    TextAlign.Start
+                },
             )
         },
         navigationIcon = {

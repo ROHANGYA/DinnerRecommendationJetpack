@@ -37,16 +37,28 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
         startDestination = BottomBarScreens.Recommendation.route
     ) {
         composable(route = BottomBarScreens.Recommendation.route) {
-            mainViewModel.updateToolbar(stringResource(id = R.string.dinner_recommendation), false)
+            mainViewModel.updateToolbar(
+                stringResource(id = R.string.dinner_recommendation),
+                hasBackAction = false,
+                isCentered = true
+            )
             LandingPage(navController = navController)
         }
         composable(route = BottomBarScreens.FoodBank.route) {
-            mainViewModel.updateToolbar(stringResource(id = R.string.food_bank), false)
+            mainViewModel.updateToolbar(
+                stringResource(id = R.string.food_bank),
+                hasBackAction = false,
+                isCentered = true
+            )
             val viewModel = hiltViewModel<FoodBankViewModel>()
             FoodBank(navController, viewModel)
         }
         composable(route = BottomBarScreens.Settings.route) {
-            mainViewModel.updateToolbar(stringResource(id = R.string.settings), false)
+            mainViewModel.updateToolbar(
+                stringResource(id = R.string.settings),
+                hasBackAction = false,
+                isCentered = true
+            )
             SettingsPage()
         }
         composable(route = RecommendationScreens.MealCategories.route) {
@@ -70,7 +82,10 @@ fun NavGraph(navController: NavHostController, mainViewModel: MainViewModel) {
                 createRecommendationSharedViewModel(it, navController)
             )
         }
-        shareRecipeDetailsCompose(RecommendationScreens.RecipeDetailsFromRecommendation.route, mainViewModel)
+        shareRecipeDetailsCompose(
+            RecommendationScreens.RecipeDetailsFromRecommendation.route,
+            mainViewModel
+        )
         shareRecipeDetailsCompose(FoodBankScreens.RecipeDetailsFromFoodBank.route, mainViewModel)
     }
 }

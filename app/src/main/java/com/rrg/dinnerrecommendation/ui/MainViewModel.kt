@@ -14,12 +14,12 @@ class MainViewModel @Inject constructor() : ViewModel() {
     private val _mainEventsChannel = Channel<MainEvents>()
     val mainEventChannel = _mainEventsChannel.receiveAsFlow()
 
-    fun updateToolbar(title: String, hasBackAction: Boolean = true) = viewModelScope.launch {
-        _mainEventsChannel.send(MainEvents.ToolbarEvents(title, hasBackAction))
+    fun updateToolbar(title: String, hasBackAction: Boolean = true, isCentered: Boolean = false) = viewModelScope.launch {
+        _mainEventsChannel.send(MainEvents.ToolbarEvents(title, hasBackAction, isCentered))
     }
 
     sealed class MainEvents {
-        data class ToolbarEvents(val title: String, val backAction: Boolean) : MainEvents()
+        data class ToolbarEvents(val title: String, val backAction: Boolean, val isCentered: Boolean) : MainEvents()
         object NoInternetEvents : MainEvents()
     }
 }
