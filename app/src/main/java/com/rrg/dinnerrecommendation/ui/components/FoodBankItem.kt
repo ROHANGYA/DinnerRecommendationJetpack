@@ -43,7 +43,7 @@ fun FoodBankItem(
         modifier = Modifier
             .wrapContentSize()
             .padding(horizontal = 8.dp)
-            .padding(top = 14.dp)
+            .padding(top = 6.dp, bottom = 8.dp)
             .clickable {
                 onClick.invoke()
             },
