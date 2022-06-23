@@ -25,12 +25,12 @@ import com.rrg.dinnerrecommendation.ui.theme.DarkNavyBlue
 import com.rrg.dinnerrecommendation.ui.theme.Typography
 
 @Composable
-fun RecipeSearchTextField(searchQuery: MutableState<String>, searchUpdate: (String) -> Unit) {
+fun FoodBankSearchTextField(searchQuery: MutableState<String>, searchUpdate: (String) -> Unit) {
     val focusManager = LocalFocusManager.current
     TextField(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 18.dp),
+            .padding(horizontal = 8.dp, vertical = 8.dp),
         value = searchQuery.value,
         onValueChange = {
             searchQuery.value = it // searchUpdate(it) ->> for search as you type functionality
