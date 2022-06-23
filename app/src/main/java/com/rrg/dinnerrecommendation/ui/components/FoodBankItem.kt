@@ -37,7 +37,7 @@ fun FoodBankItem(name: String, imageUrl: String, tagList: List<String?> = listOf
     Card(
         modifier = Modifier
             .wrapContentSize()
-            .padding(horizontal = 8.dp, vertical = 14.dp)
+            .padding(horizontal = 8.dp).padding(top = 14.dp)
             .clickable {
                 onClick.invoke()
             },
