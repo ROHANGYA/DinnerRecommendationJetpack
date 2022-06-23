@@ -1,6 +1,7 @@
 package com.rrg.dinnerrecommendation.ui.food_bank
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -12,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.primary.Meal
 import com.rrg.dinnerrecommendation.ui.components.FoodBankList
+import com.rrg.dinnerrecommendation.ui.components.FoodBankTab
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 
 @ExperimentalFoundationApi
@@ -37,13 +39,16 @@ fun FoodBank(navController: NavController, viewModel: FoodBankViewModel) {
             // TODO
         }
     }
-    FoodBankList(
-        data.value,
-        navController,
-        viewModel.searchQuery,
-        viewModel::updateSearchQuery,
-        isLoading.value
-    )
+    Column {
+        FoodBankTab()
+        FoodBankList(
+            data.value,
+            navController,
+            viewModel.searchQuery,
+            viewModel::updateSearchQuery,
+            isLoading.value
+        )
+    }
 }
 
 @ExperimentalFoundationApi
