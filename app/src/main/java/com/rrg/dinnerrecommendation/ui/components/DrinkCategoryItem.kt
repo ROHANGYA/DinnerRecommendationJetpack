@@ -17,6 +17,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -30,7 +31,7 @@ import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.primary.DrinkCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
-import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
+import com.rrg.dinnerrecommendation.ui.theme.Typography
 import com.rrg.dinnerrecommendation.utils.addEmptyLines
 
 @Composable
@@ -63,8 +64,9 @@ fun CocktailCategoryItem(
             Text(
                 modifier = Modifier.wrapContentSize(),
                 text = item.strCategory.addEmptyLines(2),
-                fontFamily = poppinsFont,
+                style = Typography.body1,
                 textAlign = TextAlign.Center,
+                color = Color.Black,
                 maxLines = 2,
                 overflow = TextOverflow.Clip
             )

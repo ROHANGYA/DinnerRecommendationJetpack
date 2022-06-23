@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -37,7 +38,7 @@ import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
-import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
+import com.rrg.dinnerrecommendation.ui.theme.Typography
 
 @Composable
 fun MealCategoryItem(
@@ -82,7 +83,8 @@ fun MealCategoryItem(
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 2,
-                fontFamily = poppinsFont
+                style = Typography.body1,
+                color = Color.Black
             )
             Spacer(modifier = Modifier.width(12.dp))
             Image(
