@@ -31,6 +31,7 @@ fun FoodBankList(
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         stickyHeader {
+            FoodBankTab()
             FoodBankSearchTextField(searchQuery = searchQuery, searchUpdate)
         }
         if (isLoading) {

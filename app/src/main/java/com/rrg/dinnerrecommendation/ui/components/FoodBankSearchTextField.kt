@@ -30,7 +30,8 @@ fun FoodBankSearchTextField(searchQuery: MutableState<String>, searchUpdate: (St
     TextField(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 8.dp),
+            .padding(horizontal = 8.dp)
+            .padding(top = 8.dp),
         value = searchQuery.value,
         onValueChange = {
             searchQuery.value = it // searchUpdate(it) ->> for search as you type functionality
