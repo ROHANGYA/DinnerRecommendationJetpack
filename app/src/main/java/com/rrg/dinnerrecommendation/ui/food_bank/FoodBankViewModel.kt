@@ -23,7 +23,7 @@ class FoodBankViewModel @Inject constructor(
 
     init {
         searchMeals()
-        //searchDrinks()
+        // searchDrinks()
     }
 
     private fun searchMeals() = viewModelScope.launch {
@@ -53,6 +53,6 @@ class FoodBankViewModel @Inject constructor(
     fun updateSearchQuery(search: String) {
         searchQuery.value = search
         searchMeals()
-        //searchDrinks()
+        // searchDrinks()
     }
 }

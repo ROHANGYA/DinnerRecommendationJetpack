@@ -5,7 +5,6 @@ import com.rrg.dinnerrecommendation.core.NetworkRequestManager
 import com.rrg.dinnerrecommendation.core.Result
 import com.rrg.dinnerrecommendation.models.primary.DrinkCategoryResponse
 import com.rrg.dinnerrecommendation.models.primary.DrinkResponse
-import com.rrg.dinnerrecommendation.models.primary.MealResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
