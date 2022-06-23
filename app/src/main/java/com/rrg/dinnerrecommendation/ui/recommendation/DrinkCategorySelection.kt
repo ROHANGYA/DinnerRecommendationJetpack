@@ -34,7 +34,10 @@ fun DrinkCategorySelection(
                 viewModel = viewModel
             )
             NextButton(
-                onNextClick = { navController.safeNavigateTo(RecommendationScreens.FinalRecommendation.route) },
+                onNextClick = {
+                    viewModel.resetRecommendation()
+                    navController.safeNavigateTo(RecommendationScreens.FinalRecommendation.route)
+                },
                 currentRecommendationScreen = RecommendationScreens.DrinkCategories,
                 viewModel = viewModel
             )

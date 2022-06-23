@@ -36,6 +36,11 @@ class RecommendationViewModel @Inject constructor(
     val stateRecommendedMeal = mutableStateOf<State<Meal>>(State.Loading)
     val stateRecommendedDrink = mutableStateOf<State<Drink>>(State.Loading)
 
+    fun resetRecommendation() {
+        stateRecommendedMeal.value = State.Loading
+        stateRecommendedDrink.value = State.Loading
+    }
+
     private fun getFoodCategories() = viewModelScope.launch {
 
         when (val result = mealService.getMealCategories()) {
