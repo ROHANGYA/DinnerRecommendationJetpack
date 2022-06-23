@@ -19,6 +19,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -71,7 +72,8 @@ fun MealCategoryInfoDialog(
                         textAlign = TextAlign.Justify,
                         fontFamily = poppinsFont,
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 22.sp
+                        fontSize = 22.sp,
+                        color = Color.Black
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
@@ -83,6 +85,7 @@ fun MealCategoryInfoDialog(
                         textAlign = TextAlign.Justify,
                         fontFamily = poppinsFont,
                         fontWeight = FontWeight.Light,
+                        color = Color.Black
                     )
                 }
                 Button(
