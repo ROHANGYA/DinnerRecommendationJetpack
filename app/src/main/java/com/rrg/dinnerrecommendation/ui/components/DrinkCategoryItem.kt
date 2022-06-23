@@ -32,6 +32,7 @@ import com.rrg.dinnerrecommendation.models.primary.DrinkCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.Typography
+import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 import com.rrg.dinnerrecommendation.utils.addEmptyLines
 
 @Composable
@@ -64,7 +65,7 @@ fun CocktailCategoryItem(
             Text(
                 modifier = Modifier.wrapContentSize(),
                 text = item.strCategory.addEmptyLines(2),
-                style = Typography.body1,
+                fontFamily = poppinsFont,
                 textAlign = TextAlign.Center,
                 color = Color.Black,
                 maxLines = 2,

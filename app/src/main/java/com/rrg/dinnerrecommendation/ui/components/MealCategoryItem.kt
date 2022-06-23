@@ -39,6 +39,7 @@ import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.Typography
+import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 
 @Composable
 fun MealCategoryItem(
@@ -83,7 +84,7 @@ fun MealCategoryItem(
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
                 maxLines = 2,
-                style = Typography.body1,
+                fontFamily = poppinsFont,
                 color = Color.Black
             )
             Spacer(modifier = Modifier.width(12.dp))
