@@ -23,6 +23,7 @@ class FoodBankViewModel @Inject constructor(
 
     init {
         searchMeals()
+        //searchDrinks()
     }
 
     private fun searchMeals() = viewModelScope.launch {
@@ -37,8 +38,21 @@ class FoodBankViewModel @Inject constructor(
         }
     }
 
+    private fun searchDrinks() = viewModelScope.launch {
+        searchState.value = State.Loading
+        when (val result = drinkService.searchDrinks(searchQuery.value)) {
+            is Result.Failure -> {
+                searchState.value = State.LoadingFailed(result.error)
+            }
+            is Result.Success -> {
+                // searchState.value = State.Loaded(processedList)
+            }
+        }
+    }
+
     fun updateSearchQuery(search: String) {
         searchQuery.value = search
         searchMeals()
+        //searchDrinks()
     }
 }

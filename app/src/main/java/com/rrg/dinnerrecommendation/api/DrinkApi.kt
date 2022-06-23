@@ -2,6 +2,7 @@ package com.rrg.dinnerrecommendation.api
 
 import com.rrg.dinnerrecommendation.models.primary.DrinkCategoryResponse
 import com.rrg.dinnerrecommendation.models.primary.DrinkResponse
+import com.rrg.dinnerrecommendation.models.primary.MealResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -19,5 +20,10 @@ interface DrinkApi {
     @GET("lookup.php")
     suspend fun getDrinkById(
         @Query("i") id: String
+    ): Response<DrinkResponse>
+
+    @GET("search.php")
+    suspend fun searchDrinks(
+        @Query("s") searchQuery: String
     ): Response<DrinkResponse>
 }

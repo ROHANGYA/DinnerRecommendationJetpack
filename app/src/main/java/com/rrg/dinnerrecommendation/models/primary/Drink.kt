@@ -6,5 +6,6 @@ data class Drink(
     val idDrink: String,
     val strAlcoholic: String,
     val strVideo: String? = null,
-    val strInstructions: String? = null
+    val strInstructions: String? = null,
+    val strCategory: String? = null,
 )
