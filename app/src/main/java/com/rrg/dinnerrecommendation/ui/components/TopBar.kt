@@ -62,7 +62,7 @@ fun TopBar(navController: NavHostController, mainViewModel: MainViewModel) {
                     .padding(end = 20.dp, top = 4.dp)
                     .offset(
                         x = if (isTitleCentered.value) {
-                            (-20).dp
+                            (-24).dp
                         } else {
                             0.dp
                         }

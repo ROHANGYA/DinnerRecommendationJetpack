@@ -119,7 +119,7 @@ fun PreviewFoodBankItem() {
         FoodBankItem(
             "This is a meal or a drink or whatever",
             "TEST",
-            listOf("test", "More Testing", "haha", "hihi")
+            listOf("test", "Alcoholic", "Optional alcohol")
         ) { }
     }
 }
