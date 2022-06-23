@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rrg.dinnerrecommendation.core.Result
 import com.rrg.dinnerrecommendation.core.State
+import com.rrg.dinnerrecommendation.models.keys.RecipeCategories
+import com.rrg.dinnerrecommendation.models.primary.FoodBankItem
 import com.rrg.dinnerrecommendation.models.primary.Meal
 import com.rrg.dinnerrecommendation.service.primary.DrinkService
 import com.rrg.dinnerrecommendation.service.primary.MealService
@@ -19,11 +21,11 @@ class FoodBankViewModel @Inject constructor(
     private val drinkService: DrinkService
 ) : ViewModel() {
     var searchQuery: MutableState<String> = mutableStateOf("")
-    val searchState: MutableState<State<List<Meal>>> = mutableStateOf(State.Loading)
+    val currentRecipeType: MutableState<RecipeCategories> = mutableStateOf(RecipeCategories.Meal)
+    val searchState: MutableState<State<List<FoodBankItem>>> = mutableStateOf(State.Loading)
 
     init {
-        searchMeals()
-        // searchDrinks()
+        loadData()
     }
 
     private fun searchMeals() = viewModelScope.launch {
@@ -33,7 +35,20 @@ class FoodBankViewModel @Inject constructor(
                 searchState.value = State.LoadingFailed(result.error)
             }
             is Result.Success -> {
-                searchState.value = State.Loaded(result.value.meals)
+                val processedList = ArrayList<FoodBankItem>()
+                result.value.meals.forEach {
+                    processedList.add(
+                        FoodBankItem(
+                            name = it.strMeal,
+                            thumb = it.strMealThumb,
+                            id = it.idMeal,
+                            category = it.strCategory,
+                            area = it.strArea,
+                            type = RecipeCategories.Meal
+                        )
+                    )
+                }
+                searchState.value = State.Loaded(processedList)
             }
         }
     }
@@ -45,14 +60,42 @@ class FoodBankViewModel @Inject constructor(
                 searchState.value = State.LoadingFailed(result.error)
             }
             is Result.Success -> {
-                // searchState.value = State.Loaded(processedList)
+                val processedList = ArrayList<FoodBankItem>()
+                result.value.drinks.forEach {
+                    processedList.add(
+                        FoodBankItem(
+                            name = it.strDrink,
+                            thumb = it.strDrinkThumb,
+                            id = it.idDrink,
+                            category = it.strCategory,
+                            strAlcoholic = it.strAlcoholic,
+                            type = RecipeCategories.Drink
+                        )
+                    )
+                }
+                searchState.value = State.Loaded(processedList)
             }
         }
     }
 
+    private fun loadData() {
+        when (currentRecipeType.value) {
+            RecipeCategories.Meal -> {
+                searchMeals()
+            }
+            RecipeCategories.Drink -> {
+                searchDrinks()
+            }
+        }
+    }
+
+    fun updateTab(tabIndex: Int) {
+        currentRecipeType.value = RecipeCategories.values()[tabIndex]
+        loadData()
+    }
+
     fun updateSearchQuery(search: String) {
         searchQuery.value = search
-        searchMeals()
-        // searchDrinks()
+        loadData()
     }
 }

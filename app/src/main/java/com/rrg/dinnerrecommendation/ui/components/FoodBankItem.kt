@@ -33,11 +33,17 @@ import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 
 @Composable
-fun FoodBankItem(name: String, imageUrl: String, tagList: List<String?> = listOf(), onClick: () -> Unit) {
+fun FoodBankItem(
+    name: String,
+    imageUrl: String,
+    tagList: List<String?> = listOf(),
+    onClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .wrapContentSize()
-            .padding(horizontal = 8.dp).padding(top = 14.dp)
+            .padding(horizontal = 8.dp)
+            .padding(top = 14.dp)
             .clickable {
                 onClick.invoke()
             },
@@ -68,7 +74,9 @@ fun FoodBankItem(name: String, imageUrl: String, tagList: List<String?> = listOf
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = name,
-                modifier = Modifier.fillMaxWidth().padding(start = 10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp),
                 fontFamily = poppinsFont,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -85,7 +93,17 @@ fun FoodBankItem(name: String, imageUrl: String, tagList: List<String?> = listOf
                 tagList.filterNotNull().forEach {
                     GenericRowTagItem(
                         text = it,
-                        tagColor = colorResource(id = R.color.darkNavy_blue)
+                        tagColor = when {
+                            it.contentEquals("Alcoholic") -> {
+                                colorResource(id = R.color.red_orange)
+                            }
+                            it.contentEquals("Optional alcohol") -> {
+                                colorResource(id = R.color.yellow_ochre)
+                            }
+                            else -> {
+                                colorResource(id = R.color.darkNavy_blue)
+                            }
+                        }
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                 }

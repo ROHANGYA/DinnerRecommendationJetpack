@@ -11,7 +11,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.rrg.dinnerrecommendation.core.State
-import com.rrg.dinnerrecommendation.models.primary.Meal
+import com.rrg.dinnerrecommendation.models.primary.FoodBankItem
 import com.rrg.dinnerrecommendation.ui.components.FoodBankList
 import com.rrg.dinnerrecommendation.ui.components.FoodBankTab
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
@@ -22,7 +22,7 @@ fun FoodBank(navController: NavController, viewModel: FoodBankViewModel) {
     val isLoading: MutableState<Boolean> = remember {
         mutableStateOf(true)
     }
-    val data: MutableState<List<Meal>?> = remember {
+    val data: MutableState<List<FoodBankItem>?> = remember {
         mutableStateOf(listOf())
     }
 
@@ -40,7 +40,10 @@ fun FoodBank(navController: NavController, viewModel: FoodBankViewModel) {
         }
     }
     Column {
-        FoodBankTab()
+        FoodBankTab(
+            viewModel.currentRecipeType,
+            viewModel::updateTab
+        )
         FoodBankList(
             data.value,
             navController,
