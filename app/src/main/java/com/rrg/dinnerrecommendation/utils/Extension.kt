@@ -60,6 +60,7 @@ fun <T> State<T>.triggerActionIfNotLoaded(action: () -> Unit) {
 /**
  * Screen rotation causes recomposition and thus calls api again, so to prevent this
  * we check if data was already loaded and simply recompose if data is present.
+ *      +  Resets state to Loading
  **/
 fun <T> MutableState<State<T>>.triggerActionIfNotLoaded(action: () -> Unit) {
     if (this.value !is State.Loaded) {

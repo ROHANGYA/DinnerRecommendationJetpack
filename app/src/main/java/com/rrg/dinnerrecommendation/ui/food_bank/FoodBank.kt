@@ -45,11 +45,11 @@ fun FoodBank(navController: NavController, viewModel: FoodBankViewModel) {
             isError.value = true
         }
     }
-    if(isError.value){
+    if (isError.value) {
         GenericError {
             viewModel.updateSearchQuery()
         }
-    }else{
+    } else {
         Column {
             FoodBankTab(
                 viewModel.currentRecipeType,
