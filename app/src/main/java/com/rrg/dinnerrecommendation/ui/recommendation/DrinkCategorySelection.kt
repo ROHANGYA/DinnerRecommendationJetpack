@@ -8,6 +8,7 @@ import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.CocktailCategoryList
+import com.rrg.dinnerrecommendation.ui.components.GenericError
 import com.rrg.dinnerrecommendation.ui.components.NextButton
 import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
@@ -26,7 +27,9 @@ fun DrinkCategorySelection(
             CircularIndeterminateProgressBar()
         }
         is State.LoadingFailed -> {
-            // TODO -- add error compose
+            GenericError {
+                viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SearchCocktailCategories)
+            }
         }
         is State.Loaded -> {
             CocktailCategoryList(

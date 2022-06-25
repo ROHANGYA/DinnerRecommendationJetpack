@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import com.rrg.dinnerrecommendation.core.State
 import com.rrg.dinnerrecommendation.models.keys.RecommendationScreens
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
+import com.rrg.dinnerrecommendation.ui.components.GenericError
 import com.rrg.dinnerrecommendation.ui.components.MealCategoriesList
 import com.rrg.dinnerrecommendation.ui.components.MealCategoryInfoDialog
 import com.rrg.dinnerrecommendation.ui.components.NextButton
@@ -25,7 +26,9 @@ fun MealCategorySelection(
             CircularIndeterminateProgressBar()
         }
         is State.LoadingFailed -> {
-            // TODO -- add error compose
+            GenericError {
+                viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SearchMealCategories)
+            }
         }
         is State.Loaded -> {
             MealCategoriesList(

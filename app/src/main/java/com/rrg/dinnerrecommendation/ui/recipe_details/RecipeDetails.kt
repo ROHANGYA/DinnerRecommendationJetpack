@@ -29,6 +29,7 @@ import com.rrg.dinnerrecommendation.models.keys.RecipeCategories
 import com.rrg.dinnerrecommendation.ui.MainViewModel
 import com.rrg.dinnerrecommendation.ui.components.CircularIndeterminateProgressBar
 import com.rrg.dinnerrecommendation.ui.components.GenericColumnTagItem
+import com.rrg.dinnerrecommendation.ui.components.GenericError
 import com.rrg.dinnerrecommendation.ui.components.YoutubeButton
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
@@ -51,18 +52,7 @@ fun RecipeDetails(
     }
 
     LaunchedEffect(key1 = Unit) {
-        when (recipeCategory.value) {
-            RecipeCategories.Meal.name -> {
-                viewModel.onEvent(
-                    RecipeDetailsViewModel.RecipeDetailsEvents.FetchMealDetails(id.value)
-                )
-            }
-            RecipeCategories.Drink.name -> {
-                viewModel.onEvent(
-                    RecipeDetailsViewModel.RecipeDetailsEvents.FetchDrinkDetails(id.value)
-                )
-            }
-        }
+        load(recipeCategory, viewModel, id)
     }
 
     when (recipeCategory.value) {
@@ -78,7 +68,9 @@ fun RecipeDetails(
                     }
                 }
                 is State.LoadingFailed -> {
-                    TODO()
+                    GenericError {
+                        load(recipeCategory, viewModel, id)
+                    }
                 }
             }
         }
@@ -97,9 +89,30 @@ fun RecipeDetails(
                     }
                 }
                 is State.LoadingFailed -> {
-                    TODO()
+                    GenericError {
+                        load(recipeCategory, viewModel, id)
+                    }
                 }
             }
+        }
+    }
+}
+
+private fun load(
+    category: MutableState<String>,
+    viewModel: RecipeDetailsViewModel,
+    id: MutableState<String>
+) {
+    when (category.value) {
+        RecipeCategories.Meal.name -> {
+            viewModel.onEvent(
+                RecipeDetailsViewModel.RecipeDetailsEvents.FetchMealDetails(id.value)
+            )
+        }
+        RecipeCategories.Drink.name -> {
+            viewModel.onEvent(
+                RecipeDetailsViewModel.RecipeDetailsEvents.FetchDrinkDetails(id.value)
+            )
         }
     }
 }

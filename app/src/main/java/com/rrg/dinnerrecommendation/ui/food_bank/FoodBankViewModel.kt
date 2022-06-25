@@ -94,8 +94,10 @@ class FoodBankViewModel @Inject constructor(
         loadData()
     }
 
-    fun updateSearchQuery(search: String) {
-        searchQuery.value = search
+    fun updateSearchQuery(search: String? = null) {
+        search?.let {
+            searchQuery.value = it
+        }
         loadData()
     }
 }

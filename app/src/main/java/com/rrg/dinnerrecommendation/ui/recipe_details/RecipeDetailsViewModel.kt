@@ -48,10 +48,10 @@ class RecipeDetailsViewModel @Inject constructor(
     fun onEvent(event: RecipeDetailsEvents) {
         when (event) {
             is RecipeDetailsEvents.FetchDrinkDetails -> {
-                drinkDetails.value.triggerActionIfNotLoaded { getDrinkDetails(event.drinkId) }
+                drinkDetails.triggerActionIfNotLoaded { getDrinkDetails(event.drinkId) }
             }
             is RecipeDetailsEvents.FetchMealDetails -> {
-                mealDetails.value.triggerActionIfNotLoaded { getMealDetails(event.mealId) }
+                mealDetails.triggerActionIfNotLoaded { getMealDetails(event.mealId) }
             }
         }
     }

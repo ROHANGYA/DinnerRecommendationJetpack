@@ -113,6 +113,7 @@ private fun NavGraphBuilder.shareRecipeDetailsCompose(route: String, mainViewMod
             }
         )
     ) {
+        mainViewModel.updateToolbar(stringResource(id = R.string.recipe_details))
         val viewModel = hiltViewModel<RecipeDetailsViewModel>()
         val idArgument = it.arguments?.getString(Constants.NavigationArguments.ID).toString()
         val category = it.arguments?.getString(Constants.NavigationArguments.TYPE).toString()

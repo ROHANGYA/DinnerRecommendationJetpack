@@ -12,6 +12,7 @@ import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.service.primary.DrinkService
 import com.rrg.dinnerrecommendation.service.primary.MealService
 import com.rrg.dinnerrecommendation.utils.triggerActionIfNotLoaded
+import com.rrg.dinnerrecommendation.utils.triggerActionIfNotLoaded
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -99,14 +100,14 @@ class RecommendationViewModel @Inject constructor(
     fun onEvent(event: RecommendationEvents) = viewModelScope.launch {
         when (event) {
             RecommendationEvents.SearchMealCategories -> {
-                stateMeals.value.triggerActionIfNotLoaded { getFoodCategories() }
+                stateMeals.triggerActionIfNotLoaded { getFoodCategories() }
             }
             RecommendationEvents.SearchCocktailCategories -> {
-                stateDrinks.value.triggerActionIfNotLoaded { getDrinkCategories() }
+                stateDrinks.triggerActionIfNotLoaded { getDrinkCategories() }
             }
             RecommendationEvents.GetDinnerRecommendation -> {
-                stateRecommendedMeal.value.triggerActionIfNotLoaded { getMealListByCategory() }
-                stateRecommendedDrink.value.triggerActionIfNotLoaded { getDrinkListByCategory() }
+                stateRecommendedMeal.triggerActionIfNotLoaded { getMealListByCategory() }
+                stateRecommendedDrink.triggerActionIfNotLoaded { getDrinkListByCategory() }
             }
             RecommendationEvents.SuggestAnotherDinner -> {
                 stateRecommendedMeal.value = State.Loaded(selectedMealCategoryList.random())
