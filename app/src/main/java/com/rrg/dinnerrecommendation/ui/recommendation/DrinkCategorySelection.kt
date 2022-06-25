@@ -31,6 +31,10 @@ fun DrinkCategorySelection(
                 viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SearchCocktailCategories)
             }
         }
+        is State.RetryLoading -> {
+            GenericError(isLoading = true) {
+            }
+        }
         is State.Loaded -> {
             CocktailCategoryList(
                 data = state.data,

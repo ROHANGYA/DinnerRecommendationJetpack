@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +33,7 @@ import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 fun GenericError(
     title: String = stringResource(id = R.string.error),
     description: String = stringResource(id = R.string.error_description),
+    isLoading: Boolean = false,
     onClick: () -> Unit
 ) {
     Column(
@@ -66,17 +69,23 @@ fun GenericError(
             fontWeight = FontWeight.Normal
         )
         Spacer(modifier = Modifier.height(12.dp))
-        OutlinedButton(
-            modifier = Modifier.wrapContentSize(),
-            onClick = { onClick.invoke() }
-        ) {
-            Text(
-                modifier = Modifier.wrapContentSize(),
-                text = stringResource(id = R.string.retry),
-                fontFamily = poppinsFont,
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Normal
+        if (isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(36.dp, 36.dp)
             )
+        } else {
+            OutlinedButton(
+                modifier = Modifier.wrapContentWidth().height(36.dp),
+                onClick = { onClick.invoke() }
+            ) {
+                Text(
+                    modifier = Modifier.wrapContentSize(),
+                    text = stringResource(id = R.string.retry),
+                    fontFamily = poppinsFont,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Normal
+                )
+            }
         }
     }
 }

@@ -30,6 +30,10 @@ fun MealCategorySelection(
                 viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SearchMealCategories)
             }
         }
+        is State.RetryLoading -> {
+            GenericError(isLoading = true) {
+            }
+        }
         is State.Loaded -> {
             MealCategoriesList(
                 data = state.data,

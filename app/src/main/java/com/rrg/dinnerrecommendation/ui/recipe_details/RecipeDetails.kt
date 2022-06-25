@@ -72,6 +72,9 @@ fun RecipeDetails(
                         load(recipeCategory, viewModel, id)
                     }
                 }
+                is State.RetryLoading -> {
+                    GenericError(isLoading = true) { }
+                }
             }
         }
         RecipeCategories.Drink.name -> {
@@ -92,6 +95,9 @@ fun RecipeDetails(
                     GenericError {
                         load(recipeCategory, viewModel, id)
                     }
+                }
+                is State.RetryLoading -> {
+                    GenericError(isLoading = true) { }
                 }
             }
         }

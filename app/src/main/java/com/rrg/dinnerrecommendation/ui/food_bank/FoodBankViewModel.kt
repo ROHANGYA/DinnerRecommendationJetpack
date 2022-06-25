@@ -11,6 +11,7 @@ import com.rrg.dinnerrecommendation.models.primary.FoodBankItem
 import com.rrg.dinnerrecommendation.models.primary.Meal
 import com.rrg.dinnerrecommendation.service.primary.DrinkService
 import com.rrg.dinnerrecommendation.service.primary.MealService
+import com.rrg.dinnerrecommendation.utils.applyRetryLoadingIfFailed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,7 +30,7 @@ class FoodBankViewModel @Inject constructor(
     }
 
     private fun searchMeals() = viewModelScope.launch {
-        searchState.value = State.Loading
+        searchState.applyRetryLoadingIfFailed()
         when (val result = mealService.searchMeals(searchQuery.value)) {
             is Result.Failure -> {
                 searchState.value = State.LoadingFailed(result.error)
@@ -54,7 +55,7 @@ class FoodBankViewModel @Inject constructor(
     }
 
     private fun searchDrinks() = viewModelScope.launch {
-        searchState.value = State.Loading
+        searchState.applyRetryLoadingIfFailed()
         when (val result = drinkService.searchDrinks(searchQuery.value)) {
             is Result.Failure -> {
                 searchState.value = State.LoadingFailed(result.error)

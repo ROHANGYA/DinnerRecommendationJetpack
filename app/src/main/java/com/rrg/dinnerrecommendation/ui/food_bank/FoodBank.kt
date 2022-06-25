@@ -29,39 +29,57 @@ fun FoodBank(navController: NavController, viewModel: FoodBankViewModel) {
     val isError: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
+    val isRetryLoading: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
 
     when (val state = viewModel.searchState.value) {
         State.Loading -> {
             isError.value = false
             isLoading.value = true
+            isRetryLoading.value = false
         }
         is State.Loaded -> {
             isError.value = false
             isLoading.value = false
+            isRetryLoading.value = false
             data.value = state.data
         }
         is State.LoadingFailed -> {
             isLoading.value = false
             isError.value = true
+            isRetryLoading.value = false
+        }
+        is State.RetryLoading -> {
+            isRetryLoading.value = true
+            isLoading.value = false
+            isError.value = false
         }
     }
-    if (isError.value) {
-        GenericError {
-            viewModel.updateSearchQuery()
+
+    when {
+        isError.value -> {
+            GenericError {
+                viewModel.updateSearchQuery()
+            }
         }
-    } else {
-        Column {
-            FoodBankTab(
-                viewModel.currentRecipeType,
-                viewModel::updateTab
-            )
-            FoodBankList(
-                data.value,
-                navController,
-                viewModel.searchQuery,
-                viewModel::updateSearchQuery,
-                isLoading.value
-            )
+        isRetryLoading.value -> {
+            GenericError(isLoading = true) { }
+        }
+        else -> {
+            Column {
+                FoodBankTab(
+                    viewModel.currentRecipeType,
+                    viewModel::updateTab
+                )
+                FoodBankList(
+                    data.value,
+                    navController,
+                    viewModel.searchQuery,
+                    viewModel::updateSearchQuery,
+                    isLoading.value
+                )
+            }
         }
     }
 }

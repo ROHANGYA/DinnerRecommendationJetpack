@@ -63,18 +63,30 @@ fun DinnerRecommendation(
         mutableStateOf(false)
     }
 
+    val isRetryLoading: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
+
     when (val state = viewModel.stateRecommendedMeal.value) {
         State.Loading -> {
             isError.value = false
             isLoading.value = true
+            isRetryLoading.value = false
         }
         is State.Loaded -> {
             isError.value = false
             isLoading.value = false
+            isRetryLoading.value = false
             recommendedMeal.value = state.data
         }
         is State.LoadingFailed -> {
             isError.value = true
+            isRetryLoading.value = false
+        }
+        is State.RetryLoading -> {
+            isRetryLoading.value = true
+            isLoading.value = false
+            isError.value = false
         }
     }
 
@@ -82,81 +94,93 @@ fun DinnerRecommendation(
         State.Loading -> {
             isError.value = false
             isLoading.value = true
+            isRetryLoading.value = false
         }
         is State.Loaded -> {
             isError.value = false
             isLoading.value = false
+            isRetryLoading.value = false
             recommendedDrink.value = state.data
         }
         is State.LoadingFailed -> {
             isError.value = true
+            isRetryLoading.value = false
+        }
+        is State.RetryLoading -> {
+            isRetryLoading.value = true
         }
     }
 
     if (isLoading.value) {
         CircularIndeterminateProgressBar()
     } else {
-        if (isError.value) {
-            GenericError {
-                viewModel.onEvent(RecommendationViewModel.RecommendationEvents.GetDinnerRecommendation)
+        when {
+            isError.value -> {
+                GenericError {
+                    viewModel.onEvent(RecommendationViewModel.RecommendationEvents.GetDinnerRecommendation)
+                }
             }
-        } else {
-            val meal = recommendedMeal.value
-            val drink = recommendedDrink.value
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(horizontal = 8.dp),
-                verticalArrangement = Arrangement.Top
-            ) {
-                item {
-                    Spacer(modifier = Modifier.height(28.dp))
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = stringResource(id = R.string.your_dinner_is),
-                        textAlign = TextAlign.Center,
-                        fontFamily = poppinsFont,
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 23.sp
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    meal?.let { meal ->
-                        GenericDinnerRecommendationItem(meal.strMeal, meal.strMealThumb) {
-                            navController.safeNavigateTo(
-                                RecommendationScreens.RecipeDetailsFromRecommendation.route
-                                    .replace(
-                                        Constants.NavigationArguments.ID.addPathCurlyBrackets(),
-                                        meal.idMeal
-                                    )
-                                    .replace(
-                                        Constants.NavigationArguments.TYPE.addPathCurlyBrackets(),
-                                        RecipeCategories.Meal.name
-                                    )
-                            )
+            isRetryLoading.value -> {
+                GenericError(isLoading = true) { }
+            }
+            else -> {
+                val meal = recommendedMeal.value
+                val drink = recommendedDrink.value
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(horizontal = 8.dp),
+                    verticalArrangement = Arrangement.Top
+                ) {
+                    item {
+                        Spacer(modifier = Modifier.height(28.dp))
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = stringResource(id = R.string.your_dinner_is),
+                            textAlign = TextAlign.Center,
+                            fontFamily = poppinsFont,
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 23.sp
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        meal?.let { meal ->
+                            GenericDinnerRecommendationItem(meal.strMeal, meal.strMealThumb) {
+                                navController.safeNavigateTo(
+                                    RecommendationScreens.RecipeDetailsFromRecommendation.route
+                                        .replace(
+                                            Constants.NavigationArguments.ID.addPathCurlyBrackets(),
+                                            meal.idMeal
+                                        )
+                                        .replace(
+                                            Constants.NavigationArguments.TYPE.addPathCurlyBrackets(),
+                                            RecipeCategories.Meal.name
+                                        )
+                                )
+                            }
                         }
-                    }
-                    Spacer(modifier = Modifier.height(12.dp))
-                    drink?.let { drink ->
-                        GenericDinnerRecommendationItem(drink.strDrink, drink.strDrinkThumb) {
-                            navController.safeNavigateTo(
-                                RecommendationScreens.RecipeDetailsFromRecommendation.route
-                                    .replace(
-                                        Constants.NavigationArguments.ID.addPathCurlyBrackets(),
-                                        drink.idDrink,
-                                    )
-                                    .replace(
-                                        Constants.NavigationArguments.TYPE.addPathCurlyBrackets(),
-                                        RecipeCategories.Drink.name
-                                    )
-                            )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        drink?.let { drink ->
+                            GenericDinnerRecommendationItem(drink.strDrink, drink.strDrinkThumb) {
+                                navController.safeNavigateTo(
+                                    RecommendationScreens.RecipeDetailsFromRecommendation.route
+                                        .replace(
+                                            Constants.NavigationArguments.ID.addPathCurlyBrackets(),
+                                            drink.idDrink,
+                                        )
+                                        .replace(
+                                            Constants.NavigationArguments.TYPE.addPathCurlyBrackets(),
+                                            RecipeCategories.Drink.name
+                                        )
+                                )
+                            }
                         }
+                        Spacer(modifier = Modifier.height(18.dp))
+                        SuggestAnotherDinnerButton {
+                            viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SuggestAnotherDinner)
+                        }
+                        Spacer(modifier = Modifier.height(28.dp))
                     }
-                    Spacer(modifier = Modifier.height(18.dp))
-                    SuggestAnotherDinnerButton {
-                        viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SuggestAnotherDinner)
-                    }
-                    Spacer(modifier = Modifier.height(28.dp))
                 }
             }
         }
