@@ -31,7 +31,6 @@ import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.primary.DrinkCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
-import com.rrg.dinnerrecommendation.ui.theme.Typography
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 import com.rrg.dinnerrecommendation.utils.addEmptyLines
 

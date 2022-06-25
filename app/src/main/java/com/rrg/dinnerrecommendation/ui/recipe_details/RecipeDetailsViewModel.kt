@@ -20,8 +20,8 @@ class RecipeDetailsViewModel @Inject constructor(
     private val drinkService: DrinkService
 ) : ViewModel() {
 
-    val mealDetails = mutableStateOf<State<Meal>>(State.Loading)
-    val drinkDetails = mutableStateOf<State<Drink>>(State.Loading)
+    val mealDetails = mutableStateOf<State<Meal?>>(State.Loading)
+    val drinkDetails = mutableStateOf<State<Drink?>>(State.Loading)
 
     private fun getMealDetails(mealId: String) = viewModelScope.launch {
         when (val result = mealService.getMealById(mealId)) {
@@ -29,7 +29,7 @@ class RecipeDetailsViewModel @Inject constructor(
                 mealDetails.value = State.LoadingFailed(result.error)
             }
             is Result.Success -> {
-                mealDetails.value = State.Loaded(result.value.meals.first())
+                mealDetails.value = State.Loaded(result.value.meals?.first())
             }
         }
     }
@@ -40,7 +40,7 @@ class RecipeDetailsViewModel @Inject constructor(
                 drinkDetails.value = State.LoadingFailed(result.error)
             }
             is Result.Success -> {
-                drinkDetails.value = State.Loaded(result.value.drinks.first())
+                drinkDetails.value = State.Loaded(result.value.drinks?.first())
             }
         }
     }

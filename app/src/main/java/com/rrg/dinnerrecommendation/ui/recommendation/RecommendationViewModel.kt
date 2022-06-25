@@ -68,8 +68,10 @@ class RecommendationViewModel @Inject constructor(
         selectedMealCategory.value?.strCategory?.let {
             when (val result = mealService.getMealListByCategory(it)) {
                 is Result.Success -> {
-                    selectedMealCategoryList = result.value.meals
-                    stateRecommendedMeal.value = State.Loaded(result.value.meals.random())
+                    result.value.meals?.let { data ->
+                        selectedMealCategoryList = data
+                        stateRecommendedMeal.value = State.Loaded(data.random())
+                    }
                 }
                 is Result.Failure -> {
                     stateRecommendedMeal.value = State.LoadingFailed(result.error)
@@ -82,8 +84,10 @@ class RecommendationViewModel @Inject constructor(
         selectedDrinkCategory.value?.strCategory?.let {
             when (val result = drinkService.getDrinkListByCategory(it)) {
                 is Result.Success -> {
-                    selectedDrinkCategoryList = result.value.drinks
-                    stateRecommendedDrink.value = State.Loaded(result.value.drinks.random())
+                    result.value.drinks?.let { data ->
+                        selectedDrinkCategoryList = data
+                        stateRecommendedDrink.value = State.Loaded(data.random())
+                    }
                 }
                 is Result.Failure -> {
                     stateRecommendedDrink.value = State.LoadingFailed(result.error)

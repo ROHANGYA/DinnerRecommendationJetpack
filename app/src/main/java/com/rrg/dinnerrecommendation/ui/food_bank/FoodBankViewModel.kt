@@ -36,7 +36,7 @@ class FoodBankViewModel @Inject constructor(
             }
             is Result.Success -> {
                 val processedList = ArrayList<FoodBankItem>()
-                result.value.meals.forEach {
+                result.value.meals?.forEach {
                     processedList.add(
                         FoodBankItem(
                             name = it.strMeal,
@@ -61,7 +61,7 @@ class FoodBankViewModel @Inject constructor(
             }
             is Result.Success -> {
                 val processedList = ArrayList<FoodBankItem>()
-                result.value.drinks.forEach {
+                result.value.drinks?.forEach {
                     processedList.add(
                         FoodBankItem(
                             name = it.strDrink,

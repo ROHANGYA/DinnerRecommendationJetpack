@@ -72,7 +72,7 @@ fun RecipeDetails(
                     CircularIndeterminateProgressBar()
                 }
                 is State.Loaded -> {
-                    state.data.apply {
+                    state.data?.apply {
                         mainViewModel.updateToolbar(strMeal, true)
                         MainRecipeDetailsScreenContent(strInstructions, strYoutube)
                     }
@@ -88,7 +88,7 @@ fun RecipeDetails(
                     CircularIndeterminateProgressBar()
                 }
                 is State.Loaded -> {
-                    state.data.apply {
+                    state.data?.apply {
                         mainViewModel.updateToolbar(strDrink, true)
                         MainRecipeDetailsScreenContent(
                             strInstructions, strVideo,

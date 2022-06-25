@@ -38,7 +38,6 @@ import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.primary.MealCategory
 import com.rrg.dinnerrecommendation.ui.recommendation.RecommendationViewModel
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
-import com.rrg.dinnerrecommendation.ui.theme.Typography
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 
 @Composable
