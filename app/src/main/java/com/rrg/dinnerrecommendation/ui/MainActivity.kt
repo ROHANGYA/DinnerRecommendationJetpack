@@ -4,11 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
@@ -19,10 +25,12 @@ import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.keys.BottomBarScreens
 import com.rrg.dinnerrecommendation.nav_graph.NavGraph
 import com.rrg.dinnerrecommendation.ui.components.BottomNavBar
+import com.rrg.dinnerrecommendation.ui.components.SplashScreen
 import com.rrg.dinnerrecommendation.ui.components.TopBar
 import com.rrg.dinnerrecommendation.ui.theme.DarkBeige
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 @ExperimentalFoundationApi
 @AndroidEntryPoint
@@ -40,7 +48,26 @@ class MainActivity : ComponentActivity() {
             }
             DinnerRecommendationJetpackTheme {
                 navController = rememberNavController()
-                MainScreen(navController, mainViewModel)
+
+                val splashScreenShowing: MutableState<Boolean> = remember { mutableStateOf(true) }
+                val startAnimation: MutableState<Boolean> = remember { mutableStateOf(false) }
+                val alphaAnim = animateFloatAsState(
+                    targetValue = if (startAnimation.value) 1f else 0f,
+                    animationSpec = tween(
+                        durationMillis = 3000
+                    )
+                )
+                LaunchedEffect(key1 = Unit) {
+                    startAnimation.value = true
+                    delay(4000)
+                    splashScreenShowing.value = false
+                }
+
+                if (splashScreenShowing.value) {
+                    SplashScreen(alpha = alphaAnim.value)
+                } else {
+                    MainScreen(navController, mainViewModel)
+                }
             }
         }
     }

@@ -3,6 +3,7 @@ package com.rrg.dinnerrecommendation.utils
 class Constants {
     interface ScreenRoute {
         companion object {
+            const val SPLASH = "splash_screen"
             const val DINNER = "dinner"
             const val FOOD_BANK = "food_bank"
             const val SETTINGS = "settings"
