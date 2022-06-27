@@ -34,4 +34,7 @@
     <string name="error_description">An error occurred trying to fetch the data</string>
     <string name="loading">Loading…</string>
     <string name="recipe_details">Recipe Details</string>
+    <string name="attribution">Attributions</string>
+    <string name="attribution_text">Illustrations by Vverder from Ouch! &amp; Anna Antipina from Ouch!\n(Obtained from Icons8)</string>
+    <string name="version">Version</string>
 </resources>
