@@ -1,5 +1,8 @@
 package com.rrg.dinnerrecommendation.ui
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,6 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
+
+    val showSplashScreen: MutableState<Boolean> = mutableStateOf(true)
 
     private val _mainEventsChannel = Channel<MainEvents>()
     val mainEventChannel = _mainEventsChannel.receiveAsFlow()

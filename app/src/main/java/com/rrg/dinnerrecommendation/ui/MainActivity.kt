@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -49,21 +50,19 @@ class MainActivity : ComponentActivity() {
             DinnerRecommendationJetpackTheme {
                 navController = rememberNavController()
 
-                val splashScreenShowing: MutableState<Boolean> = remember { mutableStateOf(true) }
-                val startAnimation: MutableState<Boolean> = remember { mutableStateOf(false) }
                 val alphaAnim = animateFloatAsState(
-                    targetValue = if (startAnimation.value) 1f else 0f,
+                    targetValue =  1f ,
                     animationSpec = tween(
                         durationMillis = 3000
                     )
                 )
+
                 LaunchedEffect(key1 = Unit) {
-                    startAnimation.value = true
-                    delay(4000)
-                    splashScreenShowing.value = false
+                    delay(3000)
+                    mainViewModel.showSplashScreen.value = false
                 }
 
-                if (splashScreenShowing.value) {
+                if (mainViewModel.showSplashScreen.value) {
                     SplashScreen(alpha = alphaAnim.value)
                 } else {
                     MainScreen(navController, mainViewModel)
