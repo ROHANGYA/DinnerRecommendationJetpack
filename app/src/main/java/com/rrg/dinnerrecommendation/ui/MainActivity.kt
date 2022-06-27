@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -84,7 +83,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 MainScreen(navController, mainViewModel)
-                SplashScreen(topDownOffset, bottomUpOffset,mainViewModel.showSplashScreen)
+                SplashScreen(topDownOffset, bottomUpOffset, mainViewModel.showSplashScreen)
             }
         }
     }

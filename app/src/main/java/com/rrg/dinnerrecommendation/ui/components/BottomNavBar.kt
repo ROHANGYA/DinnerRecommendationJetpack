@@ -16,7 +16,6 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.get
 import com.rrg.dinnerrecommendation.R
 import com.rrg.dinnerrecommendation.models.keys.BottomBarScreens
 

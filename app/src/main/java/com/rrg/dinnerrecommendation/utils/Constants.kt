@@ -22,7 +22,7 @@ class Constants {
         }
     }
 
-    interface SplashScreen{
+    interface SplashScreen {
         companion object {
             const val DURATION = 3000
             const val END_POSITION = 0f
