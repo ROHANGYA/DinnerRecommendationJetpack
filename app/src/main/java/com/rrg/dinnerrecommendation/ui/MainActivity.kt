@@ -14,6 +14,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -30,6 +31,7 @@ import com.rrg.dinnerrecommendation.ui.components.SplashScreen
 import com.rrg.dinnerrecommendation.ui.components.TopBar
 import com.rrg.dinnerrecommendation.ui.theme.DarkBeige
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
+import com.rrg.dinnerrecommendation.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
@@ -45,28 +47,44 @@ class MainActivity : ComponentActivity() {
         setContent {
             this.window.apply {
                 statusBarColor = ContextCompat.getColor(this@MainActivity, R.color.darkNavy_blue)
-                navigationBarColor = ContextCompat.getColor(this@MainActivity, R.color.darkNavy_blue)
+                navigationBarColor =
+                    ContextCompat.getColor(this@MainActivity, R.color.darkNavy_blue)
             }
             DinnerRecommendationJetpackTheme {
                 navController = rememberNavController()
 
-                val alphaAnim = animateFloatAsState(
-                    targetValue =  1f ,
+                val transitionState: MutableState<Boolean> = remember {
+                    mutableStateOf(false)
+                }
+                val topDownOffset: Float by animateFloatAsState(
+                    targetValue = if (transitionState.value) {
+                        Constants.SplashScreen.END_POSITION
+                    } else {
+                        Constants.SplashScreen.START_POSITION_TOP
+                    },
                     animationSpec = tween(
-                        durationMillis = 3000
+                        durationMillis = Constants.SplashScreen.DURATION
+                    )
+                )
+                val bottomUpOffset: Float by animateFloatAsState(
+                    targetValue = if (transitionState.value) {
+                        Constants.SplashScreen.END_POSITION
+                    } else {
+                        Constants.SplashScreen.START_POSITION_BOTTOM
+                    },
+                    animationSpec = tween(
+                        durationMillis = Constants.SplashScreen.DURATION
                     )
                 )
 
                 LaunchedEffect(key1 = Unit) {
-                    delay(3000)
+                    transitionState.value = true
+                    delay(Constants.SplashScreen.DURATION.toLong())
                     mainViewModel.showSplashScreen.value = false
                 }
 
-                if (mainViewModel.showSplashScreen.value) {
-                    SplashScreen(alpha = alphaAnim.value)
-                } else {
-                    MainScreen(navController, mainViewModel)
-                }
+                MainScreen(navController, mainViewModel)
+                SplashScreen(topDownOffset, bottomUpOffset,mainViewModel.showSplashScreen)
             }
         }
     }

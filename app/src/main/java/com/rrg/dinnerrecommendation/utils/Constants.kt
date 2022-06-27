@@ -21,4 +21,13 @@ class Constants {
             const val TYPE = "TYPE"
         }
     }
+
+    interface SplashScreen{
+        companion object {
+            const val DURATION = 3000
+            const val END_POSITION = 0f
+            const val START_POSITION_TOP = -80f
+            const val START_POSITION_BOTTOM = 80f
+        }
+    }
 }
