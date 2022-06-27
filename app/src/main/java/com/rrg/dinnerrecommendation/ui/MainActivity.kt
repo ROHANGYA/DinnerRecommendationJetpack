@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -32,7 +33,6 @@ import com.rrg.dinnerrecommendation.ui.theme.DarkBeige
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 
 @ExperimentalFoundationApi
 @AndroidEntryPoint
@@ -63,27 +63,25 @@ class MainActivity : ComponentActivity() {
                     },
                     animationSpec = tween(
                         durationMillis = Constants.SplashScreen.DURATION
-                    )
-                )
-                val bottomUpOffset: Float by animateFloatAsState(
-                    targetValue = if (transitionState.value) {
-                        Constants.SplashScreen.END_POSITION
-                    } else {
-                        Constants.SplashScreen.START_POSITION_BOTTOM
-                    },
-                    animationSpec = tween(
-                        durationMillis = Constants.SplashScreen.DURATION
-                    )
+                    ),
+                    finishedListener = {
+                        mainViewModel.showSplashScreen.value = false
+                    }
                 )
 
                 LaunchedEffect(key1 = Unit) {
                     transitionState.value = true
-                    delay(Constants.SplashScreen.DURATION.toLong())
-                    mainViewModel.showSplashScreen.value = false
                 }
 
-                MainScreen(navController, mainViewModel)
-                SplashScreen(topDownOffset, bottomUpOffset, mainViewModel.showSplashScreen)
+                Crossfade(
+                    targetState = mainViewModel.showSplashScreen
+                ) { screen ->
+                    if (screen.value) {
+                        SplashScreen(topDownOffset)
+                    } else {
+                        MainScreen(navController, mainViewModel)
+                    }
+                }
             }
         }
     }
