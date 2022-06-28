@@ -30,4 +30,10 @@ class Constants {
             const val START_POSITION_BOTTOM = 80f
         }
     }
+
+    interface Preview {
+        companion object {
+            const val WHITE_ARGB = 0xFFFFFFFF
+        }
+    }
 }
