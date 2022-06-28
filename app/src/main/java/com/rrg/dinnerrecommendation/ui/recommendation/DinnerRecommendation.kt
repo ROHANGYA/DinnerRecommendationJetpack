@@ -1,5 +1,7 @@
 package com.rrg.dinnerrecommendation.ui.recommendation
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,9 +13,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,6 +40,9 @@ import com.rrg.dinnerrecommendation.ui.components.SuggestAnotherDinnerButton
 import com.rrg.dinnerrecommendation.ui.theme.DinnerRecommendationJetpackTheme
 import com.rrg.dinnerrecommendation.ui.theme.poppinsFont
 import com.rrg.dinnerrecommendation.utils.Constants
+import com.rrg.dinnerrecommendation.utils.Constants.DinnerRecommendation.Companion.DURATION
+import com.rrg.dinnerrecommendation.utils.Constants.DinnerRecommendation.Companion.END_POSITION
+import com.rrg.dinnerrecommendation.utils.Constants.DinnerRecommendation.Companion.START_POSITION
 import com.rrg.dinnerrecommendation.utils.addPathCurlyBrackets
 import com.rrg.dinnerrecommendation.utils.safeNavigateTo
 
@@ -126,11 +133,32 @@ fun DinnerRecommendation(
             else -> {
                 val meal = recommendedMeal.value
                 val drink = recommendedDrink.value
+
+                val transitionState: MutableState<Boolean> = remember {
+                    mutableStateOf(false)
+                }
+                val rotationAnim: Float by animateFloatAsState(
+                    targetValue = if (transitionState.value) {
+                        END_POSITION
+                    } else {
+                        START_POSITION
+                    },
+                    animationSpec = tween(
+                        durationMillis = DURATION
+                    ),
+                    finishedListener = {
+                        viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SuggestAnotherDinner)
+                    }
+                )
+
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .padding(horizontal = 8.dp),
+                        .padding(horizontal = 8.dp)
+                        .graphicsLayer {
+                            rotationY = rotationAnim
+                        },
                     verticalArrangement = Arrangement.Top
                 ) {
                     item {
@@ -177,7 +205,7 @@ fun DinnerRecommendation(
                         }
                         Spacer(modifier = Modifier.height(18.dp))
                         SuggestAnotherDinnerButton {
-                            viewModel.onEvent(RecommendationViewModel.RecommendationEvents.SuggestAnotherDinner)
+                            transitionState.value = !transitionState.value
                         }
                         Spacer(modifier = Modifier.height(28.dp))
                     }

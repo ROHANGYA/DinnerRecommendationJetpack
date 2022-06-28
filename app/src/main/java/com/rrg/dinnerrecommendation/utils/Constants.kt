@@ -31,6 +31,14 @@ class Constants {
         }
     }
 
+    interface DinnerRecommendation {
+        companion object {
+            const val DURATION = 1000
+            const val END_POSITION = 0f
+            const val START_POSITION = 360f
+        }
+    }
+
     interface Preview {
         companion object {
             const val WHITE_ARGB = 0xFFFFFFFF
