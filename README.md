@@ -26,10 +26,11 @@ Made fully with Jetpack compose (No Fragments)
 
 ## Status
 
-![App Under Construction](https://img.shields.io/badge/-Under%20Construction-yellow)
+![First Version](https://img.shields.io/badge/V1.0.0-Completed-brightgreen)
 
 
-## Screenshots (Incomplete)
+## Screenshots
 
-![combine_images_2](https://user-images.githubusercontent.com/54322111/175009618-54d54c33-d4d2-40b8-8ce1-717d651ba4f2.jpg)
+![merge_from_ofoct (4)](https://user-images.githubusercontent.com/54322111/177244127-4aaaf6cd-f4fc-4d0f-ab99-c293ab335833.jpg)
+
 
